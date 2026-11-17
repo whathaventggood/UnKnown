@@ -1,0 +1,10 @@
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22.12.0"
+
+# Set VITE_API_BASE_URL in Netlify's environment variables to the deployed
+# FastAPI origin plus /api, for example https://unknown-api.onrender.com/api.

@@ -42,6 +42,18 @@ cd ..
 bash scripts/serve.sh
 ```
 
+## 部署到 Netlify
+
+本项目推荐拆成两个服务：Netlify 托管 `frontend/` 的 Vue 静态站点，FastAPI 后端部署到 Render、Railway 或其他支持长期运行 Python Web Service 的平台。Netlify 的 Vite 默认构建命令是 `npm run build`，发布目录是 `dist`；仓库里的 `netlify.toml` 已经配置好这两个值和 SPA 路由回退规则。[Netlify 的 Vite 部署说明](https://docs.netlify.com/build/frameworks/framework-setup-guides/vite/)
+
+1. 在 Netlify 选择 **Add new project → Import an existing project → GitHub**，选择 `whathaventggood/UnKnown`，分支选 `main`。由于 `netlify.toml` 已设置 `base = "frontend"`，不需要手动填写前端目录。
+2. 先部署后端。以 Render 为例，新建 **Web Service**，仓库选择同一个项目，Root Directory 填 `backend`，Build Command 填 `uv sync --frozen --python 3.11`，Start Command 填 `uv run uvicorn app.main:app --host 0.0.0.0 --port $PORT`。Render 的 FastAPI 服务需要监听 `0.0.0.0` 和平台提供的 `$PORT`。[Render 的 FastAPI 部署说明](https://render.com/docs/deploy-fastapi)
+3. 在后端环境变量中设置 `COOKIE_SECURE=true`、`DATABASE_URL`、`CORS_ORIGINS=["https://你的站点.netlify.app"]`。如果启用 AI，再设置 `LLM_API_KEY`、`LLM_BASE_URL` 和 `LLM_MODEL`。不要把这些服务端变量写进前端或提交到 GitHub。
+4. 在 Netlify 的 **Project configuration → Environment variables** 中设置 `VITE_API_BASE_URL=https://你的后端地址/api`，然后重新部署。Netlify 构建时读取环境变量，浏览器请求会发送到这个后端地址；服务端 API Key 不会进入前端构建。[Netlify 环境变量说明](https://docs.netlify.com/build/environment-variables/overview/)
+5. 打开 Netlify 站点，测试首页、详情页和刷新后的深链接。如果直接访问 `/topics/...` 返回 404，检查 `frontend/public/_redirects` 是否被包含在 `dist/`，以及 Netlify 的发布目录是否为 `dist`。SPA 需要将所有未知路径回退到 `/index.html`。[Netlify SPA 回退说明](https://docs.netlify.com/manage/routing/redirects/rewrites-proxies/)
+
+注意：当前后端使用 SQLite。Render 普通实例的本地文件不适合作为长期数据盘；演示可以先使用临时 SQLite，正式使用应给服务配置持久化磁盘，或把数据层迁移到 PostgreSQL。Netlify 只负责前端，不能替代这个持久化后端。
+
 生产构建由 FastAPI 同源提供，访问 [http://127.0.0.1:8000](http://127.0.0.1:8000)，接口文档 [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)。默认仅绑定本机，不会公开部署。线上 HTTPS 需设置 `COOKIE_SECURE=true`，由反向代理终止 TLS；使用 **1 个 worker**，因为 AI 同任务合并与个人聊天锁在进程内维护。暂不支持多进程或多实例共享 AI 并发控制。
 
 数据库默认位于 `data/unknown.db`，迁移版本在 `backend/alembic/versions`。重启不会删除记录。改变 `DATABASE_URL` 应使用 SQLite 绝对路径。依赖完整锁定于 `backend/uv.lock` 与 `frontend/package-lock.json`。程序启动会升级现有数据库到最新迁移，升级前可在停服后备份数据库及 WAL 文件；没有自动破坏性重置。
