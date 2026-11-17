@@ -48,7 +48,7 @@ bash scripts/serve.sh
 
 1. 在 Netlify 选择 **Add new project → Import an existing project → GitHub**，选择 `whathaventggood/UnKnown`，分支选 `main`。由于 `netlify.toml` 已设置 `base = "frontend"`，不需要手动填写前端目录。
 2. 先部署后端。以 Render 为例，新建 **Web Service**，仓库选择同一个项目，Root Directory 填 `backend`，Build Command 填 `uv sync --frozen --python 3.11`，Start Command 填 `uv run uvicorn app.main:app --host 0.0.0.0 --port $PORT`。Render 的 FastAPI 服务需要监听 `0.0.0.0` 和平台提供的 `$PORT`。[Render 的 FastAPI 部署说明](https://render.com/docs/deploy-fastapi)
-3. 在后端环境变量中设置 `COOKIE_SECURE=true`、`DATABASE_URL`、`CORS_ORIGINS=["https://你的站点.netlify.app"]`。如果启用 AI，再设置 `LLM_API_KEY`、`LLM_BASE_URL` 和 `LLM_MODEL`。不要把这些服务端变量写进前端或提交到 GitHub。
+3. 在后端环境变量中设置 `COOKIE_SECURE=true`、`COOKIE_SAMESITE=none`、`DATABASE_URL`、`CORS_ORIGINS=["https://你的站点.netlify.app"]`。Netlify 与 Render 使用不同域名时必须使用 `none` + HTTPS，否则匿名档案 Cookie 可能不会随跨域请求发送。如果启用 AI，再设置 `LLM_API_KEY`、`LLM_BASE_URL` 和 `LLM_MODEL`。不要把这些服务端变量写进前端或提交到 GitHub。
 4. 在 Netlify 的 **Project configuration → Environment variables** 中设置 `VITE_API_BASE_URL=https://你的后端地址/api`，然后重新部署。Netlify 构建时读取环境变量，浏览器请求会发送到这个后端地址；服务端 API Key 不会进入前端构建。[Netlify 环境变量说明](https://docs.netlify.com/build/environment-variables/overview/)
 5. 打开 Netlify 站点，测试首页、详情页和刷新后的深链接。如果直接访问 `/topics/...` 返回 404，检查 `frontend/public/_redirects` 是否被包含在 `dist/`，以及 Netlify 的发布目录是否为 `dist`。SPA 需要将所有未知路径回退到 `/index.html`。[Netlify SPA 回退说明](https://docs.netlify.com/manage/routing/redirects/rewrites-proxies/)
 

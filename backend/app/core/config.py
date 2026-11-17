@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Literal
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from zoneinfo import ZoneInfo
@@ -9,6 +10,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=str(ROOT / '.env'), extra='ignore')
     database_url: str = f'sqlite:///{ROOT / "data/unknown.db"}'
     cookie_secure: bool = False
+    cookie_samesite: Literal['lax','strict','none'] = 'lax'
     cors_origins: list[str] = ['http://127.0.0.1:5173', 'http://localhost:5173', 'http://127.0.0.1:5183']
     default_timezone: str = 'Asia/Shanghai'
     llm_api_key: str = ''

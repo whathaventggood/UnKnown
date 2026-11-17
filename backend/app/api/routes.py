@@ -32,7 +32,7 @@ async def get_profile(request:Request,response:Response,db:DB):
         token=secrets.token_urlsafe(32)
         p=Profile(token_hash=hashlib.sha256(token.encode()).hexdigest(),timezone=request.app.state.settings.default_timezone)
         db.add(p);db.flush()
-        response.set_cookie('unknown_session',token,httponly=True,secure=request.app.state.settings.cookie_secure,samesite='lax',max_age=60*60*24*365,path='/')
+        response.set_cookie('unknown_session',token,httponly=True,secure=request.app.state.settings.cookie_secure,samesite=request.app.state.settings.cookie_samesite,max_age=60*60*24*365,path='/')
     return p
 P=Annotated[Profile,Depends(get_profile)]
 
