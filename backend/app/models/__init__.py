@@ -42,6 +42,13 @@ class Topic(Base):
     quality_features: Mapped[dict] = mapped_column(JSON, default=dict)
     content_version: Mapped[str] = mapped_column(default='1')
     data_kind: Mapped[str] = mapped_column(default='seed')
+    content_status: Mapped[str] = mapped_column(default='RAW',index=True)
+    content_fingerprint: Mapped[str] = mapped_column(default='')
+    content_intro: Mapped[dict] = mapped_column(JSON,default=dict)
+    content_checks: Mapped[dict] = mapped_column(JSON,default=dict)
+    processing_error: Mapped[str | None] = mapped_column(Text)
+    processed_at: Mapped[str | None]
+    processing_attempts: Mapped[int] = mapped_column(default=0)
 
 class TopicDiscipline(Base):
     __tablename__ = 'topic_disciplines'

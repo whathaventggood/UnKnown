@@ -282,6 +282,9 @@ def recommend(candidates: list[dict], history: dict, mode: str = "unknown", coun
             excluded["DUPLICATE_ID"] += 1
             continue
         seen.add(topic_id)
+        if 'content_status' in item and item['content_status']!='PUBLISHED':
+            excluded['CONTENT_NOT_PUBLISHED']+=1
+            continue
         if not item.get("title") or not item.get("primary_discipline_id") or not _traceable(item):
             excluded["UNTRACEABLE_OR_INCOMPLETE"] += 1
             continue

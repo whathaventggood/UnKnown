@@ -66,7 +66,7 @@ def create_batch(db,p,mode,key=None):
     seed=int(hashlib.sha256(f'{p.id}|{today}|{mode}|{number}'.encode()).hexdigest()[:8],16)
     candidates=[]
     for t in db.scalars(select(Topic).order_by(Topic.id).limit(10000)):
-        candidates.append({k:getattr(t,k) for k in ('id','title','primary_discipline_id','subfield','summary','quality_score','quality_features')} | {'sources':[source_json(s) for s in db.scalars(select(TopicSource).where(TopicSource.topic_id==t.id))]})
+        candidates.append({k:getattr(t,k) for k in ('id','title','primary_discipline_id','subfield','summary','quality_score','quality_features','content_status')} | {'sources':[source_json(s) for s in db.scalars(select(TopicSource).where(TopicSource.topic_id==t.id))]})
     history=history_snapshot(db,p)
     result=recommend(candidates,history,mode=mode,count=5,seed=seed)
     batch=DailyRecommendation(profile_id=p.id,date=today,mode=mode,batch_number=number,parent_id=latest.id if latest else None,idempotency_key=key or f'initial:{today}:{mode}',strategy_version=result['strategy_version'],seed=seed,constraints_json=result['constraints'],snapshot={'candidates':candidates,'history':history,'result':result},settings_snapshot=settings_snapshot(p))

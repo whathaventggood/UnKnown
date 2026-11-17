@@ -86,6 +86,10 @@ class TopicOut(BaseModel):
     quality_score: float
     quality_features: dict = {}
     data_kind: str
+    content_status: str = 'RAW'
+    content_intro: dict = {}
+    content_checks: dict = {}
+    processed_at: str | None = None
     primary_discipline: DisciplineOut
     related_disciplines: list[DisciplineOut]
     sources: list[SourceOut]
@@ -216,6 +220,7 @@ class AIChatOut(BaseModel):
     source_ids: list[str]
     sources: list[SourceOut]
     usage: AIUsageOut | None
+    evidence_refs: list[dict] = []
 class ChatHistoryOut(BaseModel):
     items: list[dict]
 

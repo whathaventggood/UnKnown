@@ -53,6 +53,11 @@ def upsert_seed(db, payload, data_kind='seed'):
                 source_id = s.get('id') or hashlib.sha256(f"{t['id']}|{s['platform']}|{s['external_id']}".encode()).hexdigest()[:32]
                 db.add(TopicSource(id=source_id,topic_id=t['id'],**fields))
     db.flush()
+    # Explicit imports perform only local, idempotent content checks. No LLM/network.
+    from app.services.content import process_topic
+    for t in payload.get('topics', []):
+        process_topic(db,db.get(Topic,t['id']))
+    db.flush()
     for r in payload.get('relations', []):
         if r['type'] in ('ai_analogy','analogy'): continue
         if not db.get(Topic,r['source_id']) or not db.get(Topic,r['target_id']): continue
@@ -78,7 +83,7 @@ def state_json(db, profile_id, topic_id):
 
 def topic_json(db,t,profile_id):
     d=db.get(Discipline,t.primary_discipline_id)
-    fields={k:getattr(t,k) for k in ('id','title','original_title','summary','original_summary','language','subfield','question','value','quality_score','quality_features','data_kind')}
+    fields={k:getattr(t,k) for k in ('id','title','original_title','summary','original_summary','language','subfield','question','value','quality_score','quality_features','data_kind','content_status','content_intro','content_checks','processed_at')}
     fields.update(primary_discipline=discipline_json(d),related_disciplines=[discipline_json(db.get(Discipline,x.discipline_id)) for x in db.scalars(select(TopicDiscipline).where(TopicDiscipline.topic_id==t.id,TopicDiscipline.discipline_id!=t.primary_discipline_id))],sources=[source_json(s) for s in db.scalars(select(TopicSource).where(TopicSource.topic_id==t.id))],state=state_json(db,profile_id,t.id),reading_minutes=max(1,math.ceil(len(t.summary)/350)))
     return fields
 
