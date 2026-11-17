@@ -46,6 +46,12 @@ class FakeProvider:
             raw = {"answer": "仅围绕当前合成主题讨论；请核对来源。", "source_ids": [sid]}
         else:
             raw = explanation(sid)
+        if self.raw is None:
+            ref = {"source_id": sid, "quote": context["evidence"][0]["excerpt"][:1000]}
+            if "user_question" in context:
+                raw["evidence_refs"] = [ref]
+            else:
+                raw["claims"][0]["evidence_refs"] = [ref]
         return raw, self.usage, 1
 
 
@@ -342,7 +348,7 @@ def test_ai_api_errors_do_not_break_details_and_chat_isolation(client, ai):
     assert len(client.get("/api/ai/chat?topic_id=t0").json()["items"]) == 2
     from fastapi.testclient import TestClient
     # A separate cookie jar identifies a different anonymous profile.
-    with TestClient(ai.app) as other:
+    with TestClient(ai.app, headers={'X-Unknown-Request':'1'}) as other:
         other.app.state.ai = ai.service
         assert other.get("/api/ai/chat?topic_id=t0").json()["items"] == []
 

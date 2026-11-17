@@ -3,7 +3,7 @@ const API_BASE=(import.meta.env.VITE_API_BASE_URL||'/api').replace(/\/$/,'')
 export async function api<T>(path:string,options:RequestInit={}):Promise<T>{
  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),path.startsWith('/ai/')&&options.method==='POST'?120000:20000)
  try{
-  const response=await fetch(`${API_BASE}${path}`,{credentials:'include',...options,signal:options.signal||controller.signal,headers:{'Content-Type':'application/json',...options.headers}})
+  const response=await fetch(`${API_BASE}${path}`,{credentials:'include',...options,signal:options.signal||controller.signal,headers:{'Content-Type':'application/json','X-Unknown-Request':'1',...options.headers}})
   let data;try{data=await response.json()}catch{throw new ApiError('服务暂时没有返回有效数据，请稍后重试。','INVALID_RESPONSE',response.status)}
   if(!response.ok)throw new ApiError(data.error?.message||data.detail||'请求未能完成，请重试。',data.error?.code||'REQUEST_FAILED',response.status,data.error?.request_id)
   return data as T

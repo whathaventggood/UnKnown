@@ -69,7 +69,7 @@ def test_user_isolation_all_resources(client,app):
     client.post('/api/bookmarks',json={'topic_id':'t0'})
     client.get('/api/topics/t0')
     batch=client.get('/api/discover/today').json()
-    with TestClient(app) as other:
+    with TestClient(app, headers={'X-Unknown-Request':'1'}) as other:
         assert other.get('/api/stats').json()['explored_count']==0
         assert other.get('/api/bookmarks').json()['total']==0
         assert other.get('/api/discover/today').json()['id']!=batch['id']
@@ -172,7 +172,7 @@ def test_restart_file_persists(client,app):
     client.get('/api/topics/t0');client.post('/api/bookmarks',json={'topic_id':'t0'})
     token=client.cookies.get('unknown_session')
     restarted=create_app(app.state.settings,initialize=False)
-    with TestClient(restarted) as c:
+    with TestClient(restarted, headers={'X-Unknown-Request':'1'}) as c:
         c.cookies.set('unknown_session',token)
         assert c.get('/api/bookmarks').json()['total']==1
         assert c.get('/api/stats').json()['explored_count']==1

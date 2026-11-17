@@ -19,4 +19,4 @@ def app(tmp_path,catalog):
 
 @pytest.fixture
 def client(app):
-    with TestClient(app) as c: yield c
+    with TestClient(app, headers={'X-Unknown-Request':'1'}) as c: yield c

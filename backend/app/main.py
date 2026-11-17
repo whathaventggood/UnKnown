@@ -3,6 +3,7 @@ from pathlib import Path
 from contextlib import asynccontextmanager
 from uuid import uuid4
 import logging
+from urllib.parse import urlsplit
 import httpx
 from fastapi import FastAPI,Request,HTTPException
 from fastapi.responses import JSONResponse,FileResponse
@@ -49,16 +50,33 @@ def create_app(settings=None,initialize=True,provider=None):
         await client.aclose();engine.dispose()
     app=FastAPI(title='UnKnown · AI 认知破壁机',version='0.1.0',lifespan=lifespan)
     app.state.settings=settings;app.state.engine=engine;app.state.Session=factory
-    app.add_middleware(CORSMiddleware,allow_origins=settings.cors_origins,allow_credentials=True,allow_methods=['GET','POST','PATCH','DELETE'],allow_headers=['Content-Type','X-Request-ID'])
+    app.add_middleware(CORSMiddleware,allow_origins=settings.cors_origins,allow_credentials=True,allow_methods=['GET','POST','PATCH','DELETE'],allow_headers=['Content-Type','X-Request-ID','X-Unknown-Request'])
     @app.middleware('http')
     async def guard(request,call_next):
         request.state.request_id=uuid4().hex
-        # Origin validation for cookie-authenticated mutations, including local deployments.
+        # All private API reads require a non-simple header too: detail/today GETs
+        # persist visits/batches. Forms, images and top-level navigations cannot set it.
+        # Missing Origin is not authentication: CLI clients still need the header.
         origin=request.headers.get('origin')
-        same=f'{request.url.scheme}://{request.url.netloc}'
-        if request.method in ('POST','PATCH','DELETE') and origin and origin not in settings.cors_origins and origin!=same:
-            return error_response(request,403,'ORIGIN_REJECTED','请求来源不在允许范围内。')
+        same=settings.public_origin or f'{request.url.scheme}://{request.url.netloc}'
+        allowed={same,*settings.cors_origins}
+        private=request.url.path.startswith('/api/') and request.url.path not in ('/api/health','/api/disciplines')
+        if private and request.method!='OPTIONS':
+            if origin and origin not in allowed:
+                return error_response(request,403,'ORIGIN_REJECTED','请求来源不在允许范围内。')
+            referer=request.headers.get('referer')
+            if not origin and referer:
+                parsed=urlsplit(referer)
+                if f'{parsed.scheme}://{parsed.netloc}' not in allowed:
+                    return error_response(request,403,'ORIGIN_REJECTED','请求来源不在允许范围内。')
+            if request.headers.get('sec-fetch-site')=='cross-site' and origin not in allowed:
+                return error_response(request,403,'ORIGIN_REJECTED','跨站请求缺少可信来源。')
+            if request.headers.get('x-unknown-request')!='1':
+                return error_response(request,403,'CSRF_HEADER_REQUIRED','请通过应用发起请求；API 需要 X-Unknown-Request: 1。')
+            if request.method in ('POST','PATCH') and request.headers.get('content-type','').split(';')[0].strip().lower()!='application/json':
+                return error_response(request,415,'JSON_REQUIRED','此接口只接受 application/json。')
         response=await call_next(request)
+        if private: response.headers['Cache-Control']='no-store'
         response.headers['X-Request-ID']=request.state.request_id
         response.headers['X-Content-Type-Options']='nosniff'
         response.headers['Referrer-Policy']='strict-origin-when-cross-origin'

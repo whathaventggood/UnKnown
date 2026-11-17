@@ -33,7 +33,7 @@ def test_learning_pagination_state_changes_and_bookmark_independence(client):
 
 def test_learning_and_skip_isolated_by_cookie(client,app):
     mark(client,'t0','learning');mark(client,'t0','skip')
-    with TestClient(app) as other:
+    with TestClient(app, headers={'X-Unknown-Request':'1'}) as other:
         assert other.get('/api/learning').json()=={'items':[],'total':0}
         assert other.get('/api/topics/t0').json()['state']['skipped_until'] is None
         mark(other,'t0','unskip')

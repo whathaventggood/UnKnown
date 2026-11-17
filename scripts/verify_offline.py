@@ -16,7 +16,7 @@ def verify():
     with TemporaryDirectory(prefix='unknown-offline-') as temporary:
         settings=Settings(database_url=f'sqlite:///{Path(temporary)/"fresh.db"}',llm_api_key='',_env_file=None)
         app=create_app(settings)
-        with TestClient(app) as c:
+        with TestClient(app, headers={'X-Unknown-Request':'1'}) as c:
             p=c.get('/api/profile');assert p.status_code==200
             assert c.patch('/api/profile',json={'onboarding_complete':True}).status_code==200
             batch=c.get('/api/discover/today').json()
@@ -33,7 +33,7 @@ def verify():
             token=c.cookies.get('unknown_session')
         # Recreate engine/app on same persisted SQLite file, not the previous in-memory session.
         restarted=create_app(settings)
-        with TestClient(restarted) as c:
+        with TestClient(restarted, headers={'X-Unknown-Request':'1'}) as c:
             c.cookies.set('unknown_session',token)
             assert c.get('/api/bookmarks').json()['total']==1
             assert c.get('/api/stats').json()['explored_count']==1
