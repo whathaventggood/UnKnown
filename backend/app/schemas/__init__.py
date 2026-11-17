@@ -30,6 +30,24 @@ class SurpriseBody(Strict):
     strength: Literal['gentle','cross','far'] = 'cross'
     history_free: bool = False
     idempotency_key: str = Field(min_length=8,max_length=100)
+class SavePathBody(Strict):
+    topic_ids: list[str] = Field(min_length=2,max_length=5)
+    relation_ids: list[str] = Field(min_length=1,max_length=4)
+    idempotency_key: str = Field(min_length=8,max_length=100)
+class PathPositionBody(Strict):
+    position: int = Field(ge=0,le=4)
+class ChallengeBody(Strict):
+    challenge_id: str = Field(min_length=10,max_length=100)
+    answer: str = Field(min_length=1,max_length=2000)
+    idempotency_key: str = Field(min_length=8,max_length=100)
+    self_assessment: Literal['not_yet','partial','got_it'] | None = None
+    @field_validator('answer')
+    @classmethod
+    def not_blank(cls,value):
+        if not value.strip(): raise ValueError('Answer must not be blank')
+        return value.strip()
+class AssessmentBody(Strict):
+    self_assessment: Literal['not_yet','partial','got_it']
 class ImpressionsBody(Strict):
     batch_id: str = Field(max_length=100)
     topic_ids: list[str] = Field(max_length=20)
@@ -138,6 +156,8 @@ class RelationOut(BaseModel):
     property_id: str | None = None
     source_title: str
     target_title: str
+    evidence_status: str = 'pending'
+    evidence_excerpt: str = ''
 class RelatedItemOut(BaseModel):
     topic: TopicOut
     relation: RelationOut
@@ -187,6 +207,8 @@ class StatsOut(BaseModel):
     timeline: list[dict]
     paths: list[dict]
     definitions: dict[str,str]
+    coverage_windows: dict = {}
+    feedback_metrics: dict = {}
 class MapNodeOut(BaseModel):
     id: str
     name: str
@@ -242,3 +264,38 @@ class ErrorDetailOut(BaseModel):
     request_id: str
 class ErrorOut(BaseModel):
     error: ErrorDetailOut
+
+class PathsOut(BaseModel):
+    items: list[dict]
+    limited: bool
+    message: str
+    search: dict = {}
+class SavedPathOut(BaseModel):
+    id: str
+    title: str
+    topic_ids: list[str]
+    relation_ids: list[str]
+    hops: list[dict]
+    position: int
+    available: bool
+    evidence_changed: bool
+    created_at: str
+class SavedPathsOut(BaseModel):
+    items: list[SavedPathOut]
+    total: int
+class DeletedOut(BaseModel):
+    deleted: bool
+class ChallengeOut(BaseModel):
+    status: str
+    message: str
+    challenge: dict | None
+class AttemptOut(BaseModel):
+    id: str
+    topic_id: str
+    challenge_id: str
+    answer: str
+    feedback: dict
+    self_assessment: str | None
+    created_at: str
+class AttemptsOut(BaseModel):
+    items: list[AttemptOut]

@@ -59,9 +59,9 @@ def upsert_seed(db, payload, data_kind='seed'):
         process_topic(db,db.get(Topic,t['id']))
     db.flush()
     for r in payload.get('relations', []):
-        if r['type'] in ('ai_analogy','analogy'): continue
         if not db.get(Topic,r['source_id']) or not db.get(Topic,r['target_id']): continue
-        fields={k:r[k] for k in ('id','source_id','target_id','type','label','explanation','source_url','direction','property_id') if k in r}
+        fields={k:r[k] for k in ('id','source_id','target_id','type','label','explanation','source_url','direction','property_id','evidence_excerpt') if k in r}
+        fields['evidence_status']='curated' if data_kind=='seed' and r['type'] in ('fact','teaching') else 'pending'
         if not fields.get('source_url'): continue
         rid=fields.get('id') or hashlib.sha256(json.dumps(fields,sort_keys=True).encode()).hexdigest()[:32]
         obj=db.get(TopicRelation,rid)

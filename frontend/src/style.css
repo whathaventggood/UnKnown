@@ -25,3 +25,11 @@
 .section-tabs{flex-wrap:wrap}
 @media(max-width:760px){.learning-item{flex-direction:column;gap:16px}.learning-action{width:100%}.section-tabs{gap:15px}.skip-notice{font-size:11px}}
 .summary-origin{display:block;font-size:10px;line-height:1.7;color:var(--muted);overflow-wrap:anywhere}
+
+/* Voluntary learning controls follow existing paper/ink colors at both widths. */
+.coverage-table{width:100%;margin-top:16px;border-collapse:collapse;font-size:12px}
+.coverage-table th,.coverage-table td{text-align:left;padding:9px 3px;border-bottom:1px solid var(--border);font-weight:400}
+.coverage-table th{color:var(--muted)}
+.located-quote{border-left:2px solid var(--border);padding:8px 12px;margin:12px 0;color:var(--muted);font-size:12px;overflow-wrap:anywhere}
+.source-excerpt,.reference-answer,.path-hop,.saved-attempt{overflow-wrap:anywhere}
+@media(max-width:760px){.journey-main .section-tabs{gap:10px 18px}.section-tabs>button{white-space:normal}.coverage-table{font-size:11px}.path-actions>.button{width:100%}}

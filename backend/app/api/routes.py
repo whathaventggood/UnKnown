@@ -10,6 +10,8 @@ from app.services.catalog import topic_json,discipline_json,state_json
 from app.services.discovery import create_batch,batch_json
 from app.services.insights import stats,graph
 from app.ai.provider import ProviderError
+from app.services.paths import paths_from,validate_path,saved_json,reliable
+from app.services.challenges import challenge_for,reference_feedback,attempt_json
 
 router=APIRouter(prefix='/api',responses={status:{'model':ErrorOut} for status in (400,403,404,409,422,429,500,502,504)})
 
@@ -73,7 +75,7 @@ async def reset_profile(body:ResetBody,request:Request,db:DB,p:P):
     for cls in (Impression,RecommendationItem):
         if cls is Impression: db.execute(delete(cls).where(cls.profile_id==p.id))
         else: db.execute(delete(cls).where(cls.batch_id.in_(select(DailyRecommendation.id).where(DailyRecommendation.profile_id==p.id))))
-    for cls in (DailyRecommendation,TopicEvent,TopicState,Bookmark): db.execute(delete(cls).where(cls.profile_id==p.id))
+    for cls in (SavedPath,ChallengeAttempt,DailyRecommendation,TopicEvent,TopicState,Bookmark): db.execute(delete(cls).where(cls.profile_id==p.id))
     db.query(AIUsage).filter(AIUsage.profile_id==p.id).update({'profile_id':None})
     p.familiar_disciplines=[];p.onboarding_complete=False
     return {'cleared':True,'message':'已清除当前档案的探索、反馈、收藏、推荐和私有讨论。共享知识库与公共解释已保留。'}
@@ -118,7 +120,7 @@ async def unexpected_knowledge(body:SurpriseBody,db:DB,p:P):
 
 
 def relation_json(db,r):
-    return {k:getattr(r,k) for k in ('id','type','label','explanation','source_url','direction','source_id','target_id','property_id')} | {'source_title':db.get(Topic,r.source_id).title,'target_title':db.get(Topic,r.target_id).title}
+    return {k:getattr(r,k) for k in ('id','type','label','explanation','source_url','direction','source_id','target_id','property_id','evidence_status','evidence_excerpt')} | {'source_title':db.get(Topic,r.source_id).title,'target_title':db.get(Topic,r.target_id).title}
 
 @router.get('/topics/{topic_id}',response_model=TopicOut)
 async def detail(topic_id:str,db:DB,p:P):
@@ -134,7 +136,7 @@ async def detail(topic_id:str,db:DB,p:P):
     db.add(TopicEvent(profile_id=p.id,topic_id=topic_id,action='visit',idempotency_key=uid()))
     db.flush()
     result=topic_json(db,t,p.id)
-    result['relations']=[relation_json(db,r) for r in db.scalars(select(TopicRelation).where((TopicRelation.source_id==topic_id)|(TopicRelation.target_id==topic_id)))]
+    result['relations']=[relation_json(db,r) for r in db.scalars(select(TopicRelation).where((TopicRelation.source_id==topic_id)|(TopicRelation.target_id==topic_id))) if reliable(r)]
     return result
 
 @router.get('/topics/{topic_id}/related',response_model=RelatedOut)
@@ -142,9 +144,103 @@ async def related(topic_id:str,db:DB,p:P,limit:int=Query(12,ge=1,le=30)):
     topic_or_404(db,topic_id)
     result=[]
     for r in db.scalars(select(TopicRelation).where((TopicRelation.source_id==topic_id)|(TopicRelation.target_id==topic_id)).limit(limit)):
+        if not reliable(r): continue
         other=r.target_id if r.source_id==topic_id else r.source_id
         result.append({'topic':topic_json(db,db.get(Topic,other),p.id),'relation':relation_json(db,r)})
     return {'items':result}
+
+
+@router.get('/topics/{topic_id}/paths',response_model=PathsOut)
+async def exploration_paths(topic_id:str,db:DB,p:P,max_hops:int=Query(4,ge=1,le=4)):
+    topic_or_404(db,topic_id)
+    return paths_from(db,topic_id,max_hops=max_hops)
+
+
+@router.post('/paths',response_model=SavedPathOut)
+async def save_exploration_path(body:SavePathBody,db:DB,p:P):
+    existing=db.scalar(select(SavedPath).where(SavedPath.profile_id==p.id,SavedPath.idempotency_key==body.idempotency_key))
+    if existing:
+        if existing.topic_ids!=body.topic_ids or existing.relation_ids!=body.relation_ids: fail(409,'IDEMPOTENCY_CONFLICT','操作标识已用于不同路径。')
+        return saved_json(db,existing)
+    try: hops=validate_path(db,body.topic_ids,body.relation_ids)
+    except ValueError as exc: fail(422,'INVALID_PATH',str(exc))
+    path=SavedPath(profile_id=p.id,title=hops[0]['from_title']+' → '+hops[-1]['to_title'],topic_ids=body.topic_ids,relation_ids=body.relation_ids,evidence_snapshot=hops,idempotency_key=body.idempotency_key)
+    db.add(path);db.flush();return saved_json(db,path)
+
+
+@router.get('/paths',response_model=SavedPathsOut)
+async def saved_exploration_paths(db:DB,p:P,limit:int=Query(20,ge=1,le=50),offset:int=Query(0,ge=0,le=100000)):
+    total=db.scalar(select(func.count()).select_from(SavedPath).where(SavedPath.profile_id==p.id))
+    rows=db.scalars(select(SavedPath).where(SavedPath.profile_id==p.id).order_by(SavedPath.created_at.desc(),SavedPath.id).offset(offset).limit(limit))
+    return {'items':[saved_json(db,r) for r in rows],'total':total}
+
+
+def own_path(db,p,path_id):
+    path=db.get(SavedPath,path_id)
+    if not path or path.profile_id!=p.id: fail(404,'PATH_NOT_FOUND','没有找到已保存路径。')
+    return path
+
+
+@router.get('/paths/{path_id}',response_model=SavedPathOut)
+async def saved_path(path_id:str,db:DB,p:P): return saved_json(db,own_path(db,p,path_id))
+
+
+@router.patch('/paths/{path_id}',response_model=SavedPathOut)
+async def path_position(path_id:str,body:PathPositionBody,db:DB,p:P):
+    path=own_path(db,p,path_id)
+    if body.position>=len(path.topic_ids): fail(422,'INVALID_PATH_POSITION','路径位置超出范围。')
+    event_key=f'path:{path.id}:{body.position}'
+    if body.position>0 and not db.scalar(select(TopicEvent.id).where(TopicEvent.profile_id==p.id,TopicEvent.idempotency_key==event_key)):
+        db.add(TopicEvent(profile_id=p.id,topic_id=path.topic_ids[body.position],action='path_continue',idempotency_key=event_key))
+    path.position=body.position;db.flush();return saved_json(db,path)
+
+
+@router.delete('/paths/{path_id}',response_model=DeletedOut)
+async def delete_path(path_id:str,db:DB,p:P):
+    path=own_path(db,p,path_id);db.delete(path);return {'deleted':True}
+
+
+@router.get('/topics/{topic_id}/challenge',response_model=ChallengeOut)
+async def cognitive_challenge(topic_id:str,db:DB,p:P,reveal:bool=False):
+    return challenge_for(db,topic_or_404(db,topic_id),reveal=reveal)
+
+
+@router.post('/topics/{topic_id}/challenge',response_model=AttemptOut)
+async def answer_challenge(topic_id:str,body:ChallengeBody,db:DB,p:P):
+    topic=topic_or_404(db,topic_id)
+    prior=db.scalar(select(ChallengeAttempt).where(ChallengeAttempt.profile_id==p.id,ChallengeAttempt.idempotency_key==body.idempotency_key))
+    if prior:
+        if prior.topic_id!=topic_id or prior.answer!=body.answer or prior.challenge_id!=body.challenge_id: fail(409,'IDEMPOTENCY_CONFLICT','操作标识已用于不同作答。')
+        return attempt_json(prior)
+    result=challenge_for(db,topic,reveal=True)
+    challenge=result['challenge']
+    if not challenge: fail(422,'CHALLENGE_UNAVAILABLE',result['message'])
+    if challenge['id']!=body.challenge_id: fail(409,'CHALLENGE_CHANGED','来源材料已变化，请重新打开挑战；你的输入仍可保留。')
+    attempt=ChallengeAttempt(profile_id=p.id,topic_id=topic_id,challenge_id=body.challenge_id,answer=body.answer,self_assessment=body.self_assessment,feedback=reference_feedback(challenge,body.answer),idempotency_key=body.idempotency_key)
+    db.add(attempt);db.flush();return attempt_json(attempt)
+
+
+@router.get('/topics/{topic_id}/challenge/attempts',response_model=AttemptsOut)
+async def challenge_history(topic_id:str,db:DB,p:P,limit:int=Query(10,ge=1,le=30)):
+    topic_or_404(db,topic_id)
+    rows=db.scalars(select(ChallengeAttempt).where(ChallengeAttempt.profile_id==p.id,ChallengeAttempt.topic_id==topic_id).order_by(ChallengeAttempt.created_at.desc(),ChallengeAttempt.id.desc()).limit(limit))
+    return {'items':[attempt_json(r) for r in rows]}
+
+
+@router.patch('/challenge-attempts/{attempt_id}',response_model=AttemptOut)
+async def assess_attempt(attempt_id:str,body:AssessmentBody,db:DB,p:P):
+    attempt=db.get(ChallengeAttempt,attempt_id)
+    if not attempt or attempt.profile_id!=p.id: fail(404,'ATTEMPT_NOT_FOUND','没有找到这次作答。')
+    attempt.self_assessment=body.self_assessment;db.flush();return attempt_json(attempt)
+
+
+@router.get('/revisits',response_model=CollectionOut)
+async def revisits(db:DB,p:P,due_only:bool=False,limit:int=Query(20,ge=1,le=100),offset:int=Query(0,ge=0,le=100000)):
+    query=select(Topic).join(TopicState,TopicState.topic_id==Topic.id).where(TopicState.profile_id==p.id,TopicState.revisit_at.is_not(None))
+    if due_only: query=query.where(TopicState.revisit_at<=now())
+    total=db.scalar(select(func.count()).select_from(query.subquery()))
+    rows=db.scalars(query.order_by(TopicState.revisit_at,Topic.id).offset(offset).limit(limit))
+    return {'items':[topic_json(db,t,p.id) for t in rows],'total':total}
 
 @router.post('/topics/{topic_id}/feedback',response_model=StateResponse)
 async def feedback(topic_id:str,body:FeedbackBody,db:DB,p:P):

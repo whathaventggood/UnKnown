@@ -86,6 +86,8 @@ class TopicRelation(Base):
     source_url: Mapped[str]
     direction: Mapped[str] = mapped_column(default='forward')
     property_id: Mapped[str | None]
+    evidence_status: Mapped[str] = mapped_column(default='pending',index=True)
+    evidence_excerpt: Mapped[str] = mapped_column(Text,default='')
 
 class Profile(Base):
     __tablename__ = 'anonymous_profiles'
@@ -207,3 +209,31 @@ class IngestionJob(Base):
     errors: Mapped[list] = mapped_column(JSON, default=list)
     created_at: Mapped[str] = mapped_column(default=now)
     updated_at: Mapped[str] = mapped_column(default=now)
+
+
+class SavedPath(Base):
+    __tablename__='saved_exploration_paths'
+    id: Mapped[str] = mapped_column(String,primary_key=True,default=uid)
+    profile_id: Mapped[str] = mapped_column(ForeignKey('anonymous_profiles.id',ondelete='CASCADE'),index=True)
+    title: Mapped[str]
+    topic_ids: Mapped[list] = mapped_column(JSON)
+    relation_ids: Mapped[list] = mapped_column(JSON)
+    evidence_snapshot: Mapped[list] = mapped_column(JSON)
+    position: Mapped[int] = mapped_column(default=0)
+    idempotency_key: Mapped[str]
+    created_at: Mapped[str] = mapped_column(default=now)
+    __table_args__=(UniqueConstraint('profile_id','idempotency_key'),)
+
+
+class ChallengeAttempt(Base):
+    __tablename__='challenge_attempts'
+    id: Mapped[str] = mapped_column(String,primary_key=True,default=uid)
+    profile_id: Mapped[str] = mapped_column(ForeignKey('anonymous_profiles.id',ondelete='CASCADE'),index=True)
+    topic_id: Mapped[str] = mapped_column(ForeignKey('topics.id',ondelete='CASCADE'),index=True)
+    challenge_id: Mapped[str]
+    answer: Mapped[str] = mapped_column(Text)
+    feedback: Mapped[dict] = mapped_column(JSON)
+    self_assessment: Mapped[str | None]
+    idempotency_key: Mapped[str]
+    created_at: Mapped[str] = mapped_column(default=now)
+    __table_args__=(UniqueConstraint('profile_id','idempotency_key'),)

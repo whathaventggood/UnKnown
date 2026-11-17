@@ -7,6 +7,7 @@ from app.models import *
 from app.services.catalog import topic_json, source_json
 from app.recommendation import recommend
 from app.recommendation.engine import surprise
+from app.services.paths import reliable
 
 
 def settings_snapshot(p):
@@ -49,7 +50,7 @@ def history_snapshot(db,p):
     adjacency=defaultdict(list)
     relations=list(db.scalars(select(TopicRelation).order_by(TopicRelation.id)))
     for r in relations:
-        if not r.source_url or 'analogy' in r.type or r.direction not in ('forward','both') or getattr(r,'evidence_status','curated') not in ('curated','source_checked'): continue
+        if not reliable(r): continue
         if r.source_id not in topics or r.target_id not in topics: continue
         adjacency[r.source_id].append((r,r.target_id))
         if r.direction=='both': adjacency[r.target_id].append((r,r.source_id))

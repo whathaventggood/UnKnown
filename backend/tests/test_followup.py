@@ -92,7 +92,7 @@ def test_legacy_bridge_names_enriched_without_rewriting_snapshot(client,app):
 
 def test_map_root_survives_dense_neighborhood_budget(client,app):
     with app.state.Session() as db:
-        for i in range(17): db.add(TopicRelation(source_id='t17',target_id=f't{i}',type='teaching',label='测试',explanation='测试',source_url='https://example.org/evidence'))
+        for i in range(17): db.add(TopicRelation(source_id='t17',target_id=f't{i}',type='teaching',evidence_status='curated',label='测试',explanation='测试',source_url='https://example.org/evidence'))
         db.commit()
     graph=client.get('/api/map?root=topic:t17&limit=5').json()
     assert any(n['id']=='topic:t17' for n in graph['nodes'])
