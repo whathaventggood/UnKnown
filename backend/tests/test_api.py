@@ -41,7 +41,7 @@ def test_generation_not_exposure_visit_not_understanding(client,app):
     assert client.post('/api/discover/impressions',json=payload).json()=={'recorded':1}
     assert client.post('/api/discover/impressions',json=payload).json()=={'recorded':0}
     detail=client.get('/api/topics/'+topic).json()
-    assert detail['state']=={'bookmarked':False,'familiarity':'unknown','learning':'none','explored':True}
+    assert detail['state']=={'bookmarked':False,'familiarity':'unknown','learning':'none','explored':True,'skipped_until':None}
     client.get('/api/topics/'+topic)
     assert client.get('/api/stats').json()['explored_count']==1
     with app.state.Session() as db:

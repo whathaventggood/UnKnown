@@ -51,6 +51,9 @@ def graph(db,p,scope='all',discipline=None,q='',root=None,limit=80,depth=1):
     while any(buckets.values()):
         for bucket in buckets.values():
             if bucket: ordered.append(bucket.pop(0))
+    # A requested topic must survive the finite node budget, even in a dense neighborhood.
+    if root and not root.startswith(('discipline:','subfield:')):
+        ordered.sort(key=lambda t:t.id!=root.removeprefix('topic:'))
     nodes={}; edges=[]; selected=[]
     for t in ordered:
         did='discipline:'+t.primary_discipline_id; sid=subfield_id(t); tid='topic:'+t.id

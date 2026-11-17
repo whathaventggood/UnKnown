@@ -4,7 +4,7 @@
 
 一个默认中文、可本机自托管的知识探索系统。每日五条有出处的知识入口，从陌生主题走向可解释的跨领域联系，并保存个人探索足迹。
 
-**可以直接运行的路径：**跳过或填写熟悉领域 → 三种模式推荐 → 阅读真实来源摘要 → 标记陌生/学习状态、收藏 → 查看探索记录和动态认知地图 → 沿有依据的关系继续探索。没有 LLM Key，也能完成这条路径。
+**可以直接运行的路径：**跳过或填写熟悉领域 → 三种模式推荐 → 阅读真实来源摘要 → 标记陌生/学习状态、收藏或暂时跳过 → 从学习列表继续阅读 → 查看探索记录和动态认知地图 → 沿有依据的关系继续探索。没有 LLM Key，也能完成这条路径。
 
 ## 本机启动（macOS Apple Silicon / Linux）
 
@@ -112,6 +112,7 @@ bash scripts/check.sh
 # 单独运行
 PYTHONPATH=backend backend/.venv/bin/python -m pytest backend/tests -q
 cd frontend
+npm run test:requests
 npm run typecheck
 npm run build
 # 先启动后端和前端，再运行真实浏览器测试
@@ -121,7 +122,7 @@ backend/.venv/bin/python scripts/evaluate.py
 backend/.venv/bin/python scripts/verify_offline.py
 ```
 
-普通后端测试不会联网或产生付费调用。Playwright 首次需要 `npx playwright install chromium`；浏览器测试使用真实 API 和独立匿名档案，会清除测试档案记录。建议验证时用单独数据库：`DATABASE_URL=sqlite:////absolute/path/qa.db`。测试结果与实际覆盖范围见 [验收报告](docs/ACCEPTANCE.md)。
+普通后端测试不会联网或产生付费调用。Playwright 首次需要 `npx playwright install chromium`；浏览器测试使用真实 API 和独立匿名档案，会清除测试档案记录。建议验证时用单独数据库：`DATABASE_URL=sqlite:////absolute/path/qa.db`。组件请求回归可在 Node 下执行，不依赖浏览器；它不验证 DOM、布局或真实浏览器。测试结果与实际覆盖范围见 [验收报告](docs/ACCEPTANCE.md)。
 
 ## 结构与范围
 

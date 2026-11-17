@@ -105,7 +105,8 @@ async def impressions(body:ImpressionsBody,db:DB,p:P):
     db.flush();return {'recorded':n}
 
 
-def relation_json(r): return {k:getattr(r,k) for k in ('id','type','label','explanation','source_url','direction','source_id','target_id','property_id')}
+def relation_json(db,r):
+    return {k:getattr(r,k) for k in ('id','type','label','explanation','source_url','direction','source_id','target_id','property_id')} | {'source_title':db.get(Topic,r.source_id).title,'target_title':db.get(Topic,r.target_id).title}
 
 @router.get('/topics/{topic_id}',response_model=TopicOut)
 async def detail(topic_id:str,db:DB,p:P):
@@ -121,7 +122,7 @@ async def detail(topic_id:str,db:DB,p:P):
     db.add(TopicEvent(profile_id=p.id,topic_id=topic_id,action='visit',idempotency_key=uid()))
     db.flush()
     result=topic_json(db,t,p.id)
-    result['relations']=[relation_json(r) for r in db.scalars(select(TopicRelation).where((TopicRelation.source_id==topic_id)|(TopicRelation.target_id==topic_id)))]
+    result['relations']=[relation_json(db,r) for r in db.scalars(select(TopicRelation).where((TopicRelation.source_id==topic_id)|(TopicRelation.target_id==topic_id)))]
     return result
 
 @router.get('/topics/{topic_id}/related',response_model=RelatedOut)
@@ -130,7 +131,7 @@ async def related(topic_id:str,db:DB,p:P,limit:int=Query(12,ge=1,le=30)):
     result=[]
     for r in db.scalars(select(TopicRelation).where((TopicRelation.source_id==topic_id)|(TopicRelation.target_id==topic_id)).limit(limit)):
         other=r.target_id if r.source_id==topic_id else r.source_id
-        result.append({'topic':topic_json(db,db.get(Topic,other),p.id),'relation':relation_json(r)})
+        result.append({'topic':topic_json(db,db.get(Topic,other),p.id),'relation':relation_json(db,r)})
     return {'items':result}
 
 @router.post('/topics/{topic_id}/feedback',response_model=StateResponse)
@@ -144,6 +145,7 @@ async def feedback(topic_id:str,body:FeedbackBody,db:DB,p:P):
     if not st: st=TopicState(profile_id=p.id,topic_id=topic_id);db.add(st)
     if body.action in ('known','unfamiliar'): st.familiarity=body.action
     elif body.action=='skip': st.skipped_until=(datetime.now(timezone.utc)+timedelta(days=3)).isoformat()
+    elif body.action=='unskip': st.skipped_until=None
     else: st.learning='learning' if body.action=='learning' else 'understood' if body.action=='understood' else 'none'
     db.add(TopicEvent(profile_id=p.id,topic_id=topic_id,action=body.action,idempotency_key=body.idempotency_key))
     db.flush();return {'state':state_json(db,p.id,topic_id)}
@@ -164,6 +166,14 @@ async def bookmarks(db:DB,p:P,limit:int=Query(50,ge=1,le=100),offset:int=Query(0
     total=db.scalar(select(func.count()).select_from(Bookmark).where(Bookmark.profile_id==p.id))
     ids=db.scalars(select(Bookmark.topic_id).where(Bookmark.profile_id==p.id).order_by(Bookmark.created_at.desc()).offset(offset).limit(limit))
     return {'items':[topic_json(db,db.get(Topic,tid),p.id) for tid in ids],'total':total}
+
+@router.get('/learning',response_model=CollectionOut)
+async def learning(db:DB,p:P,status:Literal['learning','understood']='learning',limit:int=Query(20,ge=1,le=100),offset:int=Query(0,ge=0,le=100000)):
+    # Stable title/id ordering; visit timestamps do not stand in for learning updates.
+    query=select(Topic).join(TopicState,TopicState.topic_id==Topic.id).where(TopicState.profile_id==p.id,TopicState.learning==status)
+    total=db.scalar(select(func.count()).select_from(query.subquery()))
+    topics=db.scalars(query.order_by(Topic.title,Topic.id).offset(offset).limit(limit))
+    return {'items':[topic_json(db,t,p.id) for t in topics],'total':total}
 
 @router.get('/stats',response_model=StatsOut)
 async def statistics(db:DB,p:P): return stats(db,p)

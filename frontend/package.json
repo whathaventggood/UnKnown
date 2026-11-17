@@ -8,7 +8,8 @@
     "build": "vue-tsc -b && vite build",
     "typecheck": "vue-tsc -b",
     "preview": "vite preview --host 127.0.0.1",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "test:requests": "node --test tests/*.test.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.0",

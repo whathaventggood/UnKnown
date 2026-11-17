@@ -31,7 +31,7 @@ def history_snapshot(db,p):
             for start,path in frontier:
                 for r in relations:
                     if r.source_id!=start or r.target_id==origin: continue
-                    hop={'from_id':r.source_id,'from_title':topics[r.source_id].title,'from_discipline_id':topics[r.source_id].primary_discipline_id,'to_id':r.target_id,'type':r.type,'label':r.label,'explanation':r.explanation,'source_url':r.source_url,'direction':r.direction}
+                    hop={'from_id':r.source_id,'from_title':topics[r.source_id].title,'from_discipline_id':topics[r.source_id].primary_discipline_id,'to_id':r.target_id,'to_title':topics[r.target_id].title,'type':r.type,'label':r.label,'explanation':r.explanation,'source_url':r.source_url,'direction':r.direction}
                     new=path+[hop]
                     if r.target_id not in paths or len(new)<len(paths[r.target_id]): paths[r.target_id]=new
                     nxt.append((r.target_id,new))
@@ -77,5 +77,16 @@ def create_batch(db,p,mode,key=None):
     return batch
 
 
+def named_path(db,path):
+    result=[]
+    for hop in path:
+        item=dict(hop)
+        for endpoint in ('from','to'):
+            topic=db.get(Topic,hop[endpoint+'_id'])
+            item[endpoint+'_title']=topic.title if topic else '主题暂不可用'
+        result.append(item)
+    return result
+
+
 def batch_json(db,b,p):
-    return {'id':b.id,'date':b.date,'mode':b.mode,'batch_number':b.batch_number,'parent_id':b.parent_id,'strategy_version':b.strategy_version,'seed':b.seed,'constraints':b.constraints_json,'settings_changed':b.settings_snapshot!=settings_snapshot(p),'items':[{'topic':topic_json(db,db.get(Topic,i.topic_id),p.id),'reason':i.reason,'features':i.features,'score':i.score,'bridge_path':i.bridge_path} for i in db.scalars(select(RecommendationItem).where(RecommendationItem.batch_id==b.id).order_by(RecommendationItem.position))]}
+    return {'id':b.id,'date':b.date,'mode':b.mode,'batch_number':b.batch_number,'parent_id':b.parent_id,'strategy_version':b.strategy_version,'seed':b.seed,'constraints':b.constraints_json,'settings_changed':b.settings_snapshot!=settings_snapshot(p),'items':[{'topic':topic_json(db,db.get(Topic,i.topic_id),p.id),'reason':i.reason,'features':i.features,'score':i.score,'bridge_path':named_path(db,i.bridge_path)} for i in db.scalars(select(RecommendationItem).where(RecommendationItem.batch_id==b.id).order_by(RecommendationItem.position))]}
