@@ -2,7 +2,7 @@
   "kind": "synthetic_history_algorithm_behaviour_only",
   "catalogue_count": 60,
   "catalogue_primary_disciplines": 12,
-  "catalogue_fingerprint": "0c56f485988dde64b86b4f0d46b8623281ae4605fc55d4600471f6ab20a06522",
+  "catalogue_fingerprint": "d9efbe0128a9dd14b766efa880fbde526eb6ade2232cf68ba0f0fa1f39610cd3",
   "seeds": [
     11,
     29,
@@ -339,12 +339,12 @@
   ],
   "definitions": {
     "shared_inputs": "四个策略（含冻结 v1 和新版）读取相同完整候选库、相同固定历史前缀和相同每批五条预算；多随机种子。历史不随策略扩展，没有未来行为。",
-    "proxy_filter": "全部策略共用：可追溯 URL、质量代理≥0.4、可学习性代理≥0.25、排除已标记重复或异常。",
+    "proxy_filter": "全部策略共用：真实目录先通过中文内容和来源准入；隔离合成夹具明确标记 synthetic_test。可追溯 URL、质量代理≥0.4、可学习性代理≥0.25、排除已标记重复或异常。",
     "coverage": "每批实际主题涉及的唯一主学科数量；关联标签不计。",
     "entropy": "逐批 H=-Σp ln p，单位 nats；归一化版本除以 ln(当前共同候选库主学科总数)，不是除以批次大小。",
     "new_opportunity": "实际推荐中，主题未探索且其主学科或细分主题未探索的比例。",
     "new_topic": "实际推荐中，没有首次详情打开记录的主题比例。",
-    "repeat": "实际推荐中，出现在预设最近7天曝光前缀的主题比例；前缀为合成数据，不是实际用户事件。",
+    "repeat": "实际推荐中，出现在人工指定的近期曝光前缀的主题比例；前缀为合成数据，不是实际用户事件。",
     "constraint": "每批五条、至少四主学科、每主学科≤2、至少两条新领域或细分主题机会、至少一条非热点内容全部满足的批次比例。",
     "degradation": "策略主动记录放宽约束的批次/总批次。两种基线无放宽流程，记为0；这不代表它们满足约束，需结合约束满足率。",
     "proxy_means": "质量和可学习性为实际推荐主题代理值的逐批均值，再对批次等权平均；不是事实正确率或学习成绩。",

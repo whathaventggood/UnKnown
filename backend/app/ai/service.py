@@ -63,7 +63,7 @@ def validate_output(raw,source_ids,chat=False,*,evidence=None):
                 for ref in refs:
                     piece=evidence_by_id.get(ref['source_id'])
                     norm=lambda s:' '.join(s.split())
-                    if not piece or norm(ref['quote']) not in norm(piece['excerpt']):
+                    if len(norm(ref['quote']))<8 or not piece or norm(ref['quote']) not in norm(piece['excerpt']):
                         raise ValueError('quote not in cited source')
                     ref['evidence_type']=piece['evidence_type']
                 if (chat or claim['kind']!='analogy') and set(claim['source_ids'])!={r['source_id'] for r in refs}:
@@ -83,7 +83,7 @@ def evidence_bundle(db,topic,limit):
         # Never attribute topic-level original_summary/summary to a source record.
         text=(s.excerpt or '').strip()
         text=text[:max(0,limit-used)]
-        if not text: continue
+        if len(text.strip())<8: continue
         kind='research_metadata' if s.platform=='openalex' and s.external_id.startswith('T') else 'external_excerpt'
         evidence.append({'source_id':s.id,'excerpt':text,'language':s.language,'evidence_type':kind,'excerpt_note':'原始研究簇元数据；不是论文结论' if kind=='research_metadata' else '此来源保存的原始片段；非全文'})
         accepted.append(source_json(s)); used+=len(text)
@@ -97,6 +97,12 @@ def cache_key(topic_id,depth,language,settings,evidence_version):
     key=hashlib.sha256(json.dumps([topic_id,depth,language,provider_id,settings.llm_model,PROMPT_VERSION,evidence_version]).encode()).hexdigest()
     return key,provider_id
 
+
+def reservation_tokens(settings,context):
+    # Byte counts deliberately overestimate typical tokenizer input; include the
+    # entire fixed system message, framing allowance and every permitted retry.
+    return (len(context.encode('utf-8'))+len(SYSTEM.encode('utf-8'))+settings.llm_max_output_tokens+512)*(settings.llm_retries+1)
+
 class AIService:
     def __init__(self,settings,factory,provider):
         self.settings,self.factory,self.provider=settings,factory,provider
@@ -107,9 +113,10 @@ class AIService:
 
     def reserve(self,profile_id,context):
         s=self.settings
-        reserved=(len(context.encode('utf-8'))+s.llm_max_output_tokens+1000)*(s.llm_retries+1)
+        reserved=reservation_tokens(s,context)
         day=datetime.now(timezone.utc).date().isoformat()
         with self.factory() as db:
+            if db.bind.dialect.name=='sqlite': db.connection().exec_driver_sql('BEGIN IMMEDIATE')
             rows=list(db.scalars(select(AIUsage).where(AIUsage.created_at>=day)))
             personal=[u for u in rows if u.profile_id==profile_id]
             def tokens(rs):
@@ -151,7 +158,7 @@ class AIService:
     async def _generate(self,profile_id,topic_id,depth,language,evidence,sources,version,key,provider_id):
         shape={'overview':'是什么与价值','principle':'资料不足留空','example':'资料不足留空','analogy':{'text':'可省略置 null','limits':'类比失效处'},'background':'资料不足则空','applications':[],'misconceptions':[],'open_questions':[],'questions':['思考题'],'claims':[{'text':'关键事实','kind':'fact','source_ids':[sources[0]['id']] if sources else [],'evidence_refs':[{'source_id':sources[0]['id'],'quote':'从该来源 evidence 原文逐字摘录，至少8字符'}] if sources else []}]}
         context=json.dumps({'topic_id':topic_id,'depth':depth,'language':language,'evidence':evidence,'required_json_shape':shape},ensure_ascii=False)
-        if not sources: raise ProviderError('AI_NO_EVIDENCE','资料不足，无法生成有据解释。')
+        if not sources or all(e['evidence_type']=='research_metadata' for e in evidence): raise ProviderError('AI_NO_EVIDENCE','缺少入门正文证据。研究簇元数据或主题整理摘要不能替代原始解释材料。')
         # Atomic reservation in this single-process service; calls outside lock reuse HTTP pool.
         async with self.lock: usage_id=self.reserve(profile_id,context)
         usage=None;attempts=0
@@ -180,7 +187,7 @@ class AIService:
                 evidence,sources,_=evidence_bundle(db,topic,self.settings.llm_context_chars//2)
                 rows=list(db.scalars(select(ChatMessage).where(ChatMessage.profile_id==profile_id,ChatMessage.topic_id==topic_id).order_by(ChatMessage.created_at.desc()).limit(6)))
                 history=[{'role':r.role,'content':r.content[:1000]} for r in reversed(rows)]
-            if not sources: raise ProviderError('AI_NO_EVIDENCE','资料不足。')
+            if not sources or all(e['evidence_type']=='research_metadata' for e in evidence): raise ProviderError('AI_NO_EVIDENCE','原始资料片段不足；研究簇元数据不能支持扩展事实。')
             context=json.dumps({'topic_id':topic_id,'depth':depth,'evidence':evidence,'previous_messages':history,'user_question':message,'required_json_shape':{'answer':'仅回答当前主题；资料不足明确说明','source_ids':[sources[0]['id']],'evidence_refs':[{'source_id':sources[0]['id'],'quote':'逐字原文片段，至少8字符'}]}},ensure_ascii=False)
             async with self.lock: usage_id=self.reserve(profile_id,context)
             usage=None;attempts=0
@@ -191,7 +198,7 @@ class AIService:
                     raise ProviderError('AI_HISTORY_RESET','个人记录已清除，本次讨论未保存。')
                 with self.factory() as db:
                     db.add(ChatMessage(profile_id=profile_id,topic_id=topic_id,role='user',content=message,source_ids=[]))
-                    db.add(ChatMessage(profile_id=profile_id,topic_id=topic_id,role='assistant',content=answer['answer'],source_ids=answer['source_ids']))
+                    db.add(ChatMessage(profile_id=profile_id,topic_id=topic_id,role='assistant',content=answer['answer'],source_ids=answer['source_ids'],evidence_refs=answer['evidence_refs']))
                     db.commit()
                 self.finish_usage(usage_id,'success',usage,attempts)
                 return {'status':'ready','message':'引用片段已定位，尚未核验陈述是否被支持','answer':answer['answer'],'source_ids':answer['source_ids'],'evidence_refs':answer['evidence_refs'],'sources':sources,'usage':usage}

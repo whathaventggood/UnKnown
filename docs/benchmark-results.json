@@ -1,0 +1,101 @@
+{
+  "scope": "isolated local SQLite; no network or paid AI; no real learning-effect evidence",
+  "results": [
+    {
+      "topics": 60,
+      "data_kind": "real_archived_catalog",
+      "published_candidates": 60,
+      "batches": [
+        {
+          "seconds": 0.0234,
+          "sql_statements": 16,
+          "storage_bytes": 28672
+        },
+        {
+          "seconds": 0.0153,
+          "sql_statements": 15,
+          "storage_bytes": 40960
+        }
+      ],
+      "snapshot_json_bytes": 20099,
+      "graph_seconds": 0.0028,
+      "graph_sql_statements": 7,
+      "graph_nodes": 80,
+      "rss_peak_mb": 91.02,
+      "rss_peak_increase_mb": 2.19,
+      "notes": "SQL includes identity read and publication count (one extra SELECT). RSS is cumulative process high-water, not allocation size or steady-state memory."
+    },
+    {
+      "topics": 360,
+      "data_kind": "real_archived_catalog",
+      "published_candidates": 60,
+      "batches": [
+        {
+          "seconds": 0.0516,
+          "sql_statements": 16,
+          "storage_bytes": 106496
+        },
+        {
+          "seconds": 0.0401,
+          "sql_statements": 15,
+          "storage_bytes": 118784
+        }
+      ],
+      "snapshot_json_bytes": 20141,
+      "graph_seconds": 0.0041,
+      "graph_sql_statements": 7,
+      "graph_nodes": 80,
+      "rss_peak_mb": 103.77,
+      "rss_peak_increase_mb": 6.52,
+      "notes": "SQL includes identity read and publication count (one extra SELECT). RSS is cumulative process high-water, not allocation size or steady-state memory."
+    },
+    {
+      "topics": 1000,
+      "data_kind": "isolated_synthetic",
+      "published_candidates": 1000,
+      "batches": [
+        {
+          "seconds": 0.1828,
+          "sql_statements": 16,
+          "storage_bytes": 28672
+        },
+        {
+          "seconds": 0.1618,
+          "sql_statements": 15,
+          "storage_bytes": 45056
+        }
+      ],
+      "snapshot_json_bytes": 16160,
+      "graph_seconds": 0.0063,
+      "graph_sql_statements": 7,
+      "graph_nodes": 80,
+      "rss_peak_mb": 110.72,
+      "rss_peak_increase_mb": 6.92,
+      "notes": "SQL includes identity read and publication count (one extra SELECT). RSS is cumulative process high-water, not allocation size or steady-state memory."
+    },
+    {
+      "topics": 10000,
+      "data_kind": "isolated_synthetic",
+      "published_candidates": 10000,
+      "batches": [
+        {
+          "seconds": 1.9146,
+          "sql_statements": 16,
+          "storage_bytes": 217088
+        },
+        {
+          "seconds": 1.678,
+          "sql_statements": 15,
+          "storage_bytes": 233472
+        }
+      ],
+      "snapshot_json_bytes": 16162,
+      "graph_seconds": 0.0468,
+      "graph_sql_statements": 7,
+      "graph_nodes": 80,
+      "rss_peak_mb": 238.86,
+      "rss_peak_increase_mb": 102.94,
+      "notes": "SQL includes identity read and publication count (one extra SELECT). RSS is cumulative process high-water, not allocation size or steady-state memory."
+    }
+  ]
+}

@@ -6,11 +6,11 @@ from fastapi import APIRouter,Depends,Request,Response,Query,HTTPException
 from sqlalchemy import select,delete,func
 from app.models import *
 from app.schemas import *
-from app.services.catalog import topic_json,discipline_json,state_json
+from app.services.catalog import topic_json,topics_json,discipline_json,state_json
 from app.services.discovery import create_batch,batch_json
 from app.services.insights import stats,graph
 from app.ai.provider import ProviderError
-from app.services.paths import paths_from,validate_path,saved_json,reliable
+from app.services.paths import paths_from,validate_path,saved_json,saved_paths_json,reliable
 from app.services.challenges import challenge_for,reference_feedback,attempt_json
 
 router=APIRouter(prefix='/api',responses={status:{'model':ErrorOut} for status in (400,403,404,409,422,429,500,502,504)})
@@ -78,18 +78,18 @@ async def reset_profile(body:ResetBody,request:Request,db:DB,p:P):
     for cls in (SavedPath,ChallengeAttempt,DailyRecommendation,TopicEvent,TopicState,Bookmark): db.execute(delete(cls).where(cls.profile_id==p.id))
     db.query(AIUsage).filter(AIUsage.profile_id==p.id).update({'profile_id':None})
     p.familiar_disciplines=[];p.onboarding_complete=False
-    return {'cleared':True,'message':'已清除当前档案的探索、反馈、收藏、推荐和私有讨论。共享知识库与公共解释已保留。'}
+    return {'cleared':True,'message':'已清除当前档案的探索、反馈、收藏、推荐、保存路径、自测、回访和私有讨论。共享知识库与公共解释已保留。'}
 
 @router.get('/disciplines',response_model=DisciplinesOut)
 async def disciplines(db:DB): return {'items':[discipline_json(d) for d in db.scalars(select(Discipline).order_by(Discipline.id))]}
 
 @router.get('/discover/today',response_model=DailyOut)
-async def discover(db:DB,p:P,mode:Mode='unknown'):
-    return batch_json(db,create_batch(db,p,mode),p)
+async def discover(request:Request,db:DB,p:P,mode:Mode='unknown'):
+    return batch_json(db,create_batch(db,p,mode,config={'semantic_similarity':request.app.state.settings.semantic_similarity}),p)
 
 @router.post('/discover/refresh',response_model=DailyOut)
-async def refresh(body:RefreshBody,db:DB,p:P):
-    try: return batch_json(db,create_batch(db,p,body.mode,body.idempotency_key),p)
+async def refresh(body:RefreshBody,request:Request,db:DB,p:P):
+    try: return batch_json(db,create_batch(db,p,body.mode,body.idempotency_key,config={'semantic_similarity':request.app.state.settings.semantic_similarity}),p)
     except ValueError as e:
         if str(e)=='REFRESH_LIMIT': fail(429,'REFRESH_LIMIT','一小时内换组过于频繁，请稍后再试。')
         fail(409,'IDEMPOTENCY_CONFLICT','此操作标识已用于另一模式，请重新操作。')
@@ -108,10 +108,10 @@ async def impressions(body:ImpressionsBody,db:DB,p:P):
 
 
 @router.post('/discover/surprise',response_model=SurpriseOut)
-async def unexpected_knowledge(body:SurpriseBody,db:DB,p:P):
+async def unexpected_knowledge(body:SurpriseBody,request:Request,db:DB,p:P):
     mode=f'surprise:{body.strength}:{int(body.history_free)}'
     try:
-        batch=create_batch(db,p,mode,body.idempotency_key,surprise_spec={'strength':body.strength,'history_free':body.history_free})
+        batch=create_batch(db,p,mode,body.idempotency_key,surprise_spec={'strength':body.strength,'history_free':body.history_free},config={'semantic_similarity':request.app.state.settings.semantic_similarity})
     except ValueError as exc:
         if str(exc)=='REFRESH_LIMIT': fail(429,'REFRESH_LIMIT','本次探索请求较多，请稍后再试。')
         fail(409,'IDEMPOTENCY_CONFLICT','此操作标识已用于不同的探索设置。')
@@ -119,8 +119,8 @@ async def unexpected_knowledge(body:SurpriseBody,db:DB,p:P):
     return {'id':batch.id,'strength':body.strength,'history_free':body.history_free,'item':result['items'][0] if result['items'] else None,'constraints':result['constraints']}
 
 
-def relation_json(db,r):
-    return {k:getattr(r,k) for k in ('id','type','label','explanation','source_url','direction','source_id','target_id','property_id','evidence_status','evidence_excerpt')} | {'source_title':db.get(Topic,r.source_id).title,'target_title':db.get(Topic,r.target_id).title}
+def relation_json(db,r,titles=None):
+    return {k:getattr(r,k) for k in ('id','type','label','explanation','source_url','direction','source_id','target_id','property_id','evidence_status','evidence_excerpt')} | {'source_title':titles[r.source_id] if titles is not None else db.get(Topic,r.source_id).title,'target_title':titles[r.target_id] if titles is not None else db.get(Topic,r.target_id).title}
 
 @router.get('/topics/{topic_id}',response_model=TopicOut)
 async def detail(topic_id:str,db:DB,p:P):
@@ -136,17 +136,22 @@ async def detail(topic_id:str,db:DB,p:P):
     db.add(TopicEvent(profile_id=p.id,topic_id=topic_id,action='visit',idempotency_key=uid()))
     db.flush()
     result=topic_json(db,t,p.id)
-    result['relations']=[relation_json(db,r) for r in db.scalars(select(TopicRelation).where((TopicRelation.source_id==topic_id)|(TopicRelation.target_id==topic_id))) if reliable(r)]
+    relations=[r for r in db.scalars(select(TopicRelation).where(((TopicRelation.source_id==topic_id)|(TopicRelation.target_id==topic_id)),TopicRelation.evidence_status.in_(('curated','source_checked'))).order_by(TopicRelation.id).limit(31)) if reliable(r)]
+    endpoints={i for r in relations for i in (r.source_id,r.target_id)}
+    titles=dict(db.execute(select(Topic.id,Topic.title).where(Topic.id.in_(endpoints))).all()) if endpoints else {}
+    result['relations']=[relation_json(db,r,titles) for r in relations[:30]]
+    result['relations_truncated']=len(relations)>30
     return result
 
 @router.get('/topics/{topic_id}/related',response_model=RelatedOut)
 async def related(topic_id:str,db:DB,p:P,limit:int=Query(12,ge=1,le=30)):
     topic_or_404(db,topic_id)
-    result=[]
-    for r in db.scalars(select(TopicRelation).where((TopicRelation.source_id==topic_id)|(TopicRelation.target_id==topic_id)).limit(limit)):
-        if not reliable(r): continue
-        other=r.target_id if r.source_id==topic_id else r.source_id
-        result.append({'topic':topic_json(db,db.get(Topic,other),p.id),'relation':relation_json(db,r)})
+    relations=[r for r in db.scalars(select(TopicRelation).where(((TopicRelation.source_id==topic_id)|(TopicRelation.target_id==topic_id)),TopicRelation.evidence_status.in_(('curated','source_checked'))).order_by(TopicRelation.id).limit(limit)) if reliable(r)]
+    ids={r.target_id if r.source_id==topic_id else r.source_id for r in relations}
+    topics=list(db.scalars(select(Topic).where(Topic.id.in_(ids)))) if ids else []
+    serialized={t['id']:t for t in topics_json(db,topics,p.id)}
+    names=dict(db.execute(select(Topic.id,Topic.title).where(Topic.id.in_(ids|{topic_id}))).all())
+    result=[{'topic':serialized[r.target_id if r.source_id==topic_id else r.source_id],'relation':relation_json(db,r,names)} for r in relations]
     return {'items':result}
 
 
@@ -172,7 +177,7 @@ async def save_exploration_path(body:SavePathBody,db:DB,p:P):
 async def saved_exploration_paths(db:DB,p:P,limit:int=Query(20,ge=1,le=50),offset:int=Query(0,ge=0,le=100000)):
     total=db.scalar(select(func.count()).select_from(SavedPath).where(SavedPath.profile_id==p.id))
     rows=db.scalars(select(SavedPath).where(SavedPath.profile_id==p.id).order_by(SavedPath.created_at.desc(),SavedPath.id).offset(offset).limit(limit))
-    return {'items':[saved_json(db,r) for r in rows],'total':total}
+    return {'items':saved_paths_json(db,rows),'total':total}
 
 
 def own_path(db,p,path_id):
@@ -240,7 +245,7 @@ async def revisits(db:DB,p:P,due_only:bool=False,limit:int=Query(20,ge=1,le=100)
     if due_only: query=query.where(TopicState.revisit_at<=now())
     total=db.scalar(select(func.count()).select_from(query.subquery()))
     rows=db.scalars(query.order_by(TopicState.revisit_at,Topic.id).offset(offset).limit(limit))
-    return {'items':[topic_json(db,t,p.id) for t in rows],'total':total}
+    return {'items':topics_json(db,rows,p.id),'total':total}
 
 @router.post('/topics/{topic_id}/feedback',response_model=StateResponse)
 async def feedback(topic_id:str,body:FeedbackBody,db:DB,p:P):
@@ -275,8 +280,8 @@ async def remove_bookmark(topic_id:str,db:DB,p:P):
 @router.get('/bookmarks',response_model=CollectionOut)
 async def bookmarks(db:DB,p:P,limit:int=Query(50,ge=1,le=100),offset:int=Query(0,ge=0,le=100000)):
     total=db.scalar(select(func.count()).select_from(Bookmark).where(Bookmark.profile_id==p.id))
-    ids=db.scalars(select(Bookmark.topic_id).where(Bookmark.profile_id==p.id).order_by(Bookmark.created_at.desc()).offset(offset).limit(limit))
-    return {'items':[topic_json(db,db.get(Topic,tid),p.id) for tid in ids],'total':total}
+    rows=db.scalars(select(Topic).join(Bookmark,Bookmark.topic_id==Topic.id).where(Bookmark.profile_id==p.id).order_by(Bookmark.created_at.desc(),Topic.id).offset(offset).limit(limit))
+    return {'items':topics_json(db,rows,p.id),'total':total}
 
 @router.get('/learning',response_model=CollectionOut)
 async def learning(db:DB,p:P,status:Literal['learning','understood']='learning',limit:int=Query(20,ge=1,le=100),offset:int=Query(0,ge=0,le=100000)):
@@ -284,7 +289,7 @@ async def learning(db:DB,p:P,status:Literal['learning','understood']='learning',
     query=select(Topic).join(TopicState,TopicState.topic_id==Topic.id).where(TopicState.profile_id==p.id,TopicState.learning==status)
     total=db.scalar(select(func.count()).select_from(query.subquery()))
     topics=db.scalars(query.order_by(Topic.title,Topic.id).offset(offset).limit(limit))
-    return {'items':[topic_json(db,t,p.id) for t in topics],'total':total}
+    return {'items':topics_json(db,topics,p.id),'total':total}
 
 @router.get('/stats',response_model=StatsOut)
 async def statistics(db:DB,p:P): return stats(db,p)
@@ -307,4 +312,4 @@ async def chat(body:ChatBody,request:Request,db:DB,p:P):
 async def chat_history(db:DB,p:P,topic_id:str=Query(max_length=150),limit:int=Query(40,ge=1,le=100)):
     topic_or_404(db,topic_id)
     rows=list(db.scalars(select(ChatMessage).where(ChatMessage.profile_id==p.id,ChatMessage.topic_id==topic_id).order_by(ChatMessage.created_at.desc()).limit(limit)))
-    return {'items':[{k:getattr(r,k) for k in ('role','content','created_at','source_ids')} for r in reversed(rows)]}
+    return {'items':[{k:getattr(r,k) for k in ('role','content','created_at','source_ids','evidence_refs')} for r in reversed(rows)]}

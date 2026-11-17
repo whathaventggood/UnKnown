@@ -9,6 +9,7 @@ import math
 import random
 import sys
 from collections import Counter, defaultdict
+from types import SimpleNamespace
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,7 +17,8 @@ sys.path.insert(0, str(ROOT / "backend"))
 from app.recommendation import DEFAULT_CONFIG, learnability, recommend  # noqa: E402
 from app.recommendation.engine import _evergreen, _traceable, _unit
 from app.recommendation.legacy_v1 import recommend as recommend_v1
-from app.recommendation.semantic import similarity  # noqa: E402
+from app.recommendation.semantic import similarity,describe
+from app.services.content import check_content,curated_intro  # noqa: E402
 
 SEEDS = [11, 29, 47, 83, 101]
 BUDGET = 5
@@ -26,11 +28,18 @@ def fingerprint(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
-def eligible(topics):
+def eligible(topics,synthetic=False):
     # The same availability, traceability, and proxy floors apply to all policies.
     eligible_topics = []
     # Replay filter using the same documented floors, without using policy ranks.
     for topic in topics:
+        topic=dict(topic)
+        if not synthetic:
+            obj=SimpleNamespace(**{'question':'','value':'','summary':'','quality_features':{},**topic})
+            sources=[SimpleNamespace(**{'excerpt':'','license':'','platform':'','external_id':'',**source}) for source in topic.get('sources',[])]
+            if check_content(obj,sources,curated_intro(obj))['issues']: continue
+            topic['content_status']='PUBLISHED'
+            topic['semantic_features']=describe(topic['title'],topic.get('original_title',''))
         source_ok = _traceable(topic)
         features = topic.get("quality_features", {})
         quality = _unit(topic.get("quality_score"), DEFAULT_CONFIG["default_quality"])
@@ -105,7 +114,7 @@ def batch_metrics(selected, history, catalogue_domains):
 
 
 def evaluate(payload):
-    topics = eligible(sorted(payload["topics"], key=lambda item: item["id"]))
+    topics = eligible(sorted(payload["topics"], key=lambda item: item["id"]),synthetic=payload.get("data_kind")=="synthetic_test")
     if not topics:
         raise ValueError("种子库没有达到共同过滤底线的主题，无法进行可比评估。")
     catalogue_domains = len({item["primary_discipline_id"] for item in topics})
@@ -127,7 +136,7 @@ def evaluate(payload):
             metrics[key] = round(sum(values) / len(values), 6) if values else None
         metrics.update(batch_count=len(rows), requested_topics=len(rows) * BUDGET, actual_topics=sum(row["actual_count"] for row in rows), constraint_satisfaction_rate=sum(row["constraint_satisfied"] for row in rows) / len(rows), degradation_rate=sum(row["degraded"] for row in rows) / len(rows), self_reported_unfamiliar_ratio=None)
         aggregate[policy] = metrics
-    return {"kind": "synthetic_history_algorithm_behaviour_only", "catalogue_count": len(topics), "catalogue_primary_disciplines": catalogue_domains, "catalogue_fingerprint": fingerprint(topics), "seeds": SEEDS, "budget_per_batch": BUDGET, "history_prefixes": history_prefixes, "definitions": {"shared_inputs": "四个策略（含冻结 v1 和新版）读取相同完整候选库、相同固定历史前缀和相同每批五条预算；多随机种子。历史不随策略扩展，没有未来行为。", "proxy_filter": "全部策略共用：可追溯 URL、质量代理≥0.4、可学习性代理≥0.25、排除已标记重复或异常。", "coverage": "每批实际主题涉及的唯一主学科数量；关联标签不计。", "entropy": "逐批 H=-Σp ln p，单位 nats；归一化版本除以 ln(当前共同候选库主学科总数)，不是除以批次大小。", "new_opportunity": "实际推荐中，主题未探索且其主学科或细分主题未探索的比例。", "new_topic": "实际推荐中，没有首次详情打开记录的主题比例。", "repeat": "实际推荐中，出现在预设最近7天曝光前缀的主题比例；前缀为合成数据，不是实际用户事件。", "constraint": "每批五条、至少四主学科、每主学科≤2、至少两条新领域或细分主题机会、至少一条非热点内容全部满足的批次比例。", "degradation": "策略主动记录放宽约束的批次/总批次。两种基线无放宽流程，记为0；这不代表它们满足约束，需结合约束满足率。", "proxy_means": "质量和可学习性为实际推荐主题代理值的逐批均值，再对批次等权平均；不是事实正确率或学习成绩。", "self_report": "无真实反馈，自述陌生比例不可计算，JSON为null。合成画像不生成自述陌生标签。", "excluded": "无实际推荐的批次比例/均值分母排除；仍计入约束失败与降级率。固定种子和所有主题ID保留以复现。", "limits": "仅评估算法行为，不证明提升知识掌握、认知能力或真实用户的陌生比例。"}, "aggregate": aggregate, "trials": trials}
+    return {"kind": "synthetic_history_algorithm_behaviour_only", "catalogue_count": len(topics), "catalogue_primary_disciplines": catalogue_domains, "catalogue_fingerprint": fingerprint(topics), "seeds": SEEDS, "budget_per_batch": BUDGET, "history_prefixes": history_prefixes, "definitions": {"shared_inputs": "四个策略（含冻结 v1 和新版）读取相同完整候选库、相同固定历史前缀和相同每批五条预算；多随机种子。历史不随策略扩展，没有未来行为。", "proxy_filter": "全部策略共用：真实目录先通过中文内容和来源准入；隔离合成夹具明确标记 synthetic_test。可追溯 URL、质量代理≥0.4、可学习性代理≥0.25、排除已标记重复或异常。", "coverage": "每批实际主题涉及的唯一主学科数量；关联标签不计。", "entropy": "逐批 H=-Σp ln p，单位 nats；归一化版本除以 ln(当前共同候选库主学科总数)，不是除以批次大小。", "new_opportunity": "实际推荐中，主题未探索且其主学科或细分主题未探索的比例。", "new_topic": "实际推荐中，没有首次详情打开记录的主题比例。", "repeat": "实际推荐中，出现在人工指定的近期曝光前缀的主题比例；前缀为合成数据，不是实际用户事件。", "constraint": "每批五条、至少四主学科、每主学科≤2、至少两条新领域或细分主题机会、至少一条非热点内容全部满足的批次比例。", "degradation": "策略主动记录放宽约束的批次/总批次。两种基线无放宽流程，记为0；这不代表它们满足约束，需结合约束满足率。", "proxy_means": "质量和可学习性为实际推荐主题代理值的逐批均值，再对批次等权平均；不是事实正确率或学习成绩。", "self_report": "无真实反馈，自述陌生比例不可计算，JSON为null。合成画像不生成自述陌生标签。", "excluded": "无实际推荐的批次比例/均值分母排除；仍计入约束失败与降级率。固定种子和所有主题ID保留以复现。", "limits": "仅评估算法行为，不证明提升知识掌握、认知能力或真实用户的陌生比例。"}, "aggregate": aggregate, "trials": trials}
 
 
 def markdown(report):
@@ -138,6 +147,22 @@ def markdown(report):
     lines += ["", "自述陌生比例：**不可计算（没有真实反馈）**。", "", "## 口径与限制", ""]
     lines += [f"- {value}" for value in report["definitions"].values()]
     lines += ["", "## 复现", "", "```sh", "python3 scripts/evaluate.py", "```", "", "完整逐批种子、历史指纹、主题ID和分母见 `docs/evaluation-results.json`。如种子库发生变化，需重新运行，不能把旧结果用于新候选库。", ""]
+    lines += ["## 新版对照与语义范围", "", "冻结 v1 与 v2 在这组固定合成历史上的主学科覆盖、近期重复率和约束通过率相同；不能宣称新版已证明学习效果更好。新版增加认知缺口、长期记录和历史独立探索能力，另有独立算法/接口测试。", "", "| 策略 | 细分领域覆盖 | 语义近重复率 |", "| --- | ---: | ---: |"]
+    for name,row in report['aggregate'].items():
+        lines.append(f"| {labels[name]} | {row['subfield_coverage']:.2f} | {row['semantic_repeat_ratio']:.1%} |")
+    semantic_file=ROOT/'docs/semantic-evaluation.json'
+    if semantic_file.exists():
+        semantic=json.loads(semantic_file.read_text());before=semantic['scores']['lexical'];after=semantic['scores']['semantic']
+        lines += ["", f"24 组人工概念探针，近重复阈值 .82：原词汇方法 F1={before['f1']:.2f}，双语词表 F1={after['f1']:.2f}（精确率 {after['precision']:.2f}、召回率 {after['recall']:.2f}，{after['false_positive']} 个误判、{after['false_negative']} 个漏判）。", "", "探针与词表设计有重叠，不是独立泛化评测；不代表通用中英语义能力，也不用于实体合并。可用 SEMANTIC_SIMILARITY=false 关闭。完整探针见 [semantic-evaluation.json](semantic-evaluation.json)。"]
+    baseline_file,after_file=ROOT/'docs/benchmark-baseline.json',ROOT/'docs/benchmark-results.json'
+    if baseline_file.exists() and after_file.exists():
+        baseline={r['topics']:r for r in json.loads(baseline_file.read_text())['results']}
+        after=json.loads(after_file.read_text())['results']
+        lines += ["", "## 隔离性能实测", "", "同一机器、本地 SQLite、每规模连续两批，未知模式、五条预算、初始空历史。60/360 为真实归档目录（其中合格候选均为 60），1000/10000 为隔离合成；模拟数据不进入正式库。", "", "| 主题数 | 首批秒 旧→新 | SQL 旧→新 | 两批存储增量 旧→新 MiB | 地图毫秒 旧→新 |", "| --- | --- | --- | --- | --- |"]
+        for row in after:
+            old=baseline[row['topics']]
+            lines.append(f"| {row['topics']} | {old['batches'][0]['seconds']:.4f} → {row['batches'][0]['seconds']:.4f} | {old['batches'][0]['sql_statements']} → {row['batches'][0]['sql_statements']} | {old['batches'][1]['storage_bytes']/1048576:.3f} → {row['batches'][1]['storage_bytes']/1048576:.3f} | {old['graph_seconds']*1000:.1f} → {row['graph_seconds']*1000:.1f} |")
+        lines += ["", "SQL 包括身份读取及一个额外发布数统计；新第二批少一条目录 INSERT。存储计入共享压缩目录及私人批次；合成字段重复度较高，压缩比不能外推真实万条文章。RSS 为进程累计高水位及其增量，不是每请求常驻内存；没有并发/长期稳定性结论。完整内存、查询、第二批耗时见 [旧基准](benchmark-baseline.json)、[新基准](benchmark-results.json)。", "", "```bash", "backend/.venv/bin/python scripts/evaluate_semantics.py", "backend/.venv/bin/python scripts/benchmark.py --output docs/benchmark-results.json", "backend/.venv/bin/python scripts/evaluate.py", "```", ""]
     return "\n".join(lines)
 
 

@@ -127,3 +127,31 @@ test('map uses requested topic as root and displays explicit fallback when missi
  await tick();assert.equal(h.s.selected.id,'topic:A');assert.match(h.calls[0].path,/root=topic%3AA/)
  h.route.query.root='topic:missing';await tick();assert.match(h.s.rootNotice,/未找到指定主题/);assert.equal(h.s.data.nodes.length,1);h.unmount()
 })
+
+test('surprise is explicit and retries a lost response with the same operation',async()=>{
+ let sent=0;const h=mount('components/SurpriseDiscover.vue',r=>r.path==='/discover/surprise'?(++sent===1?Promise.reject(new Error('lost response')):{id:'draw',item:null,constraints:{message:'empty'}}):undefined)
+ await tick();assert.equal(sent,0)
+ await h.s.discover();await h.s.discover()
+ const calls=h.calls.filter(r=>r.path==='/discover/surprise')
+ assert.equal(calls[0].body.idempotency_key,calls[1].body.idempotency_key);assert.equal(sent,2);h.unmount()
+})
+
+test('challenge saves reference comparison and reloads persisted answer without changing learning',async()=>{
+ const question={id:'question-001',prompt:'Explain graph nodes and edges',reference_answer:null,key_points:[],sources:[],limits:'not mastery'}
+ let saved=null
+ const handler=r=>r.path.endsWith('/challenge/attempts')?{items:saved?[saved]:[]}:r.method==='POST'?(saved={id:'attempt',answer:r.body.answer,self_assessment:null,created_at:new Date().toISOString(),feedback:{reference:question,message:'compare',lexical_cues:[]}}):r.path.endsWith('/challenge')?{status:'ready',message:'voluntary',challenge:question}:undefined
+ const h=mount('components/CognitiveChallenge.vue',handler,{}, {topicId:'A'});await tick()
+ h.s.open=true;h.s.answer='My explanation of nodes and edges';await tick();await h.s.submit()
+ assert.equal(h.s.attempt.answer,'My explanation of nodes and edges');assert.equal(h.calls.filter(r=>r.path.includes('/feedback')).length,0);h.unmount()
+ const reopened=mount('components/CognitiveChallenge.vue',handler,{}, {topicId:'A'});await tick();assert.equal(reopened.s.attempt.answer,saved.answer);reopened.unmount()
+})
+
+test('late challenge material after unmount does not recreate visible state',async()=>{
+ const pending=deferred();const h=mount('components/CognitiveChallenge.vue',r=>r.path.endsWith('/challenge/attempts')?{items:[]}:pending.promise,{}, {topicId:'A'})
+ h.unmount();pending.resolve({status:'ready',challenge:{id:'old-question'}});await tick();assert.equal(h.s.challenge,null)
+})
+
+test('challenge retry preserves the written answer when evidence changed',async()=>{
+ const handler=r=>r.path.endsWith('/challenge/attempts')?{items:[]}:r.method==='POST'?Promise.reject(new Error('source changed')):{challenge:{id:'new-question',prompt:'new prompt'}}
+ const h=mount('components/CognitiveChallenge.vue',handler,{}, {topicId:'A'});await tick();h.s.answer='Keep this draft';await tick();await h.s.submit();await h.s.load();assert.equal(h.s.answer,'Keep this draft');h.unmount()
+})

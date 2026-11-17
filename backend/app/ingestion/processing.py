@@ -6,7 +6,7 @@ from sqlalchemy import select
 
 from app.models import IngestionJob, Topic, now
 from app.services.content import process_topic
-from app.ai.service import AIService, EvidenceRef, evidence_bundle, SYSTEM
+from app.ai.service import AIService, EvidenceRef, evidence_bundle, SYSTEM, reservation_tokens
 from app.ai.provider import ProviderError
 
 
@@ -20,7 +20,7 @@ class Intro(BaseModel):
     evidence_refs:list[EvidenceRef]=Field(min_length=1,max_length=12)
 
 
-async def process_batch(factory,settings,*,limit=100,data_kind=None,resume=None,publish=True,force=False,enrich_ai=False,max_ai_calls=0,max_reserved_tokens=0,provider=None):
+async def process_batch(factory,settings,*,limit=100,data_kind=None,after_id=None,resume=None,publish=True,force=False,enrich_ai=False,max_ai_calls=0,max_reserved_tokens=0,provider=None):
     if not 1<=limit<=300 or not 0<=max_ai_calls<=20 or not 0<=max_reserved_tokens<=100000:
         raise ValueError('批次上限 1..300；AI 调用上限 0..20；Token 预留上限 100000。')
     if enrich_ai and (not settings.llm_api_key or not max_ai_calls or not max_reserved_tokens or provider is None):
@@ -37,8 +37,9 @@ async def process_batch(factory,settings,*,limit=100,data_kind=None,resume=None,
         else:
             query=select(Topic.id).order_by(Topic.id)
             if data_kind: query=query.where(Topic.data_kind==data_kind)
+            if after_id: query=query.where(Topic.id>after_id)
             ids=list(db.scalars(query.limit(limit)))
-            job=IngestionJob(source='content_pipeline',params={'ids':ids,'publish':publish,'force':force,'enrich_ai':enrich_ai},checkpoint={'done':[],'results':{},'ai_calls':0,'reserved_tokens':0})
+            job=IngestionJob(source='content_pipeline',params={'ids':ids,'publish':publish,'force':force,'enrich_ai':enrich_ai},checkpoint={'done':[],'results':{},'ai_calls':0,'reserved_tokens':0,'last_topic_id':ids[-1] if ids else after_id})
             db.add(job);db.flush()
         job.status='running';job.updated_at=now();job_id=job.id;params=job.params;checkpoint=dict(job.checkpoint)
         db.commit()
@@ -58,7 +59,7 @@ async def process_batch(factory,settings,*,limit=100,data_kind=None,resume=None,
                 shape={k:'中文，资料不足留空且不补造' for k in ('one_sentence','explanation','entry_example','core_question','value')}
                 shape['evidence_refs']=[{'source_id':sources[0]['id'],'quote':'逐字引用原文至少8字符'}]
                 context=json.dumps({'topic_id':tid,'evidence':evidence,'required_json_shape':shape},ensure_ascii=False)
-                reservation=(len(context.encode('utf-8'))+settings.llm_max_output_tokens+1000)*(settings.llm_retries+1)
+                reservation=reservation_tokens(settings,context)
                 if checkpoint['reserved_tokens']+reservation>max_reserved_tokens: raise ProviderError('PIPELINE_TOKEN_LIMIT','此批次 Token 预留上限不足，可恢复。')
                 # Count before sending; crashes cannot reset local spending limits.
                 usage_id=service.reserve(None,context)

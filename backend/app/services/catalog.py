@@ -76,16 +76,42 @@ def source_json(s):
     return {k:getattr(s,k) for k in ('id','platform','external_id','url','title','language','license','fetched_at','updated_at','version','content_hash','excerpt')}
 
 
-def state_json(db, profile_id, topic_id):
-    st=db.get(TopicState,(profile_id,topic_id))
-    return {'bookmarked':db.get(Bookmark,(profile_id,topic_id)) is not None,'familiarity':st.familiarity if st else 'unknown','learning':st.learning if st else 'none','explored':bool(st and st.first_explored_at),'skipped_until':st.skipped_until if st else None,'revisit_at':st.revisit_at if st else None,'worthwhile':st.worthwhile if st else None}
+def _state_json(st,bookmarked):
+    return {'bookmarked':bookmarked,'familiarity':st.familiarity if st else 'unknown','learning':st.learning if st else 'none','explored':bool(st and st.first_explored_at),'skipped_until':st.skipped_until if st else None,'revisit_at':st.revisit_at if st else None,'worthwhile':st.worthwhile if st else None}
+
+
+def state_json(db,profile_id,topic_id):
+    return _state_json(db.get(TopicState,(profile_id,topic_id)),db.get(Bookmark,(profile_id,topic_id)) is not None)
+
+
+def topics_json(db,topics,profile_id):
+    topics=list(topics)
+    if not topics: return []
+    ids=[t.id for t in topics]
+    disciplines={d.id:d for d in db.scalars(select(Discipline))}
+    sources={tid:[] for tid in ids};related={tid:[] for tid in ids}
+    for source in db.scalars(select(TopicSource).where(TopicSource.topic_id.in_(ids)).order_by(TopicSource.id)):
+        sources[source.topic_id].append(source_json(source))
+    for rel in db.scalars(select(TopicDiscipline).where(TopicDiscipline.topic_id.in_(ids)).order_by(TopicDiscipline.discipline_id)):
+        related[rel.topic_id].append(rel.discipline_id)
+    states={st.topic_id:st for st in db.scalars(select(TopicState).where(TopicState.profile_id==profile_id,TopicState.topic_id.in_(ids)))}
+    bookmarks=set(db.scalars(select(Bookmark.topic_id).where(Bookmark.profile_id==profile_id,Bookmark.topic_id.in_(ids))))
+    output=[]
+    for t in topics:
+        fields={k:getattr(t,k) for k in ('id','title','original_title','summary','original_summary','language','subfield','question','value','quality_score','quality_features','data_kind','content_status','content_intro','content_checks','processed_at')}
+        if t.content_status=='PUBLISHED':
+            fields['summary']=t.content_intro.get('explanation') or fields['summary']
+            fields['question']=t.content_intro.get('core_question') or fields['question']
+            fields['value']=t.content_intro.get('value') or fields['value']
+            if t.content_intro.get('origin')=='ai_assisted':
+                fields['quality_features']={**t.quality_features,'summary_label':'中文入门加工（AI 辅助；片段已定位，陈述支持性未核验）'}
+        fields.update(primary_discipline=discipline_json(disciplines[t.primary_discipline_id]),related_disciplines=[discipline_json(disciplines[did]) for did in related[t.id] if did!=t.primary_discipline_id],sources=sources[t.id],state=_state_json(states.get(t.id),t.id in bookmarks),reading_minutes=max(1,math.ceil(len(fields['summary'])/350)))
+        output.append(fields)
+    return output
 
 
 def topic_json(db,t,profile_id):
-    d=db.get(Discipline,t.primary_discipline_id)
-    fields={k:getattr(t,k) for k in ('id','title','original_title','summary','original_summary','language','subfield','question','value','quality_score','quality_features','data_kind','content_status','content_intro','content_checks','processed_at')}
-    fields.update(primary_discipline=discipline_json(d),related_disciplines=[discipline_json(db.get(Discipline,x.discipline_id)) for x in db.scalars(select(TopicDiscipline).where(TopicDiscipline.topic_id==t.id,TopicDiscipline.discipline_id!=t.primary_discipline_id))],sources=[source_json(s) for s in db.scalars(select(TopicSource).where(TopicSource.topic_id==t.id))],state=state_json(db,profile_id,t.id),reading_minutes=max(1,math.ceil(len(t.summary)/350)))
-    return fields
+    return topics_json(db,[t],profile_id)[0]
 
 
 def discipline_json(d):

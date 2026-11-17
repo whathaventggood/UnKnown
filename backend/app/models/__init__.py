@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 from uuid import uuid4
-from sqlalchemy import String, Text, ForeignKey, UniqueConstraint, Index, JSON
+from sqlalchemy import String, Text, ForeignKey, UniqueConstraint, Index, JSON, LargeBinary
 from sqlalchemy.orm import Mapped, mapped_column
 from app.core.database import Base
 
@@ -113,6 +113,8 @@ class TopicState(Base):
     revisit_at: Mapped[str | None]
     worthwhile: Mapped[bool | None]
 
+    __table_args__=(Index('ix_states_profile_learning','profile_id','learning'),Index('ix_user_topic_states_revisit_at','profile_id','revisit_at'))
+
 class TopicEvent(Base):
     __tablename__ = 'user_topic_events'
     id: Mapped[str] = mapped_column(String, primary_key=True, default=uid)
@@ -163,6 +165,8 @@ class Impression(Base):
     profile_id: Mapped[str] = mapped_column(ForeignKey('anonymous_profiles.id', ondelete='CASCADE'), index=True)
     created_at: Mapped[str] = mapped_column(default=now, index=True)
 
+    __table_args__=(Index('ix_exposure_profile_time','profile_id','created_at'),)
+
 class AIExplanation(Base):
     __tablename__ = 'ai_explanations'
     cache_key: Mapped[str] = mapped_column(String, primary_key=True)
@@ -195,6 +199,7 @@ class ChatMessage(Base):
     role: Mapped[str]
     content: Mapped[str] = mapped_column(Text)
     source_ids: Mapped[list] = mapped_column(JSON, default=list)
+    evidence_refs: Mapped[list] = mapped_column(JSON, default=list)
     created_at: Mapped[str] = mapped_column(default=now)
 
 class IngestionJob(Base):
@@ -236,4 +241,14 @@ class ChallengeAttempt(Base):
     self_assessment: Mapped[str | None]
     idempotency_key: Mapped[str]
     created_at: Mapped[str] = mapped_column(default=now)
-    __table_args__=(UniqueConstraint('profile_id','idempotency_key'),)
+    __table_args__=(UniqueConstraint('profile_id','idempotency_key'),Index('ix_challenge_profile_topic_time','profile_id','topic_id','created_at'))
+
+
+class CatalogSnapshot(Base):
+    __tablename__='recommendation_catalog_snapshots'
+    id: Mapped[str] = mapped_column(String,primary_key=True)
+    codec: Mapped[str] = mapped_column(default='zlib-json-v1')
+    payload: Mapped[bytes] = mapped_column(LargeBinary)
+    topic_count: Mapped[int]
+    raw_bytes: Mapped[int]
+    created_at: Mapped[str] = mapped_column(default=now)

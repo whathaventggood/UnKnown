@@ -54,6 +54,7 @@ def _settings(config: dict | None) -> dict:
         if unknown:
             raise ValueError(f"unknown configuration keys: {sorted(unknown)}")
         result.update(copy.deepcopy(config))
+    if not isinstance(result['semantic_similarity'],bool): raise ValueError('semantic_similarity must be boolean')
     for key in ("weights", "broad_weights"):
         weights = result[key]
         if set(weights) != set(FEATURES):
@@ -90,7 +91,7 @@ def _is_new(candidate: dict, history: dict) -> bool:
     discipline_new = candidate["primary_discipline_id"] not in _sets(history, "explored_disciplines")
     subfield = candidate.get("subfield")
     subfield_new = bool(subfield and subfield not in _sets(history, "explored_subfields"))
-    return candidate["id"] not in _sets(history, "explored_ids") and (discipline_new or subfield_new)
+    return candidate["id"] not in (_sets(history, "explored_ids")|_sets(history,'known_ids')) and (discipline_new or subfield_new)
 
 
 def novelty(candidate: dict, history: dict, config: dict | None = None) -> float:
@@ -497,14 +498,14 @@ def recommend(candidates: list[dict], history: dict, mode: str = "unknown", coun
     }
 
 
-def surprise(candidates,history,*,strength='cross',history_free=False,seed=0):
+def surprise(candidates,history,*,strength='cross',history_free=False,seed=0,config=None):
     if strength not in ('gentle','cross','far'): raise ValueError('invalid exploration strength')
     weights={'gentle':{'novelty':.15,'quality':.35,'diversity':.10,'learnability':.40},
              'cross':{'novelty':.40,'quality':.25,'diversity':.10,'learnability':.25},
              'far':{'novelty':.60,'quality':.20,'diversity':.10,'learnability':.10}}
     effective={} if history_free else copy.deepcopy(history)
     effective['intensity']={'gentle':.15,'cross':.65,'far':1.0}[strength]
-    result=recommend(candidates,effective,mode='unknown',count=1,seed=seed,config={'weights':weights[strength],'minimum_disciplines':1,'minimum_new':0})
+    result=recommend(candidates,effective,mode='unknown',count=1,seed=seed,config={'weights':weights[strength],'minimum_disciplines':1,'minimum_new':0,**(config or {})})
     if history_free:
         result['history_snapshot']={}
         result['constraints']['reason_codes'].append('HISTORY_FREE_SURPRISE')

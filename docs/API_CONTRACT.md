@@ -24,3 +24,23 @@ POST /ai/explain {topic_id,depth:'beginner'|'intermediate'|'deep',language:'zh'}
 - `GET /map?root=topic:ID` prioritizes the requested topic within the node budget. A missing/out-of-scope root returns an empty graph. The frontend explicitly announces fallback and requests the current map scope without root. Root is not a visit event.
 - The frontend stores only exploration mode in sessionStorage. Scroll position and unresolved refresh keys stay in memory. Refresh retries reuse the same per-mode operation key until success; a new active refresh gets a new key. A full page reload discards unresolved keys and reads the latest server batch.
 - Impressions include the card's original batch ID and retry at most once per observed payload. AI/detail requests use navigation and explanation generations to ignore outdated responses. Ignoring responses does not cancel backend work or provider billing.
+
+
+## 本轮增量接口与安全约束
+
+所有私有 API 需要匿名 Cookie 与 `X-Unknown-Request: 1`（首次请求可建立 Cookie）；POST/PATCH 仅 JSON。GET health/disciplines 是公开只读例外。缺少 Origin 仍需非简单头，恶意 Origin/Referer、无可信来源的 cross-site 请求返回 403；代理设置 PUBLIC_ORIGIN，CORS 仅明确来源。
+
+| 接口 | 行为 |
+| --- | --- |
+| POST /discover/surprise | strength=gentle/cross/far，history_free，idempotency_key；一条合格主题或明确空结果 |
+| GET /topics/{id}/paths | 最多 4 跳、3 个有据路径，包含方向/类型/来源/检索上限 |
+| POST /paths | topic_ids、relation_ids、幂等键；检查连续、方向、来源和无环 |
+| GET /paths、GET /paths/{id} | 当前档案分页路径和来源变化/失效标记 |
+| PATCH /paths/{id}、DELETE /paths/{id} | 保存当前位置或删除保存 |
+| GET /topics/{id}/challenge | 默认隐藏参考；reveal=true 明确读取现有参考 |
+| POST /topics/{id}/challenge | challenge_id、自由回答、幂等键；保存参考对照，无自动正确率 |
+| GET /topics/{id}/challenge/attempts | 当前档案最近作答，刷新保留 |
+| PATCH /challenge-attempts/{id} | 主动 self_assessment=not_yet/partial/got_it |
+| GET /revisits | 当前档案自愿回访；due_only=true 查询到期入口 |
+
+反馈新增 name_only/concept_only/connections_unknown/forgotten/revisit/cancel_revisit/worthwhile/not_worthwhile；不改变已有 known/unfamiliar/learning/understood/skip/unskip 的含义。State 增加 revisit_at、worthwhile；Topic 增加内容状态/入口/检查报告；Stats 增加 7/30/90 天覆盖与明确反馈指标。无真实反馈分母返回 null。来源变化使挑战版本不匹配时返回 409，客户端保留作答草稿。访问、作答、自评和理解状态分开。

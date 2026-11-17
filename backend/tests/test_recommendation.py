@@ -220,7 +220,7 @@ def test_evaluation_uses_equal_fixed_prefixes_and_never_fabricates_feedback():
     specification = importlib.util.spec_from_file_location("offline_evaluate", Path(__file__).resolve().parents[2] / "scripts" / "evaluate.py")
     module = importlib.util.module_from_spec(specification)
     specification.loader.exec_module(module)
-    payload = {"topics": library(50)}
+    payload = {"topics": library(50), "data_kind":"synthetic_test"}
     report = module.evaluate(payload)
     assert report == module.evaluate(payload)
     assert report["kind"] == "synthetic_history_algorithm_behaviour_only"

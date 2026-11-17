@@ -120,6 +120,7 @@ class TopicOut(BaseModel):
     state: StateOut
     reading_minutes: int
     relations: list[dict] = []
+    relations_truncated: bool = False
 class ProfileOut(BaseModel):
     id: str
     timezone: str
@@ -169,6 +170,7 @@ class FeaturesOut(BaseModel):
     diversity: float = Field(ge=0,le=1)
     learnability: float = Field(ge=0,le=1)
 class RecommendationItemOut(BaseModel):
+    feature_evidence: dict = {}
     topic: TopicOut
     reason: str
     features: FeaturesOut
@@ -210,6 +212,7 @@ class StatsOut(BaseModel):
     coverage_windows: dict = {}
     feedback_metrics: dict = {}
 class MapNodeOut(BaseModel):
+    content_status: str | None = None
     id: str
     name: str
     type: Literal['discipline','subfield','topic']

@@ -1,10 +1,11 @@
 [build]
   base = "frontend"
-  command = "npm run build"
+  command = "node ../scripts/netlify-proxy.mjs && npm run build"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "22.12.0"
 
-# Set VITE_API_BASE_URL in Netlify's environment variables to the deployed
-# FastAPI origin plus /api, for example https://unknown-api.onrender.com/api.
+# Recommended: API_PROXY_ORIGIN=https://your-api.example.org, leave
+# VITE_API_BASE_URL unset. /api is proxied before the SPA fallback so the
+# session cookie is first-party. PUBLIC_ORIGIN on the API is the frontend origin.

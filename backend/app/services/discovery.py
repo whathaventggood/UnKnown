@@ -4,7 +4,8 @@ from zoneinfo import ZoneInfo
 from sqlalchemy import select, func, case
 from collections import Counter,defaultdict,deque
 from app.models import *
-from app.services.catalog import topic_json, source_json
+from app.services.catalog import topic_json, topics_json, source_json
+from app.services.snapshots import pack_snapshot
 from app.recommendation import recommend
 from app.recommendation.engine import surprise
 from app.services.paths import reliable
@@ -79,15 +80,15 @@ def candidate_snapshot(db):
     sources=defaultdict(list)
     ids=select(query.subquery().c.id)
     for source in db.scalars(select(TopicSource).where(TopicSource.topic_id.in_(ids)).order_by(TopicSource.id)):
-        sources[source.topic_id].append(source_json(source))
-    return [{k:getattr(t,k) for k in ('id','title','original_title','primary_discipline_id','subfield','summary','quality_score','quality_features','content_status','semantic_features')}|{'sources':sources[t.id]} for t in topics]
+        sources[source.topic_id].append({k:getattr(source,k) for k in ('id','platform','external_id','url','license','content_hash','version')})
+    return [{k:getattr(t,k) for k in ('id','title','original_title','primary_discipline_id','subfield','summary','quality_score','quality_features','content_status','semantic_features')}|{'summary':(t.content_intro.get('explanation') or t.summary) if t.content_status=='PUBLISHED' else t.summary,'sources':sources[t.id]} for t in topics]
 
 
 def latest_batch(db,p,date,mode):
     return db.scalar(select(DailyRecommendation).where(DailyRecommendation.profile_id==p.id,DailyRecommendation.date==date,DailyRecommendation.mode==mode).order_by(DailyRecommendation.batch_number.desc()).limit(1))
 
 
-def create_batch(db,p,mode,key=None,*,surprise_spec=None):
+def create_batch(db,p,mode,key=None,*,surprise_spec=None,config=None):
     # Serialize creation across local processes before reading current batch.
     raw=db.connection().connection.driver_connection
     if hasattr(raw,'in_transaction') and not raw.in_transaction:
@@ -108,8 +109,8 @@ def create_batch(db,p,mode,key=None,*,surprise_spec=None):
     seed=int(hashlib.sha256(f'{p.id}|{today}|{mode}|{number}'.encode()).hexdigest()[:8],16)
     candidates=candidate_snapshot(db)
     history={} if surprise_spec and surprise_spec['history_free'] else {'broad_use_history':False} if mode=='broad' and not p.broad_use_history else history_snapshot(db,p)
-    result=surprise(candidates,history,seed=seed,**surprise_spec) if surprise_spec else recommend(candidates,history,mode=mode,count=5,seed=seed)
-    batch=DailyRecommendation(profile_id=p.id,date=today,mode=mode,batch_number=number,parent_id=latest.id if latest else None,idempotency_key=key or f'initial:{today}:{mode}',strategy_version=result['strategy_version'],seed=seed,constraints_json=result['constraints'],snapshot={'candidates':candidates,'history':history,'result':result},settings_snapshot=settings_snapshot(p))
+    result=surprise(candidates,history,seed=seed,config=config,**surprise_spec) if surprise_spec else recommend(candidates,history,mode=mode,count=5,seed=seed,config=config)
+    batch=DailyRecommendation(profile_id=p.id,date=today,mode=mode,batch_number=number,parent_id=latest.id if latest else None,idempotency_key=key or f'initial:{today}:{mode}',strategy_version=result['strategy_version'],seed=seed,constraints_json=result['constraints'],snapshot=pack_snapshot(db,candidates,history,result),settings_snapshot=settings_snapshot(p))
     db.add(batch); db.flush()
     for position,item in enumerate(result['items']):
         db.add(RecommendationItem(batch_id=batch.id,topic_id=item['topic_id'],position=position,reason=item['reason'],features=item['features'],score=item['score'],bridge_path=item.get('bridge_path',[])))
@@ -117,16 +118,29 @@ def create_batch(db,p,mode,key=None,*,surprise_spec=None):
     return batch
 
 
-def named_path(db,path):
+def named_path(db,path,titles=None):
     result=[]
     for hop in path:
         item=dict(hop)
         for endpoint in ('from','to'):
-            topic=db.get(Topic,hop[endpoint+'_id'])
-            item[endpoint+'_title']=topic.title if topic else '主题暂不可用'
+            tid=hop[endpoint+'_id']
+            if titles is not None: item[endpoint+'_title']=titles.get(tid,'主题暂不可用')
+            else:
+                topic=db.get(Topic,tid)
+                item[endpoint+'_title']=topic.title if topic else '主题暂不可用'
         result.append(item)
     return result
 
 
 def batch_json(db,b,p):
-    return {'id':b.id,'date':b.date,'mode':b.mode,'batch_number':b.batch_number,'parent_id':b.parent_id,'strategy_version':b.strategy_version,'seed':b.seed,'constraints':b.constraints_json,'settings_changed':b.settings_snapshot!=settings_snapshot(p),'items':[{'topic':topic_json(db,db.get(Topic,i.topic_id),p.id),'reason':i.reason,'features':i.features,'score':i.score,'bridge_path':named_path(db,i.bridge_path)} for i in db.scalars(select(RecommendationItem).where(RecommendationItem.batch_id==b.id).order_by(RecommendationItem.position))]}
+    items=list(db.scalars(select(RecommendationItem).where(RecommendationItem.batch_id==b.id).order_by(RecommendationItem.position)))
+    topics=list(db.scalars(select(Topic).where(Topic.id.in_([i.topic_id for i in items]))))
+    serialized={t['id']:t for t in topics_json(db,topics,p.id)}
+    endpoints={hop[e+'_id'] for i in items for hop in i.bridge_path for e in ('from','to')}
+    titles=dict(db.execute(select(Topic.id,Topic.title).where(Topic.id.in_(endpoints))).all()) if endpoints else {}
+    evidence={i['topic_id']:i.get('feature_evidence',{}) for i in b.snapshot.get('result',{}).get('items',[])}
+    rendered=[{'topic':serialized[i.topic_id],'reason':i.reason,'features':i.features,'score':i.score,'bridge_path':named_path(db,i.bridge_path,titles),'feature_evidence':evidence.get(i.topic_id,{})} for i in items if i.topic_id in serialized and serialized[i.topic_id]['content_status']=='PUBLISHED']
+    constraints=dict(b.constraints_json)
+    if len(rendered)<len(items):
+        constraints={**constraints,'reason_codes':[*constraints.get('reason_codes',[]),'CONTENT_CHANGED_SINCE_BATCH'],'message':'部分材料在本批次生成后已不满足准入条件。原快照保留，当前展示已停止；可主动换组。','current_available':len(rendered)}
+    return {'id':b.id,'date':b.date,'mode':b.mode,'batch_number':b.batch_number,'parent_id':b.parent_id,'strategy_version':b.strategy_version,'seed':b.seed,'constraints':constraints,'settings_changed':b.settings_snapshot!=settings_snapshot(p),'items':rendered}

@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     public_origin: str | None = None
     cors_origins: list[str] = ['http://127.0.0.1:5173', 'http://localhost:5173', 'http://127.0.0.1:5183']
     default_timezone: str = 'Asia/Shanghai'
+    semantic_similarity: bool = True
     llm_api_key: str = ''
     llm_base_url: str = 'https://api.deepseek.com'
     llm_model: str = 'deepseek-flash'

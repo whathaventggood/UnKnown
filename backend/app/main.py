@@ -66,7 +66,9 @@ def create_app(settings=None,initialize=True,provider=None):
                 return error_response(request,403,'ORIGIN_REJECTED','请求来源不在允许范围内。')
             referer=request.headers.get('referer')
             if not origin and referer:
-                parsed=urlsplit(referer)
+                try: parsed=urlsplit(referer)
+                except ValueError:
+                    return error_response(request,403,'ORIGIN_REJECTED','请求来源格式不正确。')
                 if f'{parsed.scheme}://{parsed.netloc}' not in allowed:
                     return error_response(request,403,'ORIGIN_REJECTED','请求来源不在允许范围内。')
             if request.headers.get('sec-fetch-site')=='cross-site' and origin not in allowed:

@@ -89,6 +89,9 @@ def process_topic(db,topic,*,publish=True,force=False,intro=None):
     sources=list(db.scalars(select(TopicSource).where(TopicSource.topic_id==topic.id).order_by(TopicSource.id)))
     fingerprint=source_fingerprint(topic,sources)
     if not force and intro is None and topic.content_fingerprint==fingerprint and not topic.processing_error:
+        if publish and topic.content_status=='REVIEWED' and not topic.content_checks.get('issues'):
+            topic.content_status='PUBLISHED'
+            return {'topic_id':topic.id,'status':'PUBLISHED','skipped':False,'issues':[]}
         return {'topic_id':topic.id,'status':topic.content_status,'skipped':True,'issues':topic.content_checks.get('issues',[])}
     topic.processing_attempts=(topic.processing_attempts or 0)+1
     # Never silently reuse generated material following a source change.

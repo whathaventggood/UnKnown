@@ -183,7 +183,8 @@ def test_reproducible_snapshot(client,app):
     b=client.get('/api/discover/today').json()
     with app.state.Session() as db:
         stored=db.get(DailyRecommendation,b['id'])
-        snapshot=stored.snapshot
+        from app.services.snapshots import load_snapshot
+        snapshot=load_snapshot(db,stored)
         replay=recommend(snapshot['candidates'],snapshot['history'],mode=stored.mode,seed=stored.seed)
         assert [i['topic_id'] for i in replay['items']]==[i['topic']['id'] for i in b['items']]
 

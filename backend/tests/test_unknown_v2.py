@@ -21,6 +21,8 @@ def test_bilingual_semantics_distinguishes_related_and_near_duplicate():
 def test_name_application_connection_and_forgotten_are_distinct():
     h={'name_only_ids':['x'],'concept_only_ids':['y'],'connection_gap_ids':['z'],'forgotten_ids':['w'],'explored_ids':['v']}
     assert [novelty_basis(i,h) for i in ('x','y','z','w','v','other')]==['name_only','application_gap','connection_gap','self_forgotten','encountered_not_proven_understood','no_record_of_contact']
+    candidates=library();result=recommend(candidates,{'known_ids':[c['id'] for c in candidates]})
+    assert result['constraints']['achieved']['new_opportunities']==0
 
 
 def test_long_term_coverage_changes_rank_without_excluding_familiar_disciplines():

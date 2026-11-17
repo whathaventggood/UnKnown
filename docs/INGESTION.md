@@ -65,3 +65,22 @@ backend/.venv/bin/python scripts/initialize_online.py --resume <任务ID>
 OpenAlex topic 名称和描述为上游机器生成的研究簇标签，保留英文原文并显式说明。它们的来源、ID和元数据可核验，但不应据此声称每个描述都经专家审稿或能替代论文。论文全文没有下载。
 
 本次还验证了正式命令：快照首次导入新增300、第二次新增0；与60种子共存得到360主题/360来源；初始化命令重放HTTP缓存得到300去重条目，完成任务恢复不重复请求或新增记录，任务表保留3条实际执行记录。该检查使用隔离临时数据库，未更改默认产品数据库。
+
+
+## 本轮内容加工与发布（0003～0006）
+
+导入后的本地检查不调用模型。每主题持久化 `content_status`、`content_intro`、`content_fingerprint`、`content_checks`、`processing_error`、处理次数和时间；来源变化会失效重做。RAW/EXTRACTED/ENRICHED/REVIEWED/PUBLISHED 是处理阶段，其中 REVIEWED 仅指本地规则，不是专家核验。
+
+```bash
+backend/.venv/bin/python scripts/process_content.py --kind online --limit 300
+backend/.venv/bin/python scripts/process_content.py --limit 100 --after-id 上批输出的last_topic_id
+backend/.venv/bin/python scripts/process_content.py --status 内容任务ID
+backend/.venv/bin/python scripts/process_content.py --resume 内容任务ID
+backend/.venv/bin/python scripts/process_content.py --limit 5 --enrich-ai --max-ai-calls 2 --max-reserved-tokens 25000
+```
+
+批次最多 300；AI 最多 20 个生成任务，Token 保守预留上限 100000。`--enrich-ai` 需要服务器 Key 和显式预算；`llm_retries` 仍计入保守预留。任务恢复沿用已消耗的累计次数/Token，不归零；失败记录安全代码，错误/断点写入 ingestion_jobs。CLI 锁防止同时运行多个内容任务。
+
+本轮实际在隔离库导入已有 300 条 OpenAlex 归档并逐条检查，全部 EXTRACTED、AI 调用 0，缺少中文入口/问题/价值且仅有上游研究簇元数据。60 条整理种子通过自动准入。没有重新采集 Wikipedia/Wikidata，没有付费翻译或生成，也没有将测试夹具写入正式知识库。
+
+仅有研究簇元数据时，翻译后最多 ENRICHED，仍不发布；需要补充独立入门材料。模型生成引用必须定位到实际片段，不能创建来源 URL/ID。来源更新不覆盖用户收藏、学习状态、自测与路径；更新来源导致旧材料失效时停止新推荐。

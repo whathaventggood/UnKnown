@@ -449,6 +449,8 @@ async def test_invalid_provider_envelope_is_a_scoped_ai_error(envelope):
 
 
 def test_budget_keeps_unknown_work_from_prior_retry_even_final_usage_is_known(ai):
+    from app.ai.service import reservation_tokens
+    assert reservation_tokens(ai.settings,'中文')>len(SYSTEM.encode('utf-8'))+len('中文'.encode('utf-8'))+ai.settings.llm_max_output_tokens
     # A successful response does not reveal the cost of an earlier timeout.
     ai.settings.llm_user_daily_tokens=3500
     ai.settings.llm_global_daily_tokens=3500
@@ -458,3 +460,25 @@ def test_budget_keeps_unknown_work_from_prior_retry_even_final_usage_is_known(ai
     with pytest.raises(ProviderError) as error:
         ai.service.reserve(ai.alice,'tiny')
     assert error.value.code=='AI_BUDGET'
+
+
+@pytest.mark.asyncio
+async def test_metadata_only_and_tiny_excerpts_do_not_trigger_paid_generation(ai):
+    with ai.factory() as db:
+        s=db.get(TopicSource,'s0');s.platform='openalex';s.external_id='T10482';db.commit()
+    with pytest.raises(ProviderError) as error:
+        await ai.service.explain(ai.alice,'t0','deep','zh')
+    assert error.value.code=='AI_NO_EVIDENCE' and ai.provider.calls==[]
+    with ai.factory() as db:
+        s=db.get(TopicSource,'s0');s.platform='wikipedia';s.excerpt='tiny';db.commit()
+    with pytest.raises(ProviderError): await ai.service.chat(ai.alice,'t0','请继续解释','beginner')
+    assert ai.provider.calls==[]
+
+
+@pytest.mark.asyncio
+async def test_chat_retains_quote_locations_after_reload(ai):
+    result=await ai.service.chat(ai.alice,'t0','解释当前材料','beginner')
+    with ai.factory() as db:
+        assistant=db.scalar(select(ChatMessage).where(ChatMessage.profile_id==ai.alice,ChatMessage.role=='assistant'))
+        assert assistant.evidence_refs==result['evidence_refs']
+        assert assistant.evidence_refs[0]['quote']=='Synthetic evidence for testing.'

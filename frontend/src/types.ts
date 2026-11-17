@@ -15,4 +15,4 @@ export interface MapNode {id:string;name:string;type:'discipline'|'subfield'|'to
 export interface MapEdge extends Omit<Relation,'source_id'|'target_id'|'source_title'|'target_title'> {source:string;target:string}
 export interface MapData {nodes:MapNode[];edges:MapEdge[];truncated:boolean;limits:{nodes:number;edges:number;depth:number}}
 export interface Explain {status:string;message:string;cached:boolean;content:null|{overview:string;principle:string;example:string;analogy:{text:string;limits:string}|null;background:string;applications:string[];misconceptions:string[];open_questions:string[];questions:string[];claims:{text:string;kind:string;source_ids:string[];support_status?:string;evidence_refs?:{source_id:string;quote:string;evidence_type:string}[]}[]};sources:Source[];usage:{input_tokens:number|null;output_tokens:number|null}|null}
-export interface ChatItem {role:string;content:string;created_at?:string;source_ids?:string[]}
+export interface ChatItem {role:string;content:string;created_at?:string;source_ids?:string[];evidence_refs?:{source_id:string;quote:string;evidence_type:string}[]}

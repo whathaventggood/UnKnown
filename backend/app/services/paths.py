@@ -73,10 +73,14 @@ def paths_from(db,root,*,max_hops=4,limit=3,node_limit=1000,edge_limit=4000):
     return {'items':selected,'limited':truncated,'message':message,'search':{'expanded_nodes':expanded,'loaded_edges':len(rows),'node_limit':node_limit,'edge_limit':edge_limit}}
 
 
-def validate_path(db,topic_ids,relation_ids):
+def validate_path(db,topic_ids,relation_ids,catalog=None):
     if len(topic_ids)!=len(relation_ids)+1 or len(set(topic_ids))!=len(topic_ids): raise ValueError('路径不连续或包含重复节点。')
-    topics={t.id:t for t in db.scalars(select(Topic).where(Topic.id.in_(topic_ids),Topic.content_status=='PUBLISHED'))}
-    relations={r.id:r for r in db.scalars(select(TopicRelation).where(TopicRelation.id.in_(relation_ids)))}
+    if catalog is None:
+        topics={t.id:t for t in db.scalars(select(Topic).where(Topic.id.in_(topic_ids),Topic.content_status=='PUBLISHED'))}
+        relations={r.id:r for r in db.scalars(select(TopicRelation).where(TopicRelation.id.in_(relation_ids)))}
+    else:
+        topics={tid:catalog[0][tid] for tid in topic_ids if tid in catalog[0] and catalog[0][tid].content_status=='PUBLISHED'}
+        relations=catalog[1]
     if len(topics)!=len(topic_ids): raise ValueError('路径主题不存在或材料尚未准入。')
     hops=[]
     for a,b,rid in zip(topic_ids,topic_ids[1:],relation_ids):
@@ -87,12 +91,21 @@ def validate_path(db,topic_ids,relation_ids):
     return hops
 
 
-def saved_json(db,path):
+def saved_json(db,path,catalog=None):
     fields={k:getattr(path,k) for k in ('id','title','topic_ids','relation_ids','position','created_at')}
     try:
-        current=validate_path(db,path.topic_ids,path.relation_ids)
+        current=validate_path(db,path.topic_ids,path.relation_ids,catalog)
         changed=[h['fingerprint'] for h in current]!=[h['fingerprint'] for h in path.evidence_snapshot]
         fields.update(hops=current,available=True,evidence_changed=changed)
     except ValueError:
         fields.update(hops=path.evidence_snapshot,available=False,evidence_changed=True)
     return fields
+
+
+def saved_paths_json(db,paths):
+    paths=list(paths)
+    if not paths: return []
+    tids={tid for path in paths for tid in path.topic_ids};rids={rid for path in paths for rid in path.relation_ids}
+    topics={t.id:t for t in db.scalars(select(Topic).where(Topic.id.in_(tids)))}
+    relations={r.id:r for r in db.scalars(select(TopicRelation).where(TopicRelation.id.in_(rids)))}
+    return [saved_json(db,path,(topics,relations)) for path in paths]

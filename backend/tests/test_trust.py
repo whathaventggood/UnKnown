@@ -57,6 +57,12 @@ def test_valid_source_id_cannot_carry_quote_from_unrelated_source(real_passages)
         validate_output(raw,{p['source_id'] for p in real_passages},evidence=real_passages)
 
 
+def test_blank_quote_cannot_pass_via_empty_substring(real_passages):
+    raw=located_output(real_passages[1]);raw['claims'][0]['evidence_refs'][0]['quote']=' '*20
+    with pytest.raises(ProviderError):
+        validate_output(raw,{p['source_id'] for p in real_passages},evidence=real_passages)
+
+
 def test_irrelevant_fact_even_with_located_quote_is_not_marked_verified(real_passages):
     raw=located_output(real_passages[1],text='月球由奶酪构成。')
     result=validate_output(raw,{p['source_id'] for p in real_passages},evidence=real_passages)
@@ -95,6 +101,7 @@ def test_absent_origin_and_custom_header_fails_closed(app,path,method):
     {'Referer':'https://evil.example/form'}, {'Sec-Fetch-Site':'cross-site'},
     {'Origin':'https://good.example.evil.example'},
     {'Origin':'https://evil.example','X-Forwarded-Host':'evil.example','X-Forwarded-Proto':'https'},
+    {'Referer':'http://['},
 ])
 def test_foreign_sources_cannot_bypass_with_custom_header(client,headers):
     response=client.post('/api/bookmarks',json={'topic_id':'t0'},headers=headers)

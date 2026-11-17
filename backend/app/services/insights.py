@@ -1,14 +1,14 @@
 from datetime import datetime,timedelta,timezone
-from collections import Counter
+from collections import Counter,deque
 import hashlib
-from sqlalchemy import select
+from sqlalchemy import select,or_
 from app.models import *
 from app.services.catalog import discipline_json
 from app.services.paths import reliable
 
 
 def stats(db,p):
-    topics={t.id:t for t in db.scalars(select(Topic))}
+    topics={t.id:t for t in db.execute(select(Topic.id,Topic.title,Topic.primary_discipline_id,Topic.subfield,Topic.subfield_id))}
     disciplines={d.id:d for d in db.scalars(select(Discipline))}
     states=list(db.scalars(select(TopicState).where(TopicState.profile_id==p.id,TopicState.first_explored_at.is_not(None)).order_by(TopicState.first_explored_at.desc())))
     first={}
@@ -53,48 +53,56 @@ def subfield_id(t): return t.subfield_id or 'subfield:'+hashlib.sha256(f'{t.prim
 
 
 def graph(db,p,scope='all',discipline=None,q='',root=None,limit=80,depth=1):
-    all_topics=list(db.scalars(select(Topic).order_by(Topic.id).limit(10000)))
+    catalog=list(db.execute(select(Topic.id,Topic.title,Topic.summary,Topic.primary_discipline_id,Topic.subfield,Topic.subfield_id,Topic.content_status).order_by(Topic.id).limit(10001)))
+    catalog_truncated=len(catalog)>10000
+    all_topics=catalog[:10000];by_id={t.id:t for t in all_topics}
     disciplines={d.id:d for d in db.scalars(select(Discipline))}
     states={s.topic_id:s for s in db.scalars(select(TopicState).where(TopicState.profile_id==p.id))}
     bookmarks=set(db.scalars(select(Bookmark.topic_id).where(Bookmark.profile_id==p.id)))
-    relations=[r for r in db.scalars(select(TopicRelation).where(TopicRelation.evidence_status.in_(('curated','source_checked')))) if reliable(r)]
+    counts=Counter(by_id[tid].primary_discipline_id for tid,s in states.items() if tid in by_id and s.first_explored_at)
     allowed=[t for t in all_topics if (not discipline or t.primary_discipline_id==discipline) and (not q or q.casefold() in (t.title+' '+t.summary).casefold()) and (scope!='explored' or t.id in states and states[t.id].first_explored_at)]
+    search_truncated=False
     if root:
         tid=root.removeprefix('topic:')
         if root.startswith('discipline:'): allowed=[t for t in allowed if t.primary_discipline_id==root[11:]]
         elif root.startswith('subfield:'): allowed=[t for t in allowed if subfield_id(t)==root]
         else:
-            ids={tid}
-            for _ in range(depth): ids|={r.target_id for r in relations if r.source_id in ids}|{r.source_id for r in relations if r.target_id in ids}
+            ids={tid};frontier={tid}
+            for _ in range(depth):
+                rows=list(db.scalars(select(TopicRelation).where(TopicRelation.evidence_status.in_(('curated','source_checked')),or_(TopicRelation.source_id.in_(frontier),TopicRelation.target_id.in_(frontier))).order_by(TopicRelation.id).limit(1001)))
+                if len(rows)>1000: search_truncated=True
+                new={endpoint for r in rows[:1000] if reliable(r) for endpoint in (r.source_id,r.target_id)}-ids
+                ids|=new;frontier=new
+                if not frontier: break
             allowed=[t for t in allowed if t.id in ids]
-    # Round robin disciplines so the finite initial subgraph does not imply an arbitrary single-field universe.
-    buckets={did:[t for t in allowed if t.primary_discipline_id==did] for did in disciplines}
+    buckets={did:deque(t for t in allowed if t.primary_discipline_id==did) for did in disciplines}
     ordered=[]
     while any(buckets.values()):
         for bucket in buckets.values():
-            if bucket: ordered.append(bucket.pop(0))
-    # A requested topic must survive the finite node budget, even in a dense neighborhood.
+            if bucket: ordered.append(bucket.popleft())
     if root and not root.startswith(('discipline:','subfield:')):
         ordered.sort(key=lambda t:t.id!=root.removeprefix('topic:'))
-    nodes={}; edges=[]; selected=[]
+    budget=set();selected=[]
     for t in ordered:
-        did='discipline:'+t.primary_discipline_id; sid=subfield_id(t); tid='topic:'+t.id
-        needed=sum(n not in nodes for n in (did,sid,tid))
-        if len(nodes)+needed>limit: continue
-        d=disciplines[t.primary_discipline_id]
-        counts=sum(s.first_explored_at is not None for key,s in states.items() if any(x.id==key and x.primary_discipline_id==d.id for x in all_topics))
+        if len(budget)>=limit: break
+        needed={'discipline:'+t.primary_discipline_id,subfield_id(t),'topic:'+t.id}
+        if len(budget|needed)>limit: continue
+        budget|=needed;selected.append(t)
+    sids={subfield_id(t) for t in selected}
+    subfields={s.id:s.description for s in db.scalars(select(Subfield).where(Subfield.id.in_(sids)))} if sids else {}
+    nodes={};edges=[]
+    for t in selected:
+        did='discipline:'+t.primary_discipline_id;sid=subfield_id(t);tid='topic:'+t.id;d=disciplines[t.primary_discipline_id]
         common={'discipline_id':d.id,'color':d.color,'topic_id':None,'explored':False,'bookmarked':False,'learning':'none','count':0}
-        nodes.setdefault(did,dict(common,id=did,name=d.name,type='discipline',description=d.description,count=counts))
+        nodes.setdefault(did,dict(common,id=did,name=d.name,type='discipline',description=d.description,count=counts[d.id]))
         if sid not in nodes:
-            nodes[sid]=dict(common,id=sid,name=t.subfield or '一般主题',type='subfield',description='人工整理的细分分类，不表示严格百科树。')
+            nodes[sid]=dict(common,id=sid,name=t.subfield or '一般主题',type='subfield',description=subfields.get(sid,'人工整理的细分分类，不表示严格百科树。'))
             edges.append({'id':did+'|'+sid,'source':did,'target':sid,'type':'taxonomy','label':'细分领域','explanation':'UnKnown 学科体系 v1 人工映射。','source_url':''})
-        stored_subfield=db.get(Subfield,sid)
-        if stored_subfield: nodes[sid]['description']=stored_subfield.description
-        s=states.get(t.id)
-        nodes[tid]=dict(common,id=tid,name=t.title,type='topic',topic_id=t.id,description=t.summary,explored=bool(s and s.first_explored_at),bookmarked=t.id in bookmarks,learning=s.learning if s else 'none',familiarity=s.familiarity if s else 'unknown')
+        st=states.get(t.id)
+        nodes[tid]=dict(common,id=tid,name=t.title,type='topic',topic_id=t.id,description=t.summary,explored=bool(st and st.first_explored_at),bookmarked=t.id in bookmarks,learning=st.learning if st else 'none',familiarity=st.familiarity if st else 'unknown',content_status=t.content_status)
         edges.append({'id':sid+'|'+tid,'source':sid,'target':tid,'type':'taxonomy','label':'学科归属','explanation':'唯一统计主学科与人工分类映射。','source_url':''})
-        selected.append(t.id)
+    selected_ids=[t.id for t in selected]
+    relations=list(db.scalars(select(TopicRelation).where(TopicRelation.evidence_status.in_(('curated','source_checked')),TopicRelation.source_id.in_(selected_ids),TopicRelation.target_id.in_(selected_ids)).order_by(TopicRelation.id).limit(301))) if selected_ids else []
     for r in relations:
-        if r.source_id in selected and r.target_id in selected:
-            edges.append({'id':r.id,'source':'topic:'+r.source_id,'target':'topic:'+r.target_id,'type':r.type,'label':r.label,'explanation':r.explanation,'source_url':r.source_url,'direction':r.direction})
-    return {'nodes':list(nodes.values()),'edges':edges[:300],'truncated':len(selected)<len(allowed) or len(edges)>300,'limits':{'nodes':limit,'edges':300,'depth':depth},'legend':'颜色表示主学科；学科节点大小表示本档案累计已探索主题数。已探索只代表首次访问详情。'}
+        if reliable(r): edges.append({'id':r.id,'source':'topic:'+r.source_id,'target':'topic:'+r.target_id,'type':r.type,'label':r.label,'explanation':r.explanation,'source_url':r.source_url,'direction':r.direction})
+    return {'nodes':list(nodes.values()),'edges':edges[:300],'truncated':catalog_truncated or search_truncated or len(selected)<len(allowed) or len(edges)>300,'limits':{'nodes':limit,'edges':300,'depth':depth},'legend':'颜色表示主学科；菱形为自述已理解。探索、理解自述与收藏独立；当前知识库包含尚未发布的资料。'}
