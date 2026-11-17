@@ -230,7 +230,7 @@ def test_evaluation_uses_equal_fixed_prefixes_and_never_fabricates_feedback():
         assert trial["self_reported_unfamiliar_ratio"] is None
         assert len(trial["topic_ids"]) <= 5
     assert len(groups) == 15
-    assert all(len(group) == 3 and len({row["history_fingerprint"] for row in group}) == 1 for group in groups.values())
+    assert all(len(group) == 4 and len({row["history_fingerprint"] for row in group}) == 1 for group in groups.values())
     assert all(row["batch_count"] == 15 and row["requested_topics"] == 75 for row in report["aggregate"].values())
     assert report["aggregate"]["anti_cocoon"]["constraint_satisfaction_rate"] == 1
 

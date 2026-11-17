@@ -1,0 +1,194 @@
+{
+  "kind": "small_curated_probe_not_held_out_generalization",
+  "version": "bilingual-concepts-1",
+  "threshold": 0.82,
+  "scores": {
+    "lexical": {
+      "precision": 0,
+      "recall": 0.0,
+      "f1": 0,
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 13
+    },
+    "semantic": {
+      "precision": 0.8181818181818182,
+      "recall": 0.6923076923076923,
+      "f1": 0.7500000000000001,
+      "true_positive": 9,
+      "false_positive": 2,
+      "false_negative": 4
+    }
+  },
+  "probes": [
+    {
+      "left": "群体智能",
+      "right": "swarm intelligence",
+      "label": "duplicate",
+      "lexical": 0.0,
+      "semantic": 0.92
+    },
+    {
+      "left": "群体智能",
+      "right": "蚁群如何完成集体决策",
+      "label": "duplicate",
+      "lexical": 0.0,
+      "semantic": 0.92
+    },
+    {
+      "left": "分布式系统",
+      "right": "distributed systems",
+      "label": "duplicate",
+      "lexical": 0.0,
+      "semantic": 0.5
+    },
+    {
+      "left": "图论",
+      "right": "graph theory",
+      "label": "duplicate",
+      "lexical": 0.0,
+      "semantic": 0.92
+    },
+    {
+      "left": "贝叶斯定理",
+      "right": "Bayesian inference",
+      "label": "related",
+      "lexical": 0.0,
+      "semantic": 0.92
+    },
+    {
+      "left": "傅里叶分析",
+      "right": "Fourier analysis",
+      "label": "duplicate",
+      "lexical": 0.0,
+      "semantic": 0.92
+    },
+    {
+      "left": "共振",
+      "right": "resonance",
+      "label": "duplicate",
+      "lexical": 0.0,
+      "semantic": 0.92
+    },
+    {
+      "left": "昼夜节律",
+      "right": "circadian rhythm",
+      "label": "duplicate",
+      "lexical": 0.0,
+      "semantic": 0.92
+    },
+    {
+      "left": "表观遗传学",
+      "right": "epigenetics",
+      "label": "duplicate",
+      "lexical": 0.0,
+      "semantic": 0.0
+    },
+    {
+      "left": "量子隧穿",
+      "right": "quantum tunneling",
+      "label": "duplicate",
+      "lexical": 0.0,
+      "semantic": 0.92
+    },
+    {
+      "left": "负空间",
+      "right": "构图中的留白",
+      "label": "duplicate",
+      "lexical": 0.0,
+      "semantic": 0.92
+    },
+    {
+      "left": "平面密铺",
+      "right": "tessellation",
+      "label": "duplicate",
+      "lexical": 0.0,
+      "semantic": 0.92
+    },
+    {
+      "left": "计算复杂度",
+      "right": "computational complexity",
+      "label": "duplicate",
+      "lexical": 0.0,
+      "semantic": 0.0
+    },
+    {
+      "left": "海水的有向运动",
+      "right": "ocean current",
+      "label": "duplicate",
+      "lexical": 0.0,
+      "semantic": 0.0
+    },
+    {
+      "left": "群体智能",
+      "right": "分布式系统中的涌现行为",
+      "label": "related",
+      "lexical": 0.0,
+      "semantic": 0.5
+    },
+    {
+      "left": "图论",
+      "right": "社会网络",
+      "label": "related",
+      "lexical": 0.0,
+      "semantic": 0.5
+    },
+    {
+      "left": "音乐节奏",
+      "right": "傅里叶分析",
+      "label": "related",
+      "lexical": 0.0,
+      "semantic": 0.5
+    },
+    {
+      "left": "贝叶斯定理",
+      "right": "图论",
+      "label": "unrelated",
+      "lexical": 0.0,
+      "semantic": 0.0
+    },
+    {
+      "left": "共振",
+      "right": "resonance imaging",
+      "label": "related",
+      "lexical": 0.0,
+      "semantic": 0.92
+    },
+    {
+      "left": "熵",
+      "right": "表观遗传学",
+      "label": "unrelated",
+      "lexical": 0.0,
+      "semantic": 0.0
+    },
+    {
+      "left": "量子隧穿",
+      "right": "古代口述史",
+      "label": "unrelated",
+      "lexical": 0.0,
+      "semantic": 0.0
+    },
+    {
+      "left": "社会网络",
+      "right": "分布式系统",
+      "label": "related",
+      "lexical": 0.0,
+      "semantic": 0.0
+    },
+    {
+      "left": "负空间",
+      "right": "核聚变",
+      "label": "unrelated",
+      "lexical": 0.0,
+      "semantic": 0.0
+    },
+    {
+      "left": "傅里叶分析",
+      "right": "拍卖理论",
+      "label": "unrelated",
+      "lexical": 0.0,
+      "semantic": 0.0
+    }
+  ],
+  "limits": "Aliases are manually chosen and probes partly overlap their design. No entity merging. Unseen paraphrases and qualified applications may fail; fallback is lexical."
+}

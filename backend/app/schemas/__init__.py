@@ -26,11 +26,15 @@ class ProfilePatch(Strict):
 class RefreshBody(Strict):
     mode: Mode = 'unknown'
     idempotency_key: str = Field(min_length=8,max_length=100)
+class SurpriseBody(Strict):
+    strength: Literal['gentle','cross','far'] = 'cross'
+    history_free: bool = False
+    idempotency_key: str = Field(min_length=8,max_length=100)
 class ImpressionsBody(Strict):
     batch_id: str = Field(max_length=100)
     topic_ids: list[str] = Field(max_length=20)
 class FeedbackBody(Strict):
-    action: Literal['known','unfamiliar','learning','understood','none','skip','unskip']
+    action: Literal['known','unfamiliar','name_only','concept_only','connections_unknown','forgotten','learning','understood','none','skip','unskip','revisit','cancel_revisit','worthwhile','not_worthwhile']
     idempotency_key: str = Field(min_length=8,max_length=100)
 class BookmarkBody(Strict):
     topic_id: str = Field(min_length=1,max_length=150)
@@ -69,10 +73,12 @@ class SourceOut(BaseModel):
     excerpt: str
 class StateOut(BaseModel):
     bookmarked: bool
-    familiarity: Literal['unknown','known','unfamiliar']
+    familiarity: Literal['unknown','known','unfamiliar','name_only','concept_only','connections_unknown','forgotten']
     learning: Literal['none','learning','understood']
     explored: bool
     skipped_until: str | None = None
+    revisit_at: str | None = None
+    worthwhile: bool | None = None
 class TopicOut(BaseModel):
     id: str
     title: str
@@ -150,6 +156,12 @@ class RecommendationItemOut(BaseModel):
     bridge_path: list[dict]
 class DailyOut(RecommendationOut):
     items: list[RecommendationItemOut]
+class SurpriseOut(BaseModel):
+    id: str
+    strength: str
+    history_free: bool
+    item: RecommendationItemOut | None
+    constraints: dict
 class StateResponse(BaseModel):
     state: StateOut
 class DisciplinesOut(BaseModel):

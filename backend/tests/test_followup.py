@@ -57,7 +57,7 @@ def test_skip_expiry_idempotence_and_real_undo_do_not_create_exploration(client,
         db.get(TopicState,(pid,'t0')).skipped_until='2000-01-01T00:00:00+00:00';db.commit()
         assert 't0' not in history_snapshot(db,p)['skipped_ids']
     undo=mark(client,'t0','unskip')
-    assert undo=={'bookmarked':False,'familiarity':'unfamiliar','learning':'learning','explored':False,'skipped_until':None}
+    assert undo=={'bookmarked':False,'familiarity':'unfamiliar','learning':'learning','explored':False,'skipped_until':None,'revisit_at':None,'worthwhile':None}
     assert mark(client,'t0','unskip')==undo
     assert client.get('/api/discover/today').json()['id']==batch['id']
     assert client.get('/api/stats').json()['explored_count']==0

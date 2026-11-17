@@ -78,7 +78,7 @@ def source_json(s):
 
 def state_json(db, profile_id, topic_id):
     st=db.get(TopicState,(profile_id,topic_id))
-    return {'bookmarked':db.get(Bookmark,(profile_id,topic_id)) is not None,'familiarity':st.familiarity if st else 'unknown','learning':st.learning if st else 'none','explored':bool(st and st.first_explored_at),'skipped_until':st.skipped_until if st else None}
+    return {'bookmarked':db.get(Bookmark,(profile_id,topic_id)) is not None,'familiarity':st.familiarity if st else 'unknown','learning':st.learning if st else 'none','explored':bool(st and st.first_explored_at),'skipped_until':st.skipped_until if st else None,'revisit_at':st.revisit_at if st else None,'worthwhile':st.worthwhile if st else None}
 
 
 def topic_json(db,t,profile_id):

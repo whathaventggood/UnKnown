@@ -99,9 +99,38 @@
         "unfamiliar_ids": [],
         "skipped_ids": [],
         "intensity": 0.5,
-        "broad_use_history": true
+        "broad_use_history": true,
+        "coverage_windows": {
+          "30": {
+            "disciplines": {
+              "astronomy": 4,
+              "arts": 4
+            },
+            "subfields": {
+              "宇宙物质": 1,
+              "行星系统": 1,
+              "比例与审美": 1,
+              "宇宙观测": 1,
+              "视觉构成": 1,
+              "恒星演化": 1,
+              "空间表现": 1,
+              "音乐结构": 1
+            },
+            "first_explorations": 8
+          }
+        },
+        "exposure_counts": {
+          "albedo": 1,
+          "asymmetry": 2,
+          "auction": 3,
+          "bayes": 1,
+          "brownian": 2,
+          "carbon-cycle": 3,
+          "catalysis": 1,
+          "chaos": 2
+        }
       },
-      "fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670"
+      "fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da"
     },
     {
       "label": "合成档案B：另两个熟悉领域",
@@ -190,9 +219,38 @@
         "unfamiliar_ids": [],
         "skipped_ids": [],
         "intensity": 0.5,
-        "broad_use_history": true
+        "broad_use_history": true,
+        "coverage_windows": {
+          "30": {
+            "disciplines": {
+              "chemistry": 4,
+              "cognition": 4
+            },
+            "subfields": {
+              "反应动力学": 1,
+              "立体化学": 1,
+              "生物节律": 1,
+              "社会认知": 1,
+              "电化学": 1,
+              "平衡与反应": 1,
+              "注意与知觉": 1,
+              "脑与学习": 1
+            },
+            "first_explorations": 8
+          }
+        },
+        "exposure_counts": {
+          "bayes": 1,
+          "brownian": 2,
+          "carbon-cycle": 3,
+          "catalysis": 1,
+          "chaos": 2,
+          "chirality": 3,
+          "circadian": 1,
+          "commons": 2
+        }
       },
-      "fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910"
+      "fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367"
     },
     {
       "label": "合成档案C：无初始偏好",
@@ -257,13 +315,30 @@
         "unfamiliar_ids": [],
         "skipped_ids": [],
         "intensity": 0.5,
-        "broad_use_history": true
+        "broad_use_history": true,
+        "coverage_windows": {
+          "30": {
+            "disciplines": {},
+            "subfields": {},
+            "first_explorations": 0
+          }
+        },
+        "exposure_counts": {
+          "catalysis": 1,
+          "chaos": 2,
+          "chirality": 3,
+          "circadian": 1,
+          "commons": 2,
+          "comparative": 3,
+          "complexity": 1,
+          "dark-matter": 2
+        }
       },
-      "fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc"
+      "fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da"
     }
   ],
   "definitions": {
-    "shared_inputs": "三个策略读取相同完整候选库、相同固定历史前缀和相同每批五条预算；多随机种子。历史不随策略扩展，没有未来行为。",
+    "shared_inputs": "四个策略（含冻结 v1 和新版）读取相同完整候选库、相同固定历史前缀和相同每批五条预算；多随机种子。历史不随策略扩展，没有未来行为。",
     "proxy_filter": "全部策略共用：可追溯 URL、质量代理≥0.4、可学习性代理≥0.25、排除已标记重复或异常。",
     "coverage": "每批实际主题涉及的唯一主学科数量；关联标签不计。",
     "entropy": "逐批 H=-Σp ln p，单位 nats；归一化版本除以 ln(当前共同候选库主学科总数)，不是除以批次大小。",
@@ -279,6 +354,8 @@
   },
   "aggregate": {
     "interest_baseline": {
+      "subfield_coverage": 5.0,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 2.8,
       "discipline_entropy_nats": 0.880304,
       "normalized_entropy_catalogue": 0.35426,
@@ -295,6 +372,8 @@
       "self_reported_unfamiliar_ratio": null
     },
     "stratified_random_baseline": {
+      "subfield_coverage": 5.0,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5.0,
       "discipline_entropy_nats": 1.609438,
       "normalized_entropy_catalogue": 0.647685,
@@ -310,7 +389,27 @@
       "degradation_rate": 0.0,
       "self_reported_unfamiliar_ratio": null
     },
+    "legacy_cocoon": {
+      "subfield_coverage": 5.0,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5.0,
+      "discipline_entropy_nats": 1.609438,
+      "normalized_entropy_catalogue": 0.647685,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "quality_proxy": 0.773333,
+      "learnability_proxy": 0.7625,
+      "batch_count": 15,
+      "requested_topics": 75,
+      "actual_topics": 75,
+      "constraint_satisfaction_rate": 1.0,
+      "degradation_rate": 0.0,
+      "self_reported_unfamiliar_ratio": null
+    },
     "anti_cocoon": {
+      "subfield_coverage": 5.0,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5.0,
       "discipline_entropy_nats": 1.609438,
       "normalized_entropy_catalogue": 0.647685,
@@ -330,7 +429,7 @@
   "trials": [
     {
       "profile": "合成档案A：两个熟悉领域",
-      "history_fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
       "seed": 11,
       "policy": "interest_baseline",
       "topic_ids": [
@@ -341,6 +440,8 @@
         "nucleosynthesis"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 1,
       "discipline_entropy_nats": -0.0,
       "normalized_entropy_catalogue": -0.0,
@@ -355,7 +456,7 @@
     },
     {
       "profile": "合成档案A：两个熟悉领域",
-      "history_fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
       "seed": 11,
       "policy": "stratified_random_baseline",
       "topic_ids": [
@@ -366,6 +467,8 @@
         "brownian"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -380,9 +483,9 @@
     },
     {
       "profile": "合成档案A：两个熟悉领域",
-      "history_fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
       "seed": 11,
-      "policy": "anti_cocoon",
+      "policy": "legacy_cocoon",
       "topic_ids": [
         "polymer",
         "public-good",
@@ -391,6 +494,8 @@
         "resonance"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -405,7 +510,34 @@
     },
     {
       "profile": "合成档案A：两个熟悉领域",
-      "history_fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
+      "seed": 11,
+      "policy": "anti_cocoon",
+      "topic_ids": [
+        "polymer",
+        "public-good",
+        "graph-theory",
+        "symbiosis",
+        "resonance"
+      ],
+      "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5,
+      "discipline_entropy_nats": 1.6094379124341005,
+      "normalized_entropy_catalogue": 0.6476854623779971,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "constraint_satisfied": true,
+      "quality_proxy": 0.76,
+      "learnability_proxy": 0.7625,
+      "actual_count": 5,
+      "self_reported_unfamiliar_ratio": null
+    },
+    {
+      "profile": "合成档案A：两个熟悉领域",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
       "seed": 29,
       "policy": "interest_baseline",
       "topic_ids": [
@@ -416,6 +548,8 @@
         "nucleosynthesis"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 2,
       "discipline_entropy_nats": 0.5004024235381879,
       "normalized_entropy_catalogue": 0.2013767493361892,
@@ -430,7 +564,7 @@
     },
     {
       "profile": "合成档案A：两个熟悉领域",
-      "history_fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
       "seed": 29,
       "policy": "stratified_random_baseline",
       "topic_ids": [
@@ -441,6 +575,8 @@
         "equilibrium"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -455,9 +591,9 @@
     },
     {
       "profile": "合成档案A：两个熟悉领域",
-      "history_fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
       "seed": 29,
-      "policy": "anti_cocoon",
+      "policy": "legacy_cocoon",
       "topic_ids": [
         "graph-theory",
         "polymer",
@@ -466,6 +602,8 @@
         "resonance"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -480,7 +618,34 @@
     },
     {
       "profile": "合成档案A：两个熟悉领域",
-      "history_fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
+      "seed": 29,
+      "policy": "anti_cocoon",
+      "topic_ids": [
+        "graph-theory",
+        "polymer",
+        "public-good",
+        "symbiosis",
+        "resonance"
+      ],
+      "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5,
+      "discipline_entropy_nats": 1.6094379124341005,
+      "normalized_entropy_catalogue": 0.6476854623779971,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "constraint_satisfied": true,
+      "quality_proxy": 0.76,
+      "learnability_proxy": 0.7625,
+      "actual_count": 5,
+      "self_reported_unfamiliar_ratio": null
+    },
+    {
+      "profile": "合成档案A：两个熟悉领域",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
       "seed": 47,
       "policy": "interest_baseline",
       "topic_ids": [
@@ -491,6 +656,8 @@
         "dark-matter"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 2,
       "discipline_entropy_nats": 0.6730116670092565,
       "normalized_entropy_catalogue": 0.27083981889890085,
@@ -505,7 +672,7 @@
     },
     {
       "profile": "合成档案A：两个熟悉领域",
-      "history_fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
       "seed": 47,
       "policy": "stratified_random_baseline",
       "topic_ids": [
@@ -516,6 +683,8 @@
         "social-network"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -530,9 +699,9 @@
     },
     {
       "profile": "合成档案A：两个熟悉领域",
-      "history_fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
       "seed": 47,
-      "policy": "anti_cocoon",
+      "policy": "legacy_cocoon",
       "topic_ids": [
         "graph-theory",
         "public-good",
@@ -541,6 +710,8 @@
         "resonance"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -555,7 +726,34 @@
     },
     {
       "profile": "合成档案A：两个熟悉领域",
-      "history_fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
+      "seed": 47,
+      "policy": "anti_cocoon",
+      "topic_ids": [
+        "graph-theory",
+        "public-good",
+        "polymer",
+        "symbiosis",
+        "resonance"
+      ],
+      "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5,
+      "discipline_entropy_nats": 1.6094379124341005,
+      "normalized_entropy_catalogue": 0.6476854623779971,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "constraint_satisfied": true,
+      "quality_proxy": 0.76,
+      "learnability_proxy": 0.7625,
+      "actual_count": 5,
+      "self_reported_unfamiliar_ratio": null
+    },
+    {
+      "profile": "合成档案A：两个熟悉领域",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
       "seed": 83,
       "policy": "interest_baseline",
       "topic_ids": [
@@ -566,6 +764,8 @@
         "dark-matter"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 2,
       "discipline_entropy_nats": 0.6730116670092565,
       "normalized_entropy_catalogue": 0.27083981889890085,
@@ -580,7 +780,7 @@
     },
     {
       "profile": "合成档案A：两个熟悉领域",
-      "history_fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
       "seed": 83,
       "policy": "stratified_random_baseline",
       "topic_ids": [
@@ -591,6 +791,8 @@
         "graph-theory"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -605,9 +807,9 @@
     },
     {
       "profile": "合成档案A：两个熟悉领域",
-      "history_fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
       "seed": 83,
-      "policy": "anti_cocoon",
+      "policy": "legacy_cocoon",
       "topic_ids": [
         "polymer",
         "public-good",
@@ -616,6 +818,8 @@
         "resonance"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -630,7 +834,34 @@
     },
     {
       "profile": "合成档案A：两个熟悉领域",
-      "history_fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
+      "seed": 83,
+      "policy": "anti_cocoon",
+      "topic_ids": [
+        "polymer",
+        "public-good",
+        "graph-theory",
+        "symbiosis",
+        "resonance"
+      ],
+      "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5,
+      "discipline_entropy_nats": 1.6094379124341005,
+      "normalized_entropy_catalogue": 0.6476854623779971,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "constraint_satisfied": true,
+      "quality_proxy": 0.76,
+      "learnability_proxy": 0.7625,
+      "actual_count": 5,
+      "self_reported_unfamiliar_ratio": null
+    },
+    {
+      "profile": "合成档案A：两个熟悉领域",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
       "seed": 101,
       "policy": "interest_baseline",
       "topic_ids": [
@@ -641,6 +872,8 @@
         "exoplanet"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 2,
       "discipline_entropy_nats": 0.6730116670092565,
       "normalized_entropy_catalogue": 0.27083981889890085,
@@ -655,7 +888,7 @@
     },
     {
       "profile": "合成档案A：两个熟悉领域",
-      "history_fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
       "seed": 101,
       "policy": "stratified_random_baseline",
       "topic_ids": [
@@ -666,6 +899,8 @@
         "neuroplasticity"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -680,7 +915,34 @@
     },
     {
       "profile": "合成档案A：两个熟悉领域",
-      "history_fingerprint": "6e620c89cc4841816197a325b377c8bff80dcf67d3adbaa054b7432e05260670",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
+      "seed": 101,
+      "policy": "legacy_cocoon",
+      "topic_ids": [
+        "graph-theory",
+        "public-good",
+        "polymer",
+        "symbiosis",
+        "resonance"
+      ],
+      "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5,
+      "discipline_entropy_nats": 1.6094379124341005,
+      "normalized_entropy_catalogue": 0.6476854623779971,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "constraint_satisfied": true,
+      "quality_proxy": 0.76,
+      "learnability_proxy": 0.7625,
+      "actual_count": 5,
+      "self_reported_unfamiliar_ratio": null
+    },
+    {
+      "profile": "合成档案A：两个熟悉领域",
+      "history_fingerprint": "d026e604eabde79f2f54b7eab0ac2bc79bf84d5794b16169de2cbb0fe01772da",
       "seed": 101,
       "policy": "anti_cocoon",
       "topic_ids": [
@@ -691,6 +953,8 @@
         "resonance"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -705,7 +969,7 @@
     },
     {
       "profile": "合成档案B：另两个熟悉领域",
-      "history_fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
       "seed": 11,
       "policy": "interest_baseline",
       "topic_ids": [
@@ -716,6 +980,8 @@
         "neuroplasticity"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 2,
       "discipline_entropy_nats": 0.6730116670092565,
       "normalized_entropy_catalogue": 0.27083981889890085,
@@ -730,7 +996,7 @@
     },
     {
       "profile": "合成档案B：另两个熟悉领域",
-      "history_fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
       "seed": 11,
       "policy": "stratified_random_baseline",
       "topic_ids": [
@@ -741,6 +1007,8 @@
         "brownian"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -755,9 +1023,9 @@
     },
     {
       "profile": "合成档案B：另两个熟悉领域",
-      "history_fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
       "seed": 11,
-      "policy": "anti_cocoon",
+      "policy": "legacy_cocoon",
       "topic_ids": [
         "asymmetry",
         "polyrhythm",
@@ -766,6 +1034,8 @@
         "symbiosis"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -780,7 +1050,34 @@
     },
     {
       "profile": "合成档案B：另两个熟悉领域",
-      "history_fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
+      "seed": 11,
+      "policy": "anti_cocoon",
+      "topic_ids": [
+        "asymmetry",
+        "polyrhythm",
+        "public-good",
+        "graph-theory",
+        "symbiosis"
+      ],
+      "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5,
+      "discipline_entropy_nats": 1.6094379124341005,
+      "normalized_entropy_catalogue": 0.6476854623779971,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "constraint_satisfied": true,
+      "quality_proxy": 0.78,
+      "learnability_proxy": 0.7625,
+      "actual_count": 5,
+      "self_reported_unfamiliar_ratio": null
+    },
+    {
+      "profile": "合成档案B：另两个熟悉领域",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
       "seed": 29,
       "policy": "interest_baseline",
       "topic_ids": [
@@ -791,6 +1088,8 @@
         "dissonance"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 2,
       "discipline_entropy_nats": 0.5004024235381879,
       "normalized_entropy_catalogue": 0.2013767493361892,
@@ -805,7 +1104,7 @@
     },
     {
       "profile": "合成档案B：另两个熟悉领域",
-      "history_fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
       "seed": 29,
       "policy": "stratified_random_baseline",
       "topic_ids": [
@@ -816,6 +1115,8 @@
         "equilibrium"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -830,9 +1131,9 @@
     },
     {
       "profile": "合成档案B：另两个熟悉领域",
-      "history_fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
       "seed": 29,
-      "policy": "anti_cocoon",
+      "policy": "legacy_cocoon",
       "topic_ids": [
         "graph-theory",
         "asymmetry",
@@ -841,6 +1142,8 @@
         "symbiosis"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -855,7 +1158,34 @@
     },
     {
       "profile": "合成档案B：另两个熟悉领域",
-      "history_fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
+      "seed": 29,
+      "policy": "anti_cocoon",
+      "topic_ids": [
+        "graph-theory",
+        "asymmetry",
+        "public-good",
+        "polyrhythm",
+        "symbiosis"
+      ],
+      "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5,
+      "discipline_entropy_nats": 1.6094379124341005,
+      "normalized_entropy_catalogue": 0.6476854623779971,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "constraint_satisfied": true,
+      "quality_proxy": 0.78,
+      "learnability_proxy": 0.7625,
+      "actual_count": 5,
+      "self_reported_unfamiliar_ratio": null
+    },
+    {
+      "profile": "合成档案B：另两个熟悉领域",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
       "seed": 47,
       "policy": "interest_baseline",
       "topic_ids": [
@@ -866,6 +1196,8 @@
         "electrolysis"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 2,
       "discipline_entropy_nats": 0.6730116670092565,
       "normalized_entropy_catalogue": 0.27083981889890085,
@@ -880,7 +1212,7 @@
     },
     {
       "profile": "合成档案B：另两个熟悉领域",
-      "history_fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
       "seed": 47,
       "policy": "stratified_random_baseline",
       "topic_ids": [
@@ -891,6 +1223,8 @@
         "social-network"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -905,9 +1239,9 @@
     },
     {
       "profile": "合成档案B：另两个熟悉领域",
-      "history_fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
       "seed": 47,
-      "policy": "anti_cocoon",
+      "policy": "legacy_cocoon",
       "topic_ids": [
         "graph-theory",
         "public-good",
@@ -916,6 +1250,8 @@
         "symbiosis"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -930,7 +1266,34 @@
     },
     {
       "profile": "合成档案B：另两个熟悉领域",
-      "history_fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
+      "seed": 47,
+      "policy": "anti_cocoon",
+      "topic_ids": [
+        "graph-theory",
+        "public-good",
+        "asymmetry",
+        "polyrhythm",
+        "symbiosis"
+      ],
+      "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5,
+      "discipline_entropy_nats": 1.6094379124341005,
+      "normalized_entropy_catalogue": 0.6476854623779971,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "constraint_satisfied": true,
+      "quality_proxy": 0.78,
+      "learnability_proxy": 0.7625,
+      "actual_count": 5,
+      "self_reported_unfamiliar_ratio": null
+    },
+    {
+      "profile": "合成档案B：另两个熟悉领域",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
       "seed": 83,
       "policy": "interest_baseline",
       "topic_ids": [
@@ -941,6 +1304,8 @@
         "neuroplasticity"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 2,
       "discipline_entropy_nats": 0.6730116670092565,
       "normalized_entropy_catalogue": 0.27083981889890085,
@@ -955,7 +1320,7 @@
     },
     {
       "profile": "合成档案B：另两个熟悉领域",
-      "history_fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
       "seed": 83,
       "policy": "stratified_random_baseline",
       "topic_ids": [
@@ -966,6 +1331,8 @@
         "graph-theory"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -980,9 +1347,9 @@
     },
     {
       "profile": "合成档案B：另两个熟悉领域",
-      "history_fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
       "seed": 83,
-      "policy": "anti_cocoon",
+      "policy": "legacy_cocoon",
       "topic_ids": [
         "asymmetry",
         "polyrhythm",
@@ -991,6 +1358,8 @@
         "symbiosis"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -1005,7 +1374,34 @@
     },
     {
       "profile": "合成档案B：另两个熟悉领域",
-      "history_fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
+      "seed": 83,
+      "policy": "anti_cocoon",
+      "topic_ids": [
+        "asymmetry",
+        "polyrhythm",
+        "public-good",
+        "graph-theory",
+        "symbiosis"
+      ],
+      "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5,
+      "discipline_entropy_nats": 1.6094379124341005,
+      "normalized_entropy_catalogue": 0.6476854623779971,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "constraint_satisfied": true,
+      "quality_proxy": 0.78,
+      "learnability_proxy": 0.7625,
+      "actual_count": 5,
+      "self_reported_unfamiliar_ratio": null
+    },
+    {
+      "profile": "合成档案B：另两个熟悉领域",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
       "seed": 101,
       "policy": "interest_baseline",
       "topic_ids": [
@@ -1016,6 +1412,8 @@
         "inattentional"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 2,
       "discipline_entropy_nats": 0.6730116670092565,
       "normalized_entropy_catalogue": 0.27083981889890085,
@@ -1030,7 +1428,7 @@
     },
     {
       "profile": "合成档案B：另两个熟悉领域",
-      "history_fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
       "seed": 101,
       "policy": "stratified_random_baseline",
       "topic_ids": [
@@ -1041,6 +1439,8 @@
         "neuroplasticity"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -1055,7 +1455,34 @@
     },
     {
       "profile": "合成档案B：另两个熟悉领域",
-      "history_fingerprint": "c55fb163a6059c78d7b70e1b6c3e4c2cc827b5b04f3d078e752159e323953910",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
+      "seed": 101,
+      "policy": "legacy_cocoon",
+      "topic_ids": [
+        "graph-theory",
+        "asymmetry",
+        "public-good",
+        "polyrhythm",
+        "symbiosis"
+      ],
+      "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5,
+      "discipline_entropy_nats": 1.6094379124341005,
+      "normalized_entropy_catalogue": 0.6476854623779971,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "constraint_satisfied": true,
+      "quality_proxy": 0.78,
+      "learnability_proxy": 0.7625,
+      "actual_count": 5,
+      "self_reported_unfamiliar_ratio": null
+    },
+    {
+      "profile": "合成档案B：另两个熟悉领域",
+      "history_fingerprint": "e0f0fd334aacecf2394431121bdc4556215dcd2c66135f37de15dbb4d61f7367",
       "seed": 101,
       "policy": "anti_cocoon",
       "topic_ids": [
@@ -1066,6 +1493,8 @@
         "symbiosis"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -1080,7 +1509,7 @@
     },
     {
       "profile": "合成档案C：无初始偏好",
-      "history_fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
       "seed": 11,
       "policy": "interest_baseline",
       "topic_ids": [
@@ -1091,6 +1520,8 @@
         "electrolysis"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -1105,7 +1536,7 @@
     },
     {
       "profile": "合成档案C：无初始偏好",
-      "history_fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
       "seed": 11,
       "policy": "stratified_random_baseline",
       "topic_ids": [
@@ -1116,6 +1547,8 @@
         "brownian"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -1130,7 +1563,34 @@
     },
     {
       "profile": "合成档案C：无初始偏好",
-      "history_fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
+      "seed": 11,
+      "policy": "legacy_cocoon",
+      "topic_ids": [
+        "asymmetry",
+        "bayes",
+        "polyrhythm",
+        "public-good",
+        "symbiosis"
+      ],
+      "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5,
+      "discipline_entropy_nats": 1.6094379124341005,
+      "normalized_entropy_catalogue": 0.6476854623779971,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "constraint_satisfied": true,
+      "quality_proxy": 0.78,
+      "learnability_proxy": 0.7625,
+      "actual_count": 5,
+      "self_reported_unfamiliar_ratio": null
+    },
+    {
+      "profile": "合成档案C：无初始偏好",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
       "seed": 11,
       "policy": "anti_cocoon",
       "topic_ids": [
@@ -1141,6 +1601,8 @@
         "symbiosis"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -1155,7 +1617,7 @@
     },
     {
       "profile": "合成档案C：无初始偏好",
-      "history_fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
       "seed": 29,
       "policy": "interest_baseline",
       "topic_ids": [
@@ -1166,6 +1628,8 @@
         "semiotics"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -1180,7 +1644,7 @@
     },
     {
       "profile": "合成档案C：无初始偏好",
-      "history_fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
       "seed": 29,
       "policy": "stratified_random_baseline",
       "topic_ids": [
@@ -1191,6 +1655,8 @@
         "equilibrium"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -1205,9 +1671,9 @@
     },
     {
       "profile": "合成档案C：无初始偏好",
-      "history_fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
       "seed": 29,
-      "policy": "anti_cocoon",
+      "policy": "legacy_cocoon",
       "topic_ids": [
         "graph-theory",
         "asymmetry",
@@ -1216,6 +1682,8 @@
         "symbiosis"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -1230,7 +1698,34 @@
     },
     {
       "profile": "合成档案C：无初始偏好",
-      "history_fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
+      "seed": 29,
+      "policy": "anti_cocoon",
+      "topic_ids": [
+        "graph-theory",
+        "asymmetry",
+        "public-good",
+        "polyrhythm",
+        "symbiosis"
+      ],
+      "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5,
+      "discipline_entropy_nats": 1.6094379124341005,
+      "normalized_entropy_catalogue": 0.6476854623779971,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "constraint_satisfied": true,
+      "quality_proxy": 0.78,
+      "learnability_proxy": 0.7625,
+      "actual_count": 5,
+      "self_reported_unfamiliar_ratio": null
+    },
+    {
+      "profile": "合成档案C：无初始偏好",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
       "seed": 47,
       "policy": "interest_baseline",
       "topic_ids": [
@@ -1241,6 +1736,8 @@
         "dissonance"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -1255,7 +1752,7 @@
     },
     {
       "profile": "合成档案C：无初始偏好",
-      "history_fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
       "seed": 47,
       "policy": "stratified_random_baseline",
       "topic_ids": [
@@ -1266,6 +1763,8 @@
         "social-network"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -1280,9 +1779,9 @@
     },
     {
       "profile": "合成档案C：无初始偏好",
-      "history_fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
       "seed": 47,
-      "policy": "anti_cocoon",
+      "policy": "legacy_cocoon",
       "topic_ids": [
         "graph-theory",
         "public-good",
@@ -1291,6 +1790,8 @@
         "symbiosis"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -1305,7 +1806,34 @@
     },
     {
       "profile": "合成档案C：无初始偏好",
-      "history_fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
+      "seed": 47,
+      "policy": "anti_cocoon",
+      "topic_ids": [
+        "graph-theory",
+        "public-good",
+        "asymmetry",
+        "polyrhythm",
+        "symbiosis"
+      ],
+      "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5,
+      "discipline_entropy_nats": 1.6094379124341005,
+      "normalized_entropy_catalogue": 0.6476854623779971,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "constraint_satisfied": true,
+      "quality_proxy": 0.78,
+      "learnability_proxy": 0.7625,
+      "actual_count": 5,
+      "self_reported_unfamiliar_ratio": null
+    },
+    {
+      "profile": "合成档案C：无初始偏好",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
       "seed": 83,
       "policy": "interest_baseline",
       "topic_ids": [
@@ -1316,6 +1844,8 @@
         "milankovitch"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 4,
       "discipline_entropy_nats": 1.3321790402101223,
       "normalized_entropy_catalogue": 0.5361082841175451,
@@ -1330,7 +1860,7 @@
     },
     {
       "profile": "合成档案C：无初始偏好",
-      "history_fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
       "seed": 83,
       "policy": "stratified_random_baseline",
       "topic_ids": [
@@ -1341,6 +1871,8 @@
         "graph-theory"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -1355,9 +1887,9 @@
     },
     {
       "profile": "合成档案C：无初始偏好",
-      "history_fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
       "seed": 83,
-      "policy": "anti_cocoon",
+      "policy": "legacy_cocoon",
       "topic_ids": [
         "asymmetry",
         "polyrhythm",
@@ -1366,6 +1898,8 @@
         "symbiosis"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -1380,7 +1914,34 @@
     },
     {
       "profile": "合成档案C：无初始偏好",
-      "history_fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
+      "seed": 83,
+      "policy": "anti_cocoon",
+      "topic_ids": [
+        "asymmetry",
+        "polyrhythm",
+        "public-good",
+        "bayes",
+        "symbiosis"
+      ],
+      "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5,
+      "discipline_entropy_nats": 1.6094379124341005,
+      "normalized_entropy_catalogue": 0.6476854623779971,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "constraint_satisfied": true,
+      "quality_proxy": 0.78,
+      "learnability_proxy": 0.7625,
+      "actual_count": 5,
+      "self_reported_unfamiliar_ratio": null
+    },
+    {
+      "profile": "合成档案C：无初始偏好",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
       "seed": 101,
       "policy": "interest_baseline",
       "topic_ids": [
@@ -1391,6 +1952,8 @@
         "symbiogenesis"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 4,
       "discipline_entropy_nats": 1.3321790402101223,
       "normalized_entropy_catalogue": 0.5361082841175451,
@@ -1405,7 +1968,7 @@
     },
     {
       "profile": "合成档案C：无初始偏好",
-      "history_fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
       "seed": 101,
       "policy": "stratified_random_baseline",
       "topic_ids": [
@@ -1416,6 +1979,8 @@
         "neuroplasticity"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,
@@ -1430,7 +1995,34 @@
     },
     {
       "profile": "合成档案C：无初始偏好",
-      "history_fingerprint": "66210bd5d79b43c6e9e562e897763a0302f41ac1f61f435259425912c85d87fc",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
+      "seed": 101,
+      "policy": "legacy_cocoon",
+      "topic_ids": [
+        "bayes",
+        "polyrhythm",
+        "asymmetry",
+        "public-good",
+        "symbiosis"
+      ],
+      "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
+      "primary_discipline_coverage": 5,
+      "discipline_entropy_nats": 1.6094379124341005,
+      "normalized_entropy_catalogue": 0.6476854623779971,
+      "new_domain_or_subfield_ratio": 1.0,
+      "new_topic_ratio": 1.0,
+      "recent_exposure_repeat_ratio": 0.0,
+      "constraint_satisfied": true,
+      "quality_proxy": 0.78,
+      "learnability_proxy": 0.7625,
+      "actual_count": 5,
+      "self_reported_unfamiliar_ratio": null
+    },
+    {
+      "profile": "合成档案C：无初始偏好",
+      "history_fingerprint": "827b4e6cc0473b1cd36d48634789eeb85c4a119022a49cfc8b7bedbf4224c2da",
       "seed": 101,
       "policy": "anti_cocoon",
       "topic_ids": [
@@ -1441,6 +2033,8 @@
         "symbiosis"
       ],
       "degraded": false,
+      "subfield_coverage": 5,
+      "semantic_repeat_ratio": 0.0,
       "primary_discipline_coverage": 5,
       "discipline_entropy_nats": 1.6094379124341005,
       "normalized_entropy_catalogue": 0.6476854623779971,

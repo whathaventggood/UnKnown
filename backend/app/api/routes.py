@@ -105,6 +105,18 @@ async def impressions(body:ImpressionsBody,db:DB,p:P):
     db.flush();return {'recorded':n}
 
 
+@router.post('/discover/surprise',response_model=SurpriseOut)
+async def unexpected_knowledge(body:SurpriseBody,db:DB,p:P):
+    mode=f'surprise:{body.strength}:{int(body.history_free)}'
+    try:
+        batch=create_batch(db,p,mode,body.idempotency_key,surprise_spec={'strength':body.strength,'history_free':body.history_free})
+    except ValueError as exc:
+        if str(exc)=='REFRESH_LIMIT': fail(429,'REFRESH_LIMIT','本次探索请求较多，请稍后再试。')
+        fail(409,'IDEMPOTENCY_CONFLICT','此操作标识已用于不同的探索设置。')
+    result=batch_json(db,batch,p)
+    return {'id':batch.id,'strength':body.strength,'history_free':body.history_free,'item':result['items'][0] if result['items'] else None,'constraints':result['constraints']}
+
+
 def relation_json(db,r):
     return {k:getattr(r,k) for k in ('id','type','label','explanation','source_url','direction','source_id','target_id','property_id')} | {'source_title':db.get(Topic,r.source_id).title,'target_title':db.get(Topic,r.target_id).title}
 
@@ -143,9 +155,12 @@ async def feedback(topic_id:str,body:FeedbackBody,db:DB,p:P):
         return {'state':state_json(db,p.id,topic_id)}
     st=db.get(TopicState,(p.id,topic_id))
     if not st: st=TopicState(profile_id=p.id,topic_id=topic_id);db.add(st)
-    if body.action in ('known','unfamiliar'): st.familiarity=body.action
+    if body.action in ('known','unfamiliar','name_only','concept_only','connections_unknown','forgotten'): st.familiarity=body.action
     elif body.action=='skip': st.skipped_until=(datetime.now(timezone.utc)+timedelta(days=3)).isoformat()
     elif body.action=='unskip': st.skipped_until=None
+    elif body.action=='revisit': st.revisit_at=(datetime.now(timezone.utc)+timedelta(days=7)).isoformat()
+    elif body.action=='cancel_revisit': st.revisit_at=None
+    elif body.action in ('worthwhile','not_worthwhile'): st.worthwhile=body.action=='worthwhile'
     else: st.learning='learning' if body.action=='learning' else 'understood' if body.action=='understood' else 'none'
     db.add(TopicEvent(profile_id=p.id,topic_id=topic_id,action=body.action,idempotency_key=body.idempotency_key))
     db.flush();return {'state':state_json(db,p.id,topic_id)}

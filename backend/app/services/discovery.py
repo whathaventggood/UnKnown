@@ -1,10 +1,12 @@
 import hashlib
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
-from sqlalchemy import select, func
+from sqlalchemy import select, func, case
+from collections import Counter,defaultdict,deque
 from app.models import *
 from app.services.catalog import topic_json, source_json
 from app.recommendation import recommend
+from app.recommendation.engine import surprise
 
 
 def settings_snapshot(p):
@@ -16,36 +18,75 @@ def local_date(p): return datetime.now(ZoneInfo(p.timezone)).date().isoformat()
 
 def history_snapshot(db,p):
     states=list(db.scalars(select(TopicState).where(TopicState.profile_id==p.id)))
-    topics={t.id:t for t in db.scalars(select(Topic))}
-    recent_cutoff=(datetime.now(timezone.utc)-timedelta(days=14)).isoformat()
+    topics={t.id:t for t in db.execute(select(Topic.id,Topic.title,Topic.original_title,Topic.primary_discipline_id,Topic.subfield,Topic.semantic_features))}
+    clock=datetime.now(timezone.utc)
+    cutoff=lambda days:(clock-timedelta(days=days)).isoformat()
     explored=[s.topic_id for s in states if s.first_explored_at]
-    history={'familiar_disciplines':p.familiar_disciplines,'intensity':p.intensity,'broad_use_history':p.broad_use_history,'explored_ids':explored,'explored_disciplines':sorted({topics[i].primary_discipline_id for i in explored if i in topics}),'explored_subfields':sorted({topics[i].subfield for i in explored if i in topics}),'known_ids':[s.topic_id for s in states if s.familiarity=='known'],'unfamiliar_ids':[s.topic_id for s in states if s.familiarity=='unfamiliar'],'skipped_ids':[s.topic_id for s in states if s.skipped_until and s.skipped_until>now()],'recent_ids':list(db.scalars(select(Impression.topic_id).where(Impression.profile_id==p.id,Impression.created_at>=recent_cutoff)))}
-    origins=set(explored+history['known_ids']) | {t.id for t in topics.values() if t.primary_discipline_id in p.familiar_disciplines}
-    paths={}
-    relations=list(db.scalars(select(TopicRelation)))
-    # Bounded two-hop directed BFS; property meaning/direction is never erased.
-    for origin in sorted(origins):
-        frontier=[(origin,[])]
-        for depth in range(2):
-            nxt=[]
-            for start,path in frontier:
-                for r in relations:
-                    if r.source_id!=start or r.target_id==origin: continue
-                    hop={'from_id':r.source_id,'from_title':topics[r.source_id].title,'from_discipline_id':topics[r.source_id].primary_discipline_id,'to_id':r.target_id,'to_title':topics[r.target_id].title,'type':r.type,'label':r.label,'explanation':r.explanation,'source_url':r.source_url,'direction':r.direction}
-                    new=path+[hop]
-                    if r.target_id not in paths or len(new)<len(paths[r.target_id]): paths[r.target_id]=new
-                    nxt.append((r.target_id,new))
-            frontier=nxt[:100]
-    history['recent_candidates']=[{'id':topics[i].id,'title':topics[i].title,'subfield':topics[i].subfield} for i in set(history['recent_ids']) if i in topics]
+    exposure=list(db.execute(select(Impression.topic_id,func.count().label('n90'),
+        func.sum(case((Impression.created_at>=cutoff(30),1),else_=0)).label('n30'),
+        func.sum(case((Impression.created_at>=cutoff(14),1),else_=0)).label('n14'),
+        func.sum(case((Impression.created_at>=cutoff(7),1),else_=0)).label('n7'),
+        func.max(Impression.created_at).label('last')).where(Impression.profile_id==p.id,Impression.created_at>=cutoff(90)).group_by(Impression.topic_id)))
+    history={'as_of':clock.isoformat(),'familiar_disciplines':p.familiar_disciplines,'intensity':p.intensity,'broad_use_history':p.broad_use_history,
+        'explored_ids':explored,'explored_disciplines':sorted({topics[i].primary_discipline_id for i in explored if i in topics}),
+        'explored_subfields':sorted({topics[i].subfield for i in explored if i in topics}),
+        'known_ids':[s.topic_id for s in states if s.familiarity=='known'],
+        'unfamiliar_ids':[s.topic_id for s in states if s.familiarity=='unfamiliar'],
+        'name_only_ids':[s.topic_id for s in states if s.familiarity=='name_only'],
+        'concept_only_ids':[s.topic_id for s in states if s.familiarity=='concept_only'],
+        'connection_gap_ids':[s.topic_id for s in states if s.familiarity=='connections_unknown'],
+        'forgotten_ids':[s.topic_id for s in states if s.familiarity=='forgotten'],
+        'stale_ids':[s.topic_id for s in states if s.last_visited_at and s.last_visited_at<cutoff(90)],
+        'skipped_ids':[s.topic_id for s in states if s.skipped_until and s.skipped_until>clock.isoformat()],
+        'recent_ids':sorted(r.topic_id for r in exposure if r.n14),
+        'exposure_counts':{r.topic_id:r.n30 for r in exposure if r.n30},'coverage_windows':{}}
+    for days in (7,30,90):
+        window=[s for s in states if s.first_explored_at and s.first_explored_at>=cutoff(days) and s.topic_id in topics]
+        dids=Counter(topics[s.topic_id].primary_discipline_id for s in window)
+        subs=Counter(topics[s.topic_id].subfield for s in window)
+        history['coverage_windows'][str(days)]={'disciplines':dict(dids),'subfields':dict(subs),'first_explorations':len(window)}
+    origins=set(explored+history['known_ids'])|{t.id for t in topics.values() if t.primary_discipline_id in p.familiar_disciplines}
+    adjacency=defaultdict(list)
+    relations=list(db.scalars(select(TopicRelation).order_by(TopicRelation.id)))
+    for r in relations:
+        if not r.source_url or 'analogy' in r.type or r.direction not in ('forward','both') or getattr(r,'evidence_status','curated') not in ('curated','source_checked'): continue
+        if r.source_id not in topics or r.target_id not in topics: continue
+        adjacency[r.source_id].append((r,r.target_id))
+        if r.direction=='both': adjacency[r.target_id].append((r,r.source_id))
+    paths={};seen=set(origins);queue=deque((tid,[]) for tid in sorted(origins))
+    # Multi-source BFS: each node expanded once. Bounds are global, not per origin.
+    examined=0
+    while queue and examined<10000:
+        start,path=queue.popleft();examined+=1
+        if len(path)>=3: continue
+        for r,target in adjacency[start]:
+            if target in seen: continue
+            hop={'from_id':start,'from_title':topics[start].title,'from_discipline_id':topics[start].primary_discipline_id,
+                 'to_id':target,'to_title':topics[target].title,'type':r.type,'label':r.label,'explanation':r.explanation,
+                 'source_url':r.source_url,'direction':r.direction,'relation_id':r.id,'evidence_status':getattr(r,'evidence_status','curated')}
+            seen.add(target);paths[target]=path+[hop];queue.append((target,paths[target]))
+    recent=[r.topic_id for r in sorted(exposure,key=lambda r:(r.last,r.topic_id),reverse=True) if r.n14 and r.topic_id in topics][:200]
+    history['recent_candidates']=[{'id':i,'title':topics[i].title,'original_title':topics[i].original_title,'subfield':topics[i].subfield,'semantic_features':topics[i].semantic_features} for i in recent]
     history['bridge_paths']=paths
+    history['bridge_search']={'expanded':examined,'limit':10000,'truncated':bool(queue)}
     return history
+
+
+def candidate_snapshot(db):
+    query=select(Topic).order_by(Topic.id).limit(10000)
+    topics=list(db.scalars(query))
+    sources=defaultdict(list)
+    ids=select(query.subquery().c.id)
+    for source in db.scalars(select(TopicSource).where(TopicSource.topic_id.in_(ids)).order_by(TopicSource.id)):
+        sources[source.topic_id].append(source_json(source))
+    return [{k:getattr(t,k) for k in ('id','title','original_title','primary_discipline_id','subfield','summary','quality_score','quality_features','content_status','semantic_features')}|{'sources':sources[t.id]} for t in topics]
 
 
 def latest_batch(db,p,date,mode):
     return db.scalar(select(DailyRecommendation).where(DailyRecommendation.profile_id==p.id,DailyRecommendation.date==date,DailyRecommendation.mode==mode).order_by(DailyRecommendation.batch_number.desc()).limit(1))
 
 
-def create_batch(db,p,mode,key=None):
+def create_batch(db,p,mode,key=None,*,surprise_spec=None):
     # Serialize creation across local processes before reading current batch.
     raw=db.connection().connection.driver_connection
     if hasattr(raw,'in_transaction') and not raw.in_transaction:
@@ -64,11 +105,9 @@ def create_batch(db,p,mode,key=None):
         if used>=30: raise ValueError('REFRESH_LIMIT')
     number=latest.batch_number+1 if latest else 1
     seed=int(hashlib.sha256(f'{p.id}|{today}|{mode}|{number}'.encode()).hexdigest()[:8],16)
-    candidates=[]
-    for t in db.scalars(select(Topic).order_by(Topic.id).limit(10000)):
-        candidates.append({k:getattr(t,k) for k in ('id','title','primary_discipline_id','subfield','summary','quality_score','quality_features','content_status')} | {'sources':[source_json(s) for s in db.scalars(select(TopicSource).where(TopicSource.topic_id==t.id))]})
-    history=history_snapshot(db,p)
-    result=recommend(candidates,history,mode=mode,count=5,seed=seed)
+    candidates=candidate_snapshot(db)
+    history={} if surprise_spec and surprise_spec['history_free'] else {'broad_use_history':False} if mode=='broad' and not p.broad_use_history else history_snapshot(db,p)
+    result=surprise(candidates,history,seed=seed,**surprise_spec) if surprise_spec else recommend(candidates,history,mode=mode,count=5,seed=seed)
     batch=DailyRecommendation(profile_id=p.id,date=today,mode=mode,batch_number=number,parent_id=latest.id if latest else None,idempotency_key=key or f'initial:{today}:{mode}',strategy_version=result['strategy_version'],seed=seed,constraints_json=result['constraints'],snapshot={'candidates':candidates,'history':history,'result':result},settings_snapshot=settings_snapshot(p))
     db.add(batch); db.flush()
     for position,item in enumerate(result['items']):

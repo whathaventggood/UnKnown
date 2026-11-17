@@ -49,6 +49,7 @@ class Topic(Base):
     processing_error: Mapped[str | None] = mapped_column(Text)
     processed_at: Mapped[str | None]
     processing_attempts: Mapped[int] = mapped_column(default=0)
+    semantic_features: Mapped[dict] = mapped_column(JSON,default=dict)
 
 class TopicDiscipline(Base):
     __tablename__ = 'topic_disciplines'
@@ -107,6 +108,8 @@ class TopicState(Base):
     first_explored_at: Mapped[str | None] = mapped_column(index=True)
     last_visited_at: Mapped[str | None]
     skipped_until: Mapped[str | None]
+    revisit_at: Mapped[str | None]
+    worthwhile: Mapped[bool | None]
 
 class TopicEvent(Base):
     __tablename__ = 'user_topic_events'

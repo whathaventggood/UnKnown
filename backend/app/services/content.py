@@ -84,6 +84,8 @@ def check_content(topic,sources,intro):
 
 
 def process_topic(db,topic,*,publish=True,force=False,intro=None):
+    from app.recommendation.semantic import describe
+    topic.semantic_features=describe(topic.title,topic.original_title)
     sources=list(db.scalars(select(TopicSource).where(TopicSource.topic_id==topic.id).order_by(TopicSource.id)))
     fingerprint=source_fingerprint(topic,sources)
     if not force and intro is None and topic.content_fingerprint==fingerprint and not topic.processing_error:
