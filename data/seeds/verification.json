@@ -1,0 +1,372 @@
+{
+  "verified_at": "2026-11-17",
+  "method": "web reader open + original source passage inspection",
+  "topic_count": 60,
+  "discipline_count": 12,
+  "source_count": 60,
+  "relation_count": 22,
+  "api_live_ingestion_count": 0,
+  "api_live_blocker": "default proxy unreachable; direct API DNS resolution timed out",
+  "items": [
+    {
+      "topic_id": "bayes",
+      "source_url": "https://en.wikipedia.org/wiki/Bayes'_theorem",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "graph-theory",
+      "source_url": "https://en.wikipedia.org/wiki/Graph_theory",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "topology",
+      "source_url": "https://en.wikipedia.org/wiki/Topology",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "chaos",
+      "source_url": "https://en.wikipedia.org/wiki/Chaos_theory",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "game-theory",
+      "source_url": "https://en.wikipedia.org/wiki/Game_theory",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "entropy",
+      "source_url": "https://en.wikipedia.org/wiki/Entropy",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "resonance",
+      "source_url": "https://en.wikipedia.org/wiki/Resonance",
+      "verified_date": "2026-11-17",
+      "source_notice": "来源示例部分提示需补充引用；保留有明确条目的秋千例子。"
+    },
+    {
+      "topic_id": "tunnelling",
+      "source_url": "https://en.wikipedia.org/wiki/Quantum_tunnelling",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "superconductivity",
+      "source_url": "https://en.wikipedia.org/wiki/Superconductivity",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "brownian",
+      "source_url": "https://en.wikipedia.org/wiki/Brownian_motion",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "catalysis",
+      "source_url": "https://en.wikipedia.org/wiki/Catalysis",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "chirality",
+      "source_url": "https://en.wikipedia.org/wiki/Chirality_(chemistry)",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "electrolysis",
+      "source_url": "https://en.wikipedia.org/wiki/Electrolysis",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "polymer",
+      "source_url": "https://en.wikipedia.org/wiki/Polymer",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "equilibrium",
+      "source_url": "https://en.wikipedia.org/wiki/Chemical_equilibrium",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "symbiosis",
+      "source_url": "https://en.wikipedia.org/wiki/Symbiosis",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "epigenetics",
+      "source_url": "https://en.wikipedia.org/wiki/Epigenetics",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "horizontal-gene-transfer",
+      "source_url": "https://en.wikipedia.org/wiki/Horizontal_gene_transfer",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "symbiogenesis",
+      "source_url": "https://en.wikipedia.org/wiki/Symbiogenesis",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "quorum",
+      "source_url": "https://en.wikipedia.org/wiki/Quorum_sensing",
+      "verified_date": "2026-11-17",
+      "source_notice": "来源页提示部分内容需要更多引用；本条仅保留基础定义。"
+    },
+    {
+      "topic_id": "tectonics",
+      "source_url": "https://en.wikipedia.org/wiki/Plate_tectonics",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "albedo",
+      "source_url": "https://en.wikipedia.org/wiki/Albedo",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "ocean-current",
+      "source_url": "https://en.wikipedia.org/wiki/Ocean_current",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "carbon-cycle",
+      "source_url": "https://en.wikipedia.org/wiki/Carbon_cycle",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "milankovitch",
+      "source_url": "https://en.wikipedia.org/wiki/Milankovitch_cycles",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "lensing",
+      "source_url": "https://en.wikipedia.org/wiki/Gravitational_lens",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "dark-matter",
+      "source_url": "https://en.wikipedia.org/wiki/Dark_matter",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "redshift",
+      "source_url": "https://en.wikipedia.org/wiki/Redshift",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "exoplanet",
+      "source_url": "https://en.wikipedia.org/wiki/Exoplanet",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "nucleosynthesis",
+      "source_url": "https://en.wikipedia.org/wiki/Stellar_nucleosynthesis",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "error-correction",
+      "source_url": "https://en.wikipedia.org/wiki/Error_correction_code",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "distributed",
+      "source_url": "https://en.wikipedia.org/wiki/Distributed_computing",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "hash",
+      "source_url": "https://en.wikipedia.org/wiki/Hash_function",
+      "verified_date": "2026-11-17",
+      "source_notice": "来源导语提示需补充引用；摘要只保留基础概念。"
+    },
+    {
+      "topic_id": "public-key",
+      "source_url": "https://en.wikipedia.org/wiki/Public-key_cryptography",
+      "verified_date": "2026-11-17",
+      "source_notice": "来源页提示需补充引用；摘要只保留基础机制。"
+    },
+    {
+      "topic_id": "complexity",
+      "source_url": "https://en.wikipedia.org/wiki/Computational_complexity",
+      "verified_date": "2026-11-17",
+      "source_notice": "来源页提示行内引证不足。"
+    },
+    {
+      "topic_id": "neuroplasticity",
+      "source_url": "https://en.wikipedia.org/wiki/Neuroplasticity",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "dissonance",
+      "source_url": "https://en.wikipedia.org/wiki/Cognitive_dissonance",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "predictive",
+      "source_url": "https://en.wikipedia.org/wiki/Predictive_coding",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "circadian",
+      "source_url": "https://en.wikipedia.org/wiki/Circadian_rhythm",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "inattentional",
+      "source_url": "https://en.wikipedia.org/wiki/Inattentional_blindness",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "comparative",
+      "source_url": "https://en.wikipedia.org/wiki/Comparative_advantage",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "opportunity",
+      "source_url": "https://en.wikipedia.org/wiki/Opportunity_cost",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "commons",
+      "source_url": "https://en.wikipedia.org/wiki/Tragedy_of_the_commons",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "asymmetry",
+      "source_url": "https://en.wikipedia.org/wiki/Information_asymmetry",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "auction",
+      "source_url": "https://en.wikipedia.org/wiki/Auction_theory",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "diffusion",
+      "source_url": "https://en.wikipedia.org/wiki/Diffusion_of_innovations",
+      "verified_date": "2026-11-17",
+      "source_notice": "来源页提示需补充引用。"
+    },
+    {
+      "topic_id": "social-network",
+      "source_url": "https://en.wikipedia.org/wiki/Social_network",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "relativity",
+      "source_url": "https://en.wikipedia.org/wiki/Linguistic_relativity",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "social-capital",
+      "source_url": "https://en.wikipedia.org/wiki/Social_capital",
+      "verified_date": "2026-11-17",
+      "source_notice": "来源页提示内容偏专业；建议结合上下文阅读。"
+    },
+    {
+      "topic_id": "public-good",
+      "source_url": "https://en.wikipedia.org/wiki/Public_good_(economics)",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "hermeneutics",
+      "source_url": "https://en.wikipedia.org/wiki/Hermeneutics",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "semiotics",
+      "source_url": "https://en.wikipedia.org/wiki/Semiotics",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "falsifiability",
+      "source_url": "https://en.wikipedia.org/wiki/Falsifiability",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "thought-experiment",
+      "source_url": "https://en.wikipedia.org/wiki/Thought_experiment",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "oral-history",
+      "source_url": "https://en.wikipedia.org/wiki/Oral_history",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "negative-space",
+      "source_url": "https://en.wikipedia.org/wiki/Negative_space",
+      "verified_date": "2026-11-17",
+      "source_notice": "来源页提示引证不足；仅作入门线索。"
+    },
+    {
+      "topic_id": "perspective",
+      "source_url": "https://en.wikipedia.org/wiki/Perspective_(graphical)",
+      "verified_date": "2026-11-17",
+      "source_notice": "来源页提示部分内容需补充引用。"
+    },
+    {
+      "topic_id": "polyrhythm",
+      "source_url": "https://en.wikipedia.org/wiki/Polyrhythm",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "tessellation",
+      "source_url": "https://en.wikipedia.org/wiki/Tessellation",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    },
+    {
+      "topic_id": "golden-ratio",
+      "source_url": "https://en.wikipedia.org/wiki/Golden_ratio",
+      "verified_date": "2026-11-17",
+      "source_notice": null
+    }
+  ]
+}

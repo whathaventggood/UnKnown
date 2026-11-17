@@ -1,0 +1,17 @@
+export type Mode='unknown'|'bridge'|'broad'
+export type Depth='beginner'|'intermediate'|'deep'
+export interface Discipline {id:string; name:string; color:string; description?:string; count?:number; first_explored_at?:string}
+export interface Profile {id:string; timezone:string; familiar_disciplines:string[]; depth:Depth; intensity:number; broad_use_history:boolean; onboarding_complete:boolean; ai:{configured:boolean;model:string|null}}
+export interface Source {id:string;platform:string;external_id:string;url:string;title:string;language:string;license:string;fetched_at:string;updated_at:string|null;content_hash:string;excerpt:string}
+export interface State {bookmarked:boolean;familiarity:'unknown'|'known'|'unfamiliar';learning:'none'|'learning'|'understood';explored:boolean}
+export interface Topic {id:string;title:string;original_title:string;summary:string;original_summary:string;language:string;primary_discipline:Discipline;related_disciplines:Discipline[];subfield:string;question:string;value:string;reading_minutes:number;sources:Source[];state:State;quality_score:number;quality_features?:{summary_kind?:string;summary_label?:string;upstream_ai?:boolean;source_notice?:string|null};data_kind?:string}
+export interface Relation {id:string;type:string;label:string;explanation:string;source_url:string;direction?:string}
+export interface BridgeHop {from_id:string;from_title?:string;to_id:string;type:string;label:string;explanation:string;source_url:string;direction:string}
+export interface Recommendation {topic:Topic;reason:string;features:{novelty:number;quality:number;diversity:number;learnability:number};score:number;bridge_path:BridgeHop[]}
+export interface Batch {id:string;date:string;mode:Mode;batch_number:number;parent_id:string|null;items:Recommendation[];constraints:{requested:number;actual:number;satisfied:string[];relaxed:string[];reason_codes:string[];message:string};strategy_version:string;seed:number;settings_changed:boolean}
+export interface Stats {explored_count:number;discipline_count:number;bookmark_count:number;new_disciplines:Discipline[];distribution:Discipline[];unexplored_disciplines:Discipline[];long_unexplored_disciplines?:(Discipline&{last_explored_at:string})[];timeline:{topic_id:string;title:string;discipline_name:string;at:string}[];paths:{from_title:string;to_title:string;relation_type:string;explanation:string;source_url:string}[];definitions:Record<string,string>}
+export interface MapNode {id:string;name:string;type:'discipline'|'subfield'|'topic';discipline_id:string;color:string;description:string;topic_id:string|null;explored:boolean;bookmarked:boolean;learning:string;count:number}
+export interface MapEdge extends Relation {source:string;target:string}
+export interface MapData {nodes:MapNode[];edges:MapEdge[];truncated:boolean;limits:{nodes:number;edges:number;depth:number}}
+export interface Explain {status:string;message:string;cached:boolean;content:null|{overview:string;principle:string;example:string;analogy:{text:string;limits:string}|null;background:string;applications:string[];misconceptions:string[];open_questions:string[];questions:string[];claims:{text:string;kind:string;source_ids:string[]}[]};sources:Source[];usage:{input_tokens:number|null;output_tokens:number|null}|null}
+export interface ChatItem {role:string;content:string;created_at?:string;source_ids?:string[]}

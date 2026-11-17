@@ -1,0 +1,3599 @@
+{
+  "version": "1",
+  "taxonomy_version": "1",
+  "verified_at": "2026-11-17",
+  "data_kind": "seed",
+  "license": "CC BY-SA 4.0 (Wikipedia excerpts and adapted Chinese summaries); authored metadata CC BY 4.0",
+  "verification_note": "60 个英文真实来源逐条通过 web 阅读核验。默认产品不是合成测试数据。中文版摘要由 AI 辅助编写，非人工专家审稿或来源原文；原文短摘独立保存。执行环境 API DNS/代理不可用，因此这里不伪造数字 page ID、修订号或来源更新时间，也不宣称在线采集 300 条成功。",
+  "disciplines": [
+    {
+      "id": "mathematics",
+      "name": "数学",
+      "color": "#5b69b2",
+      "description": "用结构、数量与逻辑理解模式。"
+    },
+    {
+      "id": "physics",
+      "name": "物理学",
+      "color": "#4f7b91",
+      "description": "研究物质、能量、运动与相互作用。"
+    },
+    {
+      "id": "chemistry",
+      "name": "化学",
+      "color": "#ac7852",
+      "description": "从分子结构到反应与材料。"
+    },
+    {
+      "id": "biology",
+      "name": "生命科学",
+      "color": "#548675",
+      "description": "生命的结构、演化与合作。"
+    },
+    {
+      "id": "earth",
+      "name": "地球与环境",
+      "color": "#75894e",
+      "description": "理解地球系统的变化和反馈。"
+    },
+    {
+      "id": "astronomy",
+      "name": "天文学",
+      "color": "#7d69a4",
+      "description": "从观测信号理解宇宙。"
+    },
+    {
+      "id": "computing",
+      "name": "计算与信息",
+      "color": "#417c91",
+      "description": "计算、通信与信息系统的原理。"
+    },
+    {
+      "id": "cognition",
+      "name": "心智与认知",
+      "color": "#ae6a84",
+      "description": "研究知觉、注意、学习与脑。"
+    },
+    {
+      "id": "economics",
+      "name": "经济学",
+      "color": "#ab8a45",
+      "description": "稀缺资源、选择与制度。"
+    },
+    {
+      "id": "society",
+      "name": "社会与语言",
+      "color": "#8e7659",
+      "description": "关系网络、语言和社会合作。"
+    },
+    {
+      "id": "humanities",
+      "name": "哲学与历史",
+      "color": "#7b7b91",
+      "description": "理解解释、论证与历史证据。"
+    },
+    {
+      "id": "arts",
+      "name": "艺术与设计",
+      "color": "#b06b59",
+      "description": "探索视觉、节奏与构成的规律。"
+    }
+  ],
+  "topics": [
+    {
+      "id": "bayes",
+      "title": "贝叶斯定理",
+      "original_title": "Bayes' theorem",
+      "summary": "贝叶斯定理把“某种情况下看到证据的可能性”与“看到证据后该情况的可能性”联系起来。它利用先验概率和新证据更新判断。阳性检测并不自动意味着患病概率很高，还要考虑疾病原本多常见以及检测错误。",
+      "original_summary": "gives a mathematical rule for inverting conditional probabilities",
+      "language": "en",
+      "primary_discipline_id": "mathematics",
+      "related_discipline_ids": [
+        "cognition",
+        "computing"
+      ],
+      "subfield": "概率与推断",
+      "question": "新证据出现后，怎样合理地改变原来的判断？",
+      "value": "分清条件概率的方向，避免忽略基础发生率。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": true,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-bayes",
+          "platform": "wikipedia",
+          "external_id": "en:title:Bayes'_theorem",
+          "url": "https://en.wikipedia.org/wiki/Bayes'_theorem",
+          "title": "Bayes' theorem",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "ee624ba4a4d77897a93117ac487df0fc185432f8cc3850776064ec964b2e4df9",
+          "excerpt": "gives a mathematical rule for inverting conditional probabilities",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "graph-theory",
+      "title": "图论",
+      "original_title": "Graph theory",
+      "summary": "图论用节点表示对象，用边表示对象之间的关系。有向边和无向边表达不同的联系。地铁站之间的连通、计算机网络和人际联系都可以用图建模，但边的含义需要按具体问题定义。",
+      "original_summary": "A graph consists of vertices connected by edges.",
+      "language": "en",
+      "primary_discipline_id": "mathematics",
+      "related_discipline_ids": [
+        "computing",
+        "society"
+      ],
+      "subfield": "离散结构",
+      "question": "一张地铁图和一张人际关系网有什么共同结构？",
+      "value": "把复杂系统中的连接问题转化成可分析的结构。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": true,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-graph-theory",
+          "platform": "wikipedia",
+          "external_id": "en:title:Graph_theory",
+          "url": "https://en.wikipedia.org/wiki/Graph_theory",
+          "title": "Graph theory",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "225ad3dedeb58bab9899758dfbe371526882a50a2bc6c0b11aab666db8f162a1",
+          "excerpt": "A graph consists of vertices connected by edges.",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "topology",
+      "title": "拓扑学",
+      "original_title": "Topology",
+      "summary": "拓扑学研究几何对象在连续变形下仍保持的性质。拉伸和弯曲通常允许，撕裂或把洞粘起来则不允许。在这种视角下，连通性和洞比精确长度更重要；这不是说所有外形相近的物体都等价。",
+      "original_summary": "properties of a geometric object that are preserved under continuous deformations",
+      "language": "en",
+      "primary_discipline_id": "mathematics",
+      "related_discipline_ids": [
+        "arts"
+      ],
+      "subfield": "几何与空间",
+      "question": "如果不量长度，我们还能怎样区分形状？",
+      "value": "认识“保持不变的性质”如何帮助分类问题。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.45,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-topology",
+          "platform": "wikipedia",
+          "external_id": "en:title:Topology",
+          "url": "https://en.wikipedia.org/wiki/Topology",
+          "title": "Topology",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "f3d75fa958d9340b1c6a82481d8d521665bf35f150559b0e5969a3a9d76d6878",
+          "excerpt": "properties of a geometric object that are preserved under continuous deformations",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "chaos",
+      "title": "混沌理论",
+      "original_title": "Chaos theory",
+      "summary": "某些确定性的动力系统对初始条件极其敏感：起点很小的差别，经过演化可能形成很不相同的结果。混沌不等于完全没有规律，也不意味着所有微小事件都会引发灾难。它帮助解释长期精确预测为什么困难。",
+      "original_summary": "dynamical systems that are highly sensitive to initial conditions",
+      "language": "en",
+      "primary_discipline_id": "mathematics",
+      "related_discipline_ids": [
+        "earth",
+        "physics"
+      ],
+      "subfield": "动力系统",
+      "question": "遵循确定规律的系统，为什么仍然难以长期预测？",
+      "value": "区分确定性、随机性与可预测性。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-chaos",
+          "platform": "wikipedia",
+          "external_id": "en:title:Chaos_theory",
+          "url": "https://en.wikipedia.org/wiki/Chaos_theory",
+          "title": "Chaos theory",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "ee09fd8efad255bd4efd8c9be2ca8d7df691c317121112db4def20b030523431",
+          "excerpt": "dynamical systems that are highly sensitive to initial conditions",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "game-theory",
+      "title": "博弈论",
+      "original_title": "Game theory",
+      "summary": "博弈论研究多个决策者的选择如何互相影响。一方的最佳选择常常取决于另一方怎样行动，以及各方知道什么、在乎什么。它既分析竞争，也分析合作；模型的结论依赖参与者、信息和收益假设。",
+      "original_summary": "Game theory is the field of applied mathematics that models interactions between multiple agents",
+      "language": "en",
+      "primary_discipline_id": "mathematics",
+      "related_discipline_ids": [
+        "economics",
+        "biology"
+      ],
+      "subfield": "策略与决策",
+      "question": "当选择的结果也取决于别人时，如何分析决策？",
+      "value": "看见规则和激励对群体行为的影响。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-game-theory",
+          "platform": "wikipedia",
+          "external_id": "en:title:Game_theory",
+          "url": "https://en.wikipedia.org/wiki/Game_theory",
+          "title": "Game theory",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "9a9b777122e01fa8c211a112932e12a884e2491d5042d1352354e15dfbdb8056",
+          "excerpt": "Game theory is the field of applied mathematics that models interactions between multiple agents",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "entropy",
+      "title": "熵",
+      "original_title": "Entropy",
+      "summary": "熵是热力学状态量，也可从满足宏观条件的微观状态来理解。热力学第二定律指出，孤立系统自发演化时熵不会减少。日常的“混乱程度”只是有限类比，不能代替精确定义；信息论中也有相关的熵概念。",
+      "original_summary": "Entropy is a thermodynamic state variable",
+      "language": "en",
+      "primary_discipline_id": "physics",
+      "related_discipline_ids": [
+        "computing",
+        "chemistry"
+      ],
+      "subfield": "热力学",
+      "question": "为什么热量自然从热物体流向冷物体？",
+      "value": "认识宏观过程的方向性及其统计基础。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.45,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-entropy",
+          "platform": "wikipedia",
+          "external_id": "en:title:Entropy",
+          "url": "https://en.wikipedia.org/wiki/Entropy",
+          "title": "Entropy",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "1acb64507991fb6a15b99be387f44821477122d215bfa31c757138614f2df809",
+          "excerpt": "Entropy is a thermodynamic state variable",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "resonance",
+      "title": "共振",
+      "original_title": "Resonance",
+      "summary": "一个振动系统受到频率合适的周期性驱动时，可以高效吸收能量，振幅增大。推动秋千要合拍是常见例子。实际系统存在阻尼，共振幅度和频率范围受系统结构、损耗与驱动力影响，不会无条件无限增长。",
+      "original_summary": "Pushing a person in a swing is a common example of resonance.",
+      "language": "en",
+      "primary_discipline_id": "physics",
+      "related_discipline_ids": [
+        "arts"
+      ],
+      "subfield": "波动与振动",
+      "question": "为什么合拍地推秋千比随意用力更有效？",
+      "value": "从日常振动理解乐器、时钟和调谐电路。",
+      "quality_score": 0.68,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": true,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": "来源示例部分提示需补充引用；保留有明确条目的秋千例子。",
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-resonance",
+          "platform": "wikipedia",
+          "external_id": "en:title:Resonance",
+          "url": "https://en.wikipedia.org/wiki/Resonance",
+          "title": "Resonance",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "06ae5cf788976415aef0eccc475e0d3dca7487c8ae04113ad798324b80261ebf",
+          "excerpt": "Pushing a person in a swing is a common example of resonance.",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": "来源示例部分提示需补充引用；保留有明确条目的秋千例子。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tunnelling",
+      "title": "量子隧穿",
+      "original_title": "Quantum tunnelling",
+      "summary": "经典模型中，能量不足的粒子无法越过某个势垒；量子力学中，粒子的波函数可能使它以一定概率出现在势垒另一侧。势垒宽度、高度与粒子质量影响隧穿概率。扫描隧道显微镜利用了这一效应。",
+      "original_summary": "Tunnelling plays an essential role in physical phenomena such as nuclear fusion",
+      "language": "en",
+      "primary_discipline_id": "physics",
+      "related_discipline_ids": [
+        "astronomy",
+        "chemistry"
+      ],
+      "subfield": "量子现象",
+      "question": "粒子怎样穿过经典物理看来过不去的障碍？",
+      "value": "理解微观规律如何进入真实测量器件。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.45,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-tunnelling",
+          "platform": "wikipedia",
+          "external_id": "en:title:Quantum_tunnelling",
+          "url": "https://en.wikipedia.org/wiki/Quantum_tunnelling",
+          "title": "Quantum tunnelling",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "c369bdaa2d687475c7c6dd05ac46b323a8862bddb741a7533be4b627dd163aea",
+          "excerpt": "Tunnelling plays an essential role in physical phenomena such as nuclear fusion",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "superconductivity",
+      "title": "超导",
+      "original_title": "Superconductivity",
+      "summary": "某些材料进入超导状态后表现出零电阻和排斥内部磁场等性质。超导有临界温度等条件，并不是普通导体简单冷却后的线性延伸。“高温超导”也不自动意味着室温条件；实际应用仍受材料和运行环境限制。",
+      "original_summary": "materials where electrical resistance is exactly zero and magnetic fields are expelled from the material",
+      "language": "en",
+      "primary_discipline_id": "physics",
+      "related_discipline_ids": [],
+      "subfield": "凝聚态与材料",
+      "question": "没有电阻与排斥磁场，为什么会一起出现？",
+      "value": "认识材料状态变化与磁悬浮等现象的联系。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.45,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-superconductivity",
+          "platform": "wikipedia",
+          "external_id": "en:title:Superconductivity",
+          "url": "https://en.wikipedia.org/wiki/Superconductivity",
+          "title": "Superconductivity",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "aecd196613b34f4aec3a114473b23b7fe1c79006140baa35c46e09aa897f40d4",
+          "excerpt": "materials where electrical resistance is exactly zero and magnetic fields are expelled from the material",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "brownian",
+      "title": "布朗运动",
+      "original_title": "Brownian motion",
+      "summary": "悬浮在液体或气体中的微小颗粒会表现出不规则运动。这种布朗运动可由周围分子的热运动与碰撞来理解。数学中常用维纳过程描述其理想化模型，模型有自己的假设，不等于每条实际轨迹的精确记录。",
+      "original_summary": "Brownian motion is the random motion of particles suspended in a medium",
+      "language": "en",
+      "primary_discipline_id": "physics",
+      "related_discipline_ids": [
+        "mathematics"
+      ],
+      "subfield": "统计物理",
+      "question": "水中微小颗粒为什么会不停地随机抖动？",
+      "value": "从可见颗粒的运动连接微观分子与概率模型。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-brownian",
+          "platform": "wikipedia",
+          "external_id": "en:title:Brownian_motion",
+          "url": "https://en.wikipedia.org/wiki/Brownian_motion",
+          "title": "Brownian motion",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "9b46d8d208ed5f4c57fe94387876b7d110893aaea2486f889a45a153251eeab5",
+          "excerpt": "Brownian motion is the random motion of particles suspended in a medium",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "catalysis",
+      "title": "催化作用",
+      "original_title": "Catalysis",
+      "summary": "催化剂提供不同的反应路径，使化学反应更快进行，并在完整反应循环中再生。它改变达到平衡的速度，而不能凭空创造能量。过氧化氢在合适催化剂存在时会更快分解，生物酶也是催化剂。",
+      "original_summary": "The catalyst is not consumed in the reaction",
+      "language": "en",
+      "primary_discipline_id": "chemistry",
+      "related_discipline_ids": [
+        "biology"
+      ],
+      "subfield": "反应动力学",
+      "question": "为什么少量物质能让反应明显加快？",
+      "value": "区分反应速度、反应路径和最终平衡。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": true,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-catalysis",
+          "platform": "wikipedia",
+          "external_id": "en:title:Catalysis",
+          "url": "https://en.wikipedia.org/wiki/Catalysis",
+          "title": "Catalysis",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "531e923c7e9c2de55105d18f4266a212451fbb29970eb332f22083a8d66c5343",
+          "excerpt": "The catalyst is not consumed in the reaction",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "chirality",
+      "title": "分子手性",
+      "original_title": "Chirality (chemistry)",
+      "summary": "如果一个分子不能通过旋转、平移等方式与它的镜像重合，它就具有手性，像左右手一样。两种镜像形式在面对其他手性分子时可能表现不同。理解这种空间结构有助于认识生物分子识别，不能仅靠分子式判断全部性质。",
+      "original_summary": "a molecule or ion is called chiral",
+      "language": "en",
+      "primary_discipline_id": "chemistry",
+      "related_discipline_ids": [
+        "biology"
+      ],
+      "subfield": "立体化学",
+      "question": "同样的组成，为何镜像结构可能产生不同作用？",
+      "value": "看见三维结构对化学和生命过程的重要性。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-chirality",
+          "platform": "wikipedia",
+          "external_id": "en:title:Chirality_(chemistry)",
+          "url": "https://en.wikipedia.org/wiki/Chirality_(chemistry)",
+          "title": "Chirality (chemistry)",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "98f3ebfe9278be3b140617843dcdec9b9d55a386752559309eb291e0fdbb04e1",
+          "excerpt": "a molecule or ion is called chiral",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "electrolysis",
+      "title": "电解",
+      "original_title": "Electrolysis",
+      "summary": "电解利用直流电驱动原本不自发进行的反应，可用于从化合物中分离元素等工业过程。它把电能转化为化学变化；是否发生反应、需要多大电压，还取决于电极、溶液和具体反应条件。",
+      "original_summary": "electrolysis is a technique that uses direct electric current",
+      "language": "en",
+      "primary_discipline_id": "chemistry",
+      "related_discipline_ids": [],
+      "subfield": "电化学",
+      "question": "电流怎样推动物质发生化学变化？",
+      "value": "理解电能与化学能转换的一个基本方向。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-electrolysis",
+          "platform": "wikipedia",
+          "external_id": "en:title:Electrolysis",
+          "url": "https://en.wikipedia.org/wiki/Electrolysis",
+          "title": "Electrolysis",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "3c0b70590dfdc91c8d3021ebcf36c7ad8f0ca92e0ecc08838a257acd328fdbf1",
+          "excerpt": "electrolysis is a technique that uses direct electric current",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "polymer",
+      "title": "聚合物",
+      "original_title": "Polymer",
+      "summary": "聚合物由许多相同或相近的结构单元连接而成，天然橡胶和合成塑料都属于这一大类，许多生命大分子也具有聚合结构。链的组成、排列和相互作用会影响材料性质，所以“塑料”并不是一种单一物质。",
+      "original_summary": "Polymers are chain or filament formed through covalent or non-covalent bonding",
+      "language": "en",
+      "primary_discipline_id": "chemistry",
+      "related_discipline_ids": [
+        "biology"
+      ],
+      "subfield": "高分子材料",
+      "question": "重复的小单元怎样形成性质迥异的材料？",
+      "value": "把日常材料与分子链结构联系起来。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": true,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-polymer",
+          "platform": "wikipedia",
+          "external_id": "en:title:Polymer",
+          "url": "https://en.wikipedia.org/wiki/Polymer",
+          "title": "Polymer",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "362b2d00f908358318c8d11b31c89bba774acb12f238390dafb110d3eb912f6c",
+          "excerpt": "Polymers are chain or filament formed through covalent or non-covalent bonding",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "equilibrium",
+      "title": "化学平衡",
+      "original_title": "Chemical equilibrium",
+      "summary": "可逆反应达到化学平衡时，正向和逆向反应速率相等，宏观上浓度不再继续改变。平衡并不意味着反应停止；它是一种动态状态。讨论平衡要说明系统条件，改变条件可能导致新的平衡状态。",
+      "original_summary": "This state results when the forward reaction proceeds at the same rate as the reverse reaction.",
+      "language": "en",
+      "primary_discipline_id": "chemistry",
+      "related_discipline_ids": [
+        "physics"
+      ],
+      "subfield": "平衡与反应",
+      "question": "看起来不再变化的反应，内部真的停止了吗？",
+      "value": "分清微观活动与宏观稳定。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-equilibrium",
+          "platform": "wikipedia",
+          "external_id": "en:title:Chemical_equilibrium",
+          "url": "https://en.wikipedia.org/wiki/Chemical_equilibrium",
+          "title": "Chemical equilibrium",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "1f9f7dd59d1bd8b0ebe0a0ef75c03ffe4ade7e01f5c73b801a2c7dead7cfd562",
+          "excerpt": "This state results when the forward reaction proceeds at the same rate as the reverse reaction.",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "symbiosis",
+      "title": "共生",
+      "original_title": "Symbiosis",
+      "summary": "共生指不同物种之间紧密而长期的生物相互作用。广义用法不只包括互利，也可能包括寄生等形式。小丑鱼与海葵的关系是常见例子；讨论“双方是否获益”需要具体证据，不能由共生这个词直接推出。",
+      "original_summary": "any close and long-term biological interaction between two organisms of different species",
+      "language": "en",
+      "primary_discipline_id": "biology",
+      "related_discipline_ids": [],
+      "subfield": "生态相互作用",
+      "question": "长期生活在一起的物种，一定互惠互利吗？",
+      "value": "更精确地理解物种之间的关系。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": true,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-symbiosis",
+          "platform": "wikipedia",
+          "external_id": "en:title:Symbiosis",
+          "url": "https://en.wikipedia.org/wiki/Symbiosis",
+          "title": "Symbiosis",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "4cc305c73a87ae878585a26edb456069c9d573559d280bbddef12a3eb86b252c",
+          "excerpt": "any close and long-term biological interaction between two organisms of different species",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "epigenetics",
+      "title": "表观遗传学",
+      "original_title": "Epigenetics",
+      "summary": "表观遗传学研究不改变 DNA 序列的基因表达变化，部分变化可在细胞分裂过程中保持。它关注基因如何被调控，而不是说经历会随意改写基因序列。环境影响和跨代传递是不同问题，不能混为一谈。",
+      "original_summary": "Epigenetics is the study of changes in gene expression that occur without altering the DNA sequence.",
+      "language": "en",
+      "primary_discipline_id": "biology",
+      "related_discipline_ids": [],
+      "subfield": "基因调控",
+      "question": "DNA 序列没变，细胞行为为什么仍会改变？",
+      "value": "理解遗传信息与基因表达之间的区别。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-epigenetics",
+          "platform": "wikipedia",
+          "external_id": "en:title:Epigenetics",
+          "url": "https://en.wikipedia.org/wiki/Epigenetics",
+          "title": "Epigenetics",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "3066d4d73539a32fc3974a8591f9c5f1a29bb3bbd27d5fe814a67824afc3bad9",
+          "excerpt": "Epigenetics is the study of changes in gene expression that occur without altering the DNA sequence.",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "horizontal-gene-transfer",
+      "title": "水平基因转移",
+      "original_title": "Horizontal gene transfer",
+      "summary": "遗传物质不只通过亲代传给子代，也可能在生物之间以其他方式转移，这称为水平基因转移。它在细菌演化和抗生素耐药性的传播中具有重要作用。生命演化因此不总能用一棵只分叉的树完整表达。",
+      "original_summary": "is the movement of genetic material between organisms",
+      "language": "en",
+      "primary_discipline_id": "biology",
+      "related_discipline_ids": [],
+      "subfield": "微生物演化",
+      "question": "基因除了由父母传给后代，还能怎样传播？",
+      "value": "认识微生物演化中跨谱系的信息流动。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-horizontal-gene-transfer",
+          "platform": "wikipedia",
+          "external_id": "en:title:Horizontal_gene_transfer",
+          "url": "https://en.wikipedia.org/wiki/Horizontal_gene_transfer",
+          "title": "Horizontal gene transfer",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "0a138ef6d667318d2e86a8533d996d7b6a81990aa66dddba5e8d896544e7c879",
+          "excerpt": "is the movement of genetic material between organisms",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "symbiogenesis",
+      "title": "内共生理论",
+      "original_title": "Symbiogenesis",
+      "summary": "内共生理论解释真核细胞中线粒体、叶绿体等细胞器的演化起源：它们的祖先曾是自由生活的原核生物，后来在宿主内部建立长期关系。不同细胞器的证据与历史并不完全相同，不能把所有结构都归为同一次吞并。",
+      "original_summary": "organelles such as mitochondria and chloroplasts are endosymbionts",
+      "language": "en",
+      "primary_discipline_id": "biology",
+      "related_discipline_ids": [],
+      "subfield": "细胞演化",
+      "question": "细胞中的“能量工厂”是否曾经独立生活？",
+      "value": "把细胞结构、合作关系和演化史联系起来。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-symbiogenesis",
+          "platform": "wikipedia",
+          "external_id": "en:title:Symbiogenesis",
+          "url": "https://en.wikipedia.org/wiki/Symbiogenesis",
+          "title": "Symbiogenesis",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "408cf055a7e4c67bddecdc0fd5c24d1efd3a41f78b1842373390b202cea4fd98",
+          "excerpt": "organelles such as mitochondria and chloroplasts are endosymbionts",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "quorum",
+      "title": "群体感应",
+      "original_title": "Quorum sensing",
+      "summary": "细菌可以通过细胞间的化学信号感知种群密度，并调节基因表达，这称为群体感应。个体通过局部信号协调行为，不需要一个中央指挥者。不同菌种使用的信号与响应机制并不相同。",
+      "original_summary": "is the process of cell-to-cell communication",
+      "language": "en",
+      "primary_discipline_id": "biology",
+      "related_discipline_ids": [
+        "computing"
+      ],
+      "subfield": "微生物信号",
+      "question": "没有大脑的细菌怎样感知“同伴够多了”？",
+      "value": "理解分散个体如何借助信号协调活动。",
+      "quality_score": 0.68,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": "来源页提示部分内容需要更多引用；本条仅保留基础定义。",
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-quorum",
+          "platform": "wikipedia",
+          "external_id": "en:title:Quorum_sensing",
+          "url": "https://en.wikipedia.org/wiki/Quorum_sensing",
+          "title": "Quorum sensing",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "d657b1989a0253fbfe06f05fe13984e8a71ad264fd9901befaca921d9fd1b0e1",
+          "excerpt": "is the process of cell-to-cell communication",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": "来源页提示部分内容需要更多引用；本条仅保留基础定义。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tectonics",
+      "title": "板块构造",
+      "original_title": "Plate tectonics",
+      "summary": "板块构造理论认为，地球岩石圈分成若干缓慢运动的板块。板块相遇、分离或错动，形成不同边界，影响地震、造山等现象。它整合了大陆漂移与海底扩张的证据，但不能据此精确预测某次地震的日期。",
+      "original_summary": "Earth's lithosphere comprises a number of large tectonic plates",
+      "language": "en",
+      "primary_discipline_id": "earth",
+      "related_discipline_ids": [
+        "physics"
+      ],
+      "subfield": "固体地球",
+      "question": "大陆为什么会移动，边界为什么如此活跃？",
+      "value": "用统一框架理解地球表面的多种地质现象。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-tectonics",
+          "platform": "wikipedia",
+          "external_id": "en:title:Plate_tectonics",
+          "url": "https://en.wikipedia.org/wiki/Plate_tectonics",
+          "title": "Plate tectonics",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "73b25f8e90f27b842be976dde88c529b06461fd15efb7e9441ab9a1ab3740b22",
+          "excerpt": "Earth's lithosphere comprises a number of large tectonic plates",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "albedo",
+      "title": "反照率",
+      "original_title": "Albedo",
+      "summary": "反照率描述一个物体反射入射太阳辐射的比例，通常取 0 到 1 之间的值。冰雪和深色地表反射与吸收辐射的方式不同。地球气候中的反馈还涉及大气、位置与时间，不能只凭表面颜色就判断全部温度变化。",
+      "original_summary": "is the fraction of sunlight that is diffusely reflected by a body",
+      "language": "en",
+      "primary_discipline_id": "earth",
+      "related_discipline_ids": [
+        "physics",
+        "astronomy"
+      ],
+      "subfield": "气候与辐射",
+      "question": "白雪与深色海面为何对阳光反应不同？",
+      "value": "理解地表性质如何参与气候能量收支。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-albedo",
+          "platform": "wikipedia",
+          "external_id": "en:title:Albedo",
+          "url": "https://en.wikipedia.org/wiki/Albedo",
+          "title": "Albedo",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "1280034907b2c199bb72712707e8074ffbbec2426d7963ab6761a4e9bd5d8ac0",
+          "excerpt": "is the fraction of sunlight that is diffusely reflected by a body",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "ocean-current",
+      "title": "洋流",
+      "original_title": "Ocean current",
+      "summary": "洋流是海水持续而有方向的运动，受到风、地球自转、温度和盐度差异等多种因素影响。它既有横向运动，也有上升和下沉，因而参与热量、营养物质与气体的运输。海洋不是静止的水盆。",
+      "original_summary": "An ocean current is a continuous, directed movement of seawater",
+      "language": "en",
+      "primary_discipline_id": "earth",
+      "related_discipline_ids": [],
+      "subfield": "海洋系统",
+      "question": "海水的大规模运动怎样连接遥远地区？",
+      "value": "认识海洋在地球物质和能量循环中的作用。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-ocean-current",
+          "platform": "wikipedia",
+          "external_id": "en:title:Ocean_current",
+          "url": "https://en.wikipedia.org/wiki/Ocean_current",
+          "title": "Ocean current",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "ba1ae23dea00668d4a64cf3dc87cb6d2c09ce27e8ce6128ea8428c1fcef88bde",
+          "excerpt": "An ocean current is a continuous, directed movement of seawater",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "carbon-cycle",
+      "title": "碳循环",
+      "original_title": "Carbon cycle",
+      "summary": "碳在大气、水体、生物、土壤和岩石之间交换，形成碳循环。光合作用、呼吸、海洋交换和地质过程属于不同环节，时间尺度也不同。某处储存了碳不等于它会永久留在那里，讨论碳汇需要说明范围与时段。",
+      "original_summary": "carbon is exchanged among the biosphere, pedosphere, geosphere, hydrosphere, and atmosphere of Earth",
+      "language": "en",
+      "primary_discipline_id": "earth",
+      "related_discipline_ids": [
+        "biology",
+        "chemistry"
+      ],
+      "subfield": "生物地球化学",
+      "question": "一颗碳原子可能怎样穿过空气、生命与岩石？",
+      "value": "把局部活动放回地球系统的物质循环。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-carbon-cycle",
+          "platform": "wikipedia",
+          "external_id": "en:title:Carbon_cycle",
+          "url": "https://en.wikipedia.org/wiki/Carbon_cycle",
+          "title": "Carbon cycle",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "cd44ff280e58325c9028db2c35cadbeb1b607076901bf8ac40383406fe414b48",
+          "excerpt": "carbon is exchanged among the biosphere, pedosphere, geosphere, hydrosphere, and atmosphere of Earth",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "milankovitch",
+      "title": "米兰科维奇周期",
+      "original_title": "Milankovitch cycles",
+      "summary": "地球轨道形状、轴倾角与进动的长期变化，会改变不同季节和纬度收到的太阳辐射分布。米兰科维奇周期描述这些运动对气候的综合影响，时间尺度通常跨越数千年；它不能单独解释所有气候变化。",
+      "original_summary": "the collective effects of changes in the Earth's movements on its climate over thousands of years",
+      "language": "en",
+      "primary_discipline_id": "earth",
+      "related_discipline_ids": [
+        "astronomy"
+      ],
+      "subfield": "古气候",
+      "question": "地球运动的小变化怎样影响漫长的冰期节律？",
+      "value": "区分不同时间尺度上的气候驱动。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-milankovitch",
+          "platform": "wikipedia",
+          "external_id": "en:title:Milankovitch_cycles",
+          "url": "https://en.wikipedia.org/wiki/Milankovitch_cycles",
+          "title": "Milankovitch cycles",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "c2ff23d635b402a7841965250047ab046ad3f5b993fe1a18a9e32cd010b66aea",
+          "excerpt": "the collective effects of changes in the Earth's movements on its climate over thousands of years",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "lensing",
+      "title": "引力透镜",
+      "original_title": "Gravitational lens",
+      "summary": "足够集中、具有足够质量的物质能够弯曲远处光源发来的光，使观测到的影像被扭曲、放大或分成多个像。引力透镜效应由广义相对论描述。这里的“透镜”不是玻璃镜片，而是引力对光路的影响。",
+      "original_summary": "to bend light noticeably from a distant source as it travels toward an observer",
+      "language": "en",
+      "primary_discipline_id": "astronomy",
+      "related_discipline_ids": [
+        "physics"
+      ],
+      "subfield": "宇宙观测",
+      "question": "看不见的质量为什么能改变远方星系的影像？",
+      "value": "理解天文学怎样从光路推断质量分布。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-lensing",
+          "platform": "wikipedia",
+          "external_id": "en:title:Gravitational_lens",
+          "url": "https://en.wikipedia.org/wiki/Gravitational_lens",
+          "title": "Gravitational lens",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "24f5f906bc26ed746feb43f0e9bf6daf352d2b1732f1be6b6bb2e2a7e7ee155e",
+          "excerpt": "to bend light noticeably from a distant source as it travels toward an observer",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "dark-matter",
+      "title": "暗物质",
+      "original_title": "Dark matter",
+      "summary": "暗物质是为解释某些引力观测而提出的一类不通过普通电磁辐射直接显现的物质。星系运动、引力透镜和宇宙结构等提供间接证据。它的具体组成仍是开放问题，不应把某个候选粒子说成已经确认的答案。",
+      "original_summary": "dark matter is an invisible and hypothetical form of matter",
+      "language": "en",
+      "primary_discipline_id": "astronomy",
+      "related_discipline_ids": [
+        "physics"
+      ],
+      "subfield": "宇宙物质",
+      "question": "当可见物质不够解释引力效应时，科学家怎样推断？",
+      "value": "区分观测证据、理论推断与尚未解决的问题。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-dark-matter",
+          "platform": "wikipedia",
+          "external_id": "en:title:Dark_matter",
+          "url": "https://en.wikipedia.org/wiki/Dark_matter",
+          "title": "Dark matter",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "e2588b7fb828a36b839dfcb1ae20341a0acb212bf5f11c66c2de635b56f23111",
+          "excerpt": "dark matter is an invisible and hypothetical form of matter",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "redshift",
+      "title": "红移",
+      "original_title": "Redshift",
+      "summary": "红移是电磁辐射波长变长、频率降低的现象。天文学中的相对运动、引力场和宇宙膨胀都可能产生红移，因此“看见红移”并不只对应一种原因。通过比较光谱线，天文学家可以研究遥远天体。",
+      "original_summary": "a redshift is an increase in the wavelength",
+      "language": "en",
+      "primary_discipline_id": "astronomy",
+      "related_discipline_ids": [],
+      "subfield": "光谱与宇宙",
+      "question": "远处星系的光谱为何会向长波方向移动？",
+      "value": "认识光谱如何携带运动与宇宙尺度的信息。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-redshift",
+          "platform": "wikipedia",
+          "external_id": "en:title:Redshift",
+          "url": "https://en.wikipedia.org/wiki/Redshift",
+          "title": "Redshift",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "d76c4e1e94cceda1ca2f8868b1b7cd11eba92a41b17a02ae8d34c34a38fc975a",
+          "excerpt": "a redshift is an increase in the wavelength",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "exoplanet",
+      "title": "系外行星",
+      "original_title": "Exoplanet",
+      "summary": "系外行星是太阳系以外的行星。它们通常难以直接看见，可通过对恒星信号的影响来研究。发现一颗系外行星不等于发现生命，也不等于它适宜居住；这些问题需要额外证据和不同的观测方法。",
+      "original_summary": "An exoplanet or extrasolar planet is a planet outside the Solar System.",
+      "language": "en",
+      "primary_discipline_id": "astronomy",
+      "related_discipline_ids": [],
+      "subfield": "行星系统",
+      "question": "不直接看见行星，怎样发现它的存在？",
+      "value": "理解观测信号与科学结论之间需要哪些步骤。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-exoplanet",
+          "platform": "wikipedia",
+          "external_id": "en:title:Exoplanet",
+          "url": "https://en.wikipedia.org/wiki/Exoplanet",
+          "title": "Exoplanet",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "99c94a6bf659fefddf919fa69384f327990ed267bddf3c1ca6547d3e1a48f571",
+          "excerpt": "An exoplanet or extrasolar planet is a planet outside the Solar System.",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "nucleosynthesis",
+      "title": "恒星核合成",
+      "original_title": "Stellar nucleosynthesis",
+      "summary": "恒星核合成指恒星内部核反应创造化学元素的过程。随着恒星演化，反应条件和元素组成会改变。不同元素的来源并不完全相同，不能把所有重元素都简单归结为太阳中正在发生的反应。",
+      "original_summary": "stellar nucleosynthesis is the creation of chemical elements by nuclear reactions within stars",
+      "language": "en",
+      "primary_discipline_id": "astronomy",
+      "related_discipline_ids": [
+        "chemistry",
+        "physics"
+      ],
+      "subfield": "恒星演化",
+      "question": "组成身体的元素和恒星内部有什么联系？",
+      "value": "把日常物质放进宇宙的演化历史。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-nucleosynthesis",
+          "platform": "wikipedia",
+          "external_id": "en:title:Stellar_nucleosynthesis",
+          "url": "https://en.wikipedia.org/wiki/Stellar_nucleosynthesis",
+          "title": "Stellar nucleosynthesis",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "a14209c90584257c1695aecfe7d07022a321b088b2b23170d2f30fe97644f070",
+          "excerpt": "stellar nucleosynthesis is the creation of chemical elements by nuclear reactions within stars",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "error-correction",
+      "title": "纠错码",
+      "original_title": "Error correction code",
+      "summary": "传输时主动加入有组织的冗余信息，接收者就能检测、甚至修正有限数量的错误，这就是纠错码的基本思路。把一个比特发送三遍是简单例子，但效率不高。纠错能力取决于编码设计和错误条件，并非能修复任何损坏。",
+      "original_summary": "The central idea is that the sender encodes the message in a redundant way",
+      "language": "en",
+      "primary_discipline_id": "computing",
+      "related_discipline_ids": [
+        "mathematics"
+      ],
+      "subfield": "通信与编码",
+      "question": "信息经过嘈杂信道后，为什么还有机会恢复？",
+      "value": "理解可靠通信为何需要结构化冗余。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-error-correction",
+          "platform": "wikipedia",
+          "external_id": "en:title:Error_correction_code",
+          "url": "https://en.wikipedia.org/wiki/Error_correction_code",
+          "title": "Error correction code",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "23319f3117c540f0a643e8a8415777f82a967ed3b00e221ad95f118ce4d6a32f",
+          "excerpt": "The central idea is that the sender encodes the message in a redundant way",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "distributed",
+      "title": "分布式计算",
+      "original_title": "Distributed computing",
+      "summary": "分布式系统由多个自主计算组件组成，它们通过消息通信协作。节点可能独立失败，通信有延迟，而且通常没有统一的全局时钟。把程序放到多台机器上并不会自动得到可靠性，协调规则和失败处理同样重要。",
+      "original_summary": "The components of a distributed system communicate and coordinate their actions by passing messages",
+      "language": "en",
+      "primary_discipline_id": "computing",
+      "related_discipline_ids": [
+        "society"
+      ],
+      "subfield": "计算系统",
+      "question": "多台电脑合作，为何比简单加起来更复杂？",
+      "value": "认识网络服务中的协调与故障问题。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-distributed",
+          "platform": "wikipedia",
+          "external_id": "en:title:Distributed_computing",
+          "url": "https://en.wikipedia.org/wiki/Distributed_computing",
+          "title": "Distributed computing",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "3ae9656e0097af224e737f4d4c516728bc13ec09842af11cf0d4e1d564d84f64",
+          "excerpt": "The components of a distributed system communicate and coordinate their actions by passing messages",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "hash",
+      "title": "哈希函数",
+      "original_title": "Hash function",
+      "summary": "哈希函数把输入映射为一个较短的值，常用于快速索引与查找。不同输入可能得到相同结果，这叫碰撞。普通哈希和密码学哈希的设计目标不同，不能把任意哈希函数都当作安全的加密手段。",
+      "original_summary": "A hash function is any function that can be used to map data",
+      "language": "en",
+      "primary_discipline_id": "computing",
+      "related_discipline_ids": [],
+      "subfield": "数据结构",
+      "question": "把复杂输入变成简短编号，会失去什么？",
+      "value": "分清快速查找、完整性校验与加密的目标。",
+      "quality_score": 0.68,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": "来源导语提示需补充引用；摘要只保留基础概念。",
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-hash",
+          "platform": "wikipedia",
+          "external_id": "en:title:Hash_function",
+          "url": "https://en.wikipedia.org/wiki/Hash_function",
+          "title": "Hash function",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "72593e7dda97fde8f1e19601aa242339c947e30e1b8b201fe9514600d58c7355",
+          "excerpt": "A hash function is any function that can be used to map data",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": "来源导语提示需补充引用；摘要只保留基础概念。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "public-key",
+      "title": "公钥密码学",
+      "original_title": "Public-key cryptography",
+      "summary": "公钥密码系统使用相互关联的公钥和私钥。在非对称加密中，任何人可用公钥加密，通常只有对应私钥持有者能解密。数字签名是另一种用途；还必须确认公钥确实属于声称的对象，而不是只获得一串号码。",
+      "original_summary": "anyone can encrypt messages using a public key",
+      "language": "en",
+      "primary_discipline_id": "computing",
+      "related_discipline_ids": [],
+      "subfield": "密码学",
+      "question": "双方还没共享秘密，怎样开始安全通信？",
+      "value": "理解加密、签名与身份认证是不同环节。",
+      "quality_score": 0.68,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": "来源页提示需补充引用；摘要只保留基础机制。",
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-public-key",
+          "platform": "wikipedia",
+          "external_id": "en:title:Public-key_cryptography",
+          "url": "https://en.wikipedia.org/wiki/Public-key_cryptography",
+          "title": "Public-key cryptography",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "5a42c4faf9bcbef2bd4dfac1b44d94aa72ef96a1c03b125e91936ab7c4d61cbf",
+          "excerpt": "anyone can encrypt messages using a public key",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": "来源页提示需补充引用；摘要只保留基础机制。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "complexity",
+      "title": "计算复杂度",
+      "original_title": "Computational complexity",
+      "summary": "计算复杂度研究运行算法所需的资源，常关注时间与内存如何随输入规模增长。比较复杂度通常计算基本操作次数，而不是只看某台电脑跑了几秒。算法的资源需求和问题本身的难度也需要区分。",
+      "original_summary": "is the amount of resources required to run it",
+      "language": "en",
+      "primary_discipline_id": "computing",
+      "related_discipline_ids": [
+        "mathematics"
+      ],
+      "subfield": "算法分析",
+      "question": "输入规模翻倍，程序工作量为何可能远不止翻倍？",
+      "value": "从增长规律理解算法选择。",
+      "quality_score": 0.68,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": "来源页提示行内引证不足。",
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-complexity",
+          "platform": "wikipedia",
+          "external_id": "en:title:Computational_complexity",
+          "url": "https://en.wikipedia.org/wiki/Computational_complexity",
+          "title": "Computational complexity",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "9a0577d53829f260a5225e6f5acbe74c515bacdc94edb16b15a305e17d1c8085",
+          "excerpt": "is the amount of resources required to run it",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": "来源页提示行内引证不足。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "neuroplasticity",
+      "title": "神经可塑性",
+      "original_title": "Neuroplasticity",
+      "summary": "神经可塑性指脑的神经网络通过生长与重新组织发生变化。学习、环境变化和损伤恢复都可能伴随这类过程。可塑性并不意味着任何训练都有效，也不能仅凭一次浏览记录推断大脑已经获得了某种改变。",
+      "original_summary": "Neuroplasticity refers to the brain's ability to reorganize and rewire its neural connections",
+      "language": "en",
+      "primary_discipline_id": "cognition",
+      "related_discipline_ids": [],
+      "subfield": "脑与学习",
+      "question": "成年人的大脑还会怎样随经验改变？",
+      "value": "理解学习的生物基础，同时避免夸大的训练承诺。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-neuroplasticity",
+          "platform": "wikipedia",
+          "external_id": "en:title:Neuroplasticity",
+          "url": "https://en.wikipedia.org/wiki/Neuroplasticity",
+          "title": "Neuroplasticity",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "75644733a6ad9a2c1ee1d0141f47965fea46a39199cd2cc01496bd4115876ff6",
+          "excerpt": "Neuroplasticity refers to the brain's ability to reorganize and rewire its neural connections",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "dissonance",
+      "title": "认知失调",
+      "original_title": "Cognitive dissonance",
+      "summary": "当信念、行为或新信息彼此冲突时，人可能感到不适，并尝试改变解释、信念或行动以减少这种不一致。认知失调理论帮助分析这些反应，但不能只凭一个人的表面行为就断言其心理机制。",
+      "original_summary": "cognitive dissonance is described as a mental phenomenon",
+      "language": "en",
+      "primary_discipline_id": "cognition",
+      "related_discipline_ids": [],
+      "subfield": "社会认知",
+      "question": "遇到与信念冲突的证据时，我们会怎样反应？",
+      "value": "识别论证之外可能影响判断的心理动力。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-dissonance",
+          "platform": "wikipedia",
+          "external_id": "en:title:Cognitive_dissonance",
+          "url": "https://en.wikipedia.org/wiki/Cognitive_dissonance",
+          "title": "Cognitive dissonance",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "16fdb9f80927e63d84da77d6e83445e7ff27f71055366eda71f161c672fd4d45",
+          "excerpt": "cognitive dissonance is described as a mental phenomenon",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "predictive",
+      "title": "预测编码",
+      "original_title": "Predictive coding",
+      "summary": "预测编码是一类关于脑功能的理论：系统利用内部模型预测感官输入，再用实际输入与预测的差异更新模型。它把知觉看成预测和证据之间的互动。这里是理论框架，并不意味着所有脑过程都已被同一种机制证实。",
+      "original_summary": "predictive coding inverts the conventional view of perception as a mostly bottom-up process",
+      "language": "en",
+      "primary_discipline_id": "cognition",
+      "related_discipline_ids": [
+        "mathematics"
+      ],
+      "subfield": "知觉理论",
+      "question": "看见世界，是接收画面还是不断修正预测？",
+      "value": "认识先验、感官证据与误差信号的关系。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.45,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-predictive",
+          "platform": "wikipedia",
+          "external_id": "en:title:Predictive_coding",
+          "url": "https://en.wikipedia.org/wiki/Predictive_coding",
+          "title": "Predictive coding",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "6147b33082b3e7802fc4239f3d6adf4ce0b5159d85d6e7b323d29acccd32c1f3",
+          "excerpt": "predictive coding inverts the conventional view of perception as a mostly bottom-up process",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "circadian",
+      "title": "昼夜节律",
+      "original_title": "Circadian rhythm",
+      "summary": "昼夜节律是一类大约每 24 小时重复的内源性生物振荡，并能被光等环境线索校准。它不只是被动跟随白天黑夜。不同个体的节律会有差异，具体睡眠问题还需要结合环境和健康情况判断。",
+      "original_summary": "is a natural oscillation that repeats roughly every 24 hours",
+      "language": "en",
+      "primary_discipline_id": "cognition",
+      "related_discipline_ids": [
+        "biology"
+      ],
+      "subfield": "生物节律",
+      "question": "身体怎样在没有钟表时维持接近一天的节律？",
+      "value": "区分内在时钟和外部时间线索。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-circadian",
+          "platform": "wikipedia",
+          "external_id": "en:title:Circadian_rhythm",
+          "url": "https://en.wikipedia.org/wiki/Circadian_rhythm",
+          "title": "Circadian rhythm",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "f6ff245d98f00e20fdcbb51134f758c8a20aa218c3ec945e12ada836c36e8a70",
+          "excerpt": "is a natural oscillation that repeats roughly every 24 hours",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "inattentional",
+      "title": "无意视盲",
+      "original_title": "Inattentional blindness",
+      "summary": "注意集中在某项任务时，人可能没有察觉视野中意料之外的明显物体，这称为无意视盲。没有报告看见，并不等于眼睛没接收到信号。它提醒我们，主观“全都看见了”的感觉不总能代表实际注意范围。",
+      "original_summary": "a temporary \"blindness\" effect can occur",
+      "language": "en",
+      "primary_discipline_id": "cognition",
+      "related_discipline_ids": [],
+      "subfield": "注意与知觉",
+      "question": "一个明显物体就在眼前，我们为何仍可能没看见？",
+      "value": "认识注意资源对观察和记忆的限制。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-inattentional",
+          "platform": "wikipedia",
+          "external_id": "en:title:Inattentional_blindness",
+          "url": "https://en.wikipedia.org/wiki/Inattentional_blindness",
+          "title": "Inattentional blindness",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "33d243446169d21251fce26fe00a5b8311083d3b47c87455cf0d5f916e59da57",
+          "excerpt": "a temporary \"blindness\" effect can occur",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "comparative",
+      "title": "比较优势",
+      "original_title": "Comparative advantage",
+      "summary": "比较优势关注完成某项活动的机会成本，而不只是谁做得绝对更快。即使一方在所有活动上效率都更高，双方仍可能通过不同分工获益。结论依赖模型条件，不能据此断言现实中所有贸易安排都对每个人有利。",
+      "original_summary": "Comparative advantage is an economic principle",
+      "language": "en",
+      "primary_discipline_id": "economics",
+      "related_discipline_ids": [
+        "society"
+      ],
+      "subfield": "分工与贸易",
+      "question": "一个人事事更熟练，为何仍可能值得与别人分工？",
+      "value": "用机会成本理解合作中的相对优势。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-comparative",
+          "platform": "wikipedia",
+          "external_id": "en:title:Comparative_advantage",
+          "url": "https://en.wikipedia.org/wiki/Comparative_advantage",
+          "title": "Comparative advantage",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "60f0b25bf65daa4e4ea26c2f26aa5931bed1942afb5d5f1b69023d963e6f865a",
+          "excerpt": "Comparative advantage is an economic principle",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "opportunity",
+      "title": "机会成本",
+      "original_title": "Opportunity cost",
+      "summary": "选择一种方案时，放弃的最佳可行替代方案的价值就是机会成本。它不只包括花掉的钱，也可能是时间和其他收益。机会成本需要说明有哪些实际可选项，不能把所有想象中的收益都加在一起。",
+      "original_summary": "the value of the best alternative forgone",
+      "language": "en",
+      "primary_discipline_id": "economics",
+      "related_discipline_ids": [],
+      "subfield": "选择与稀缺",
+      "question": "选择一件事时，真正放弃的是什么？",
+      "value": "把隐含的替代方案纳入决策。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-opportunity",
+          "platform": "wikipedia",
+          "external_id": "en:title:Opportunity_cost",
+          "url": "https://en.wikipedia.org/wiki/Opportunity_cost",
+          "title": "Opportunity cost",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "660599df166756b4260431c832532d3571dffe895e7e80c527583c12af588381",
+          "excerpt": "the value of the best alternative forgone",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "commons",
+      "title": "公地悲剧",
+      "original_title": "Tragedy of the commons",
+      "summary": "在缺少有效约束的共享资源中，个人增加使用的收益归自己，而成本可能由群体承担，因而存在过度使用风险。但悲剧并非必然：现实中有通过规则、协作和共同治理长期维护资源的例子。开放获取与共同所有也不完全相同。",
+      "original_summary": "over-exploitation of the common resource is by no means inevitable",
+      "language": "en",
+      "primary_discipline_id": "economics",
+      "related_discipline_ids": [],
+      "subfield": "资源治理",
+      "question": "共享资源为什么可能被过度使用，又怎样避免？",
+      "value": "同时考虑激励结构与治理制度。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-commons",
+          "platform": "wikipedia",
+          "external_id": "en:title:Tragedy_of_the_commons",
+          "url": "https://en.wikipedia.org/wiki/Tragedy_of_the_commons",
+          "title": "Tragedy of the commons",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "084a8cddfad22dc212834836a2cdef13bda20126430dd181cf7319c969707509",
+          "excerpt": "over-exploitation of the common resource is by no means inevitable",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "asymmetry",
+      "title": "信息不对称",
+      "original_title": "Information asymmetry",
+      "summary": "交易双方掌握的信息数量或质量不同，就存在信息不对称。二手车卖方比买方更了解车辆状态是典型例子。它可能造成逆向选择等问题，但后果还取决于合同、信号、声誉和制度安排。",
+      "original_summary": "one party has more or better information than the other",
+      "language": "en",
+      "primary_discipline_id": "economics",
+      "related_discipline_ids": [],
+      "subfield": "信息与市场",
+      "question": "为什么双方都想交易，市场仍可能运作不良？",
+      "value": "看见信息差如何改变交易和激励。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": true,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-asymmetry",
+          "platform": "wikipedia",
+          "external_id": "en:title:Information_asymmetry",
+          "url": "https://en.wikipedia.org/wiki/Information_asymmetry",
+          "title": "Information asymmetry",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "38d4205ed3dd985d34fb70c083a2ac56beed5ce4937bb37dd56b2324be9fd08a",
+          "excerpt": "one party has more or better information than the other",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "auction",
+      "title": "拍卖理论",
+      "original_title": "Auction theory",
+      "summary": "拍卖理论研究竞标者如何行动，以及不同拍卖规则怎样影响结果。一价密封拍卖和二价拍卖有不同激励。关于诚实报价等结论有估值独立性和效用假设，不能把某一模型的最优策略直接套到所有现实竞拍。",
+      "original_summary": "Auction theory is a branch of applied economics",
+      "language": "en",
+      "primary_discipline_id": "economics",
+      "related_discipline_ids": [
+        "mathematics"
+      ],
+      "subfield": "机制设计",
+      "question": "改变付款规则，会怎样改变出价行为？",
+      "value": "理解制度设计如何塑造决策。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-auction",
+          "platform": "wikipedia",
+          "external_id": "en:title:Auction_theory",
+          "url": "https://en.wikipedia.org/wiki/Auction_theory",
+          "title": "Auction theory",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "cc073287b160dd58b34ae0c89062f218a0da1429b6eeb8294be8ce1b9f5316fb",
+          "excerpt": "Auction theory is a branch of applied economics",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "diffusion",
+      "title": "创新扩散",
+      "original_title": "Diffusion of innovations",
+      "summary": "创新扩散理论研究新观念和技术如何、为何以及以什么速度传播。采纳取决于传播渠道、时间和社会系统，也与不同群体的条件有关。经典曲线是分析框架，不保证每一种产品都必然走向普及。",
+      "original_summary": "Diffusion of innovations is a theory",
+      "language": "en",
+      "primary_discipline_id": "society",
+      "related_discipline_ids": [],
+      "subfield": "传播与采纳",
+      "question": "好想法为何不会自动被所有人同时采纳？",
+      "value": "从网络与社会条件理解技术传播。",
+      "quality_score": 0.68,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": "来源页提示需补充引用。",
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-diffusion",
+          "platform": "wikipedia",
+          "external_id": "en:title:Diffusion_of_innovations",
+          "url": "https://en.wikipedia.org/wiki/Diffusion_of_innovations",
+          "title": "Diffusion of innovations",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "5178a907bc58e6b143918bf4fb705afc6827b6746b4d646dcf07043a9be8a4df",
+          "excerpt": "Diffusion of innovations is a theory",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": "来源页提示需补充引用。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "social-network",
+      "title": "社会网络",
+      "original_title": "Social network",
+      "summary": "社会网络由行动者以及彼此的联系构成，行动者可以是个人或组织。网络分析研究局部和整体连接模式，结合社会学、统计与图论。在线平台只是社会网络的一种场景，不能把关注数直接等同于真实社会影响力。",
+      "original_summary": "A social network is a social structure",
+      "language": "en",
+      "primary_discipline_id": "society",
+      "related_discipline_ids": [
+        "mathematics"
+      ],
+      "subfield": "社会结构",
+      "question": "同样数量的联系，不同连接方式会带来什么变化？",
+      "value": "关注关系结构，而不只看个体属性。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-social-network",
+          "platform": "wikipedia",
+          "external_id": "en:title:Social_network",
+          "url": "https://en.wikipedia.org/wiki/Social_network",
+          "title": "Social network",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "568089d6d850be22d1b1d6a25ea53c13ae9c0bc0ded8d1c1c647d71887b10746",
+          "excerpt": "A social network is a social structure",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "relativity",
+      "title": "语言相对论",
+      "original_title": "Linguistic relativity",
+      "summary": "语言相对论讨论语言怎样影响认知与世界观。强版本认为语言决定思想，已不被当代语言学普遍接受；较弱版本研究某些语言结构对知觉和思考的具体影响。应区分影响和决定，并关注实验条件与证据。",
+      "original_summary": "Linguistic relativity asserts that language influences one's worldview and cognition.",
+      "language": "en",
+      "primary_discipline_id": "society",
+      "related_discipline_ids": [
+        "cognition",
+        "humanities"
+      ],
+      "subfield": "语言与思维",
+      "question": "说不同语言，会不会影响我们注意世界的方式？",
+      "value": "避免把语言差异简单等同于思维能力差异。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-relativity",
+          "platform": "wikipedia",
+          "external_id": "en:title:Linguistic_relativity",
+          "url": "https://en.wikipedia.org/wiki/Linguistic_relativity",
+          "title": "Linguistic relativity",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "c30182c48895da99172cc0d376dc585306a45ea75c54aea88bc01ae2d3812e6b",
+          "excerpt": "Linguistic relativity asserts that language influences one's worldview and cognition.",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "social-capital",
+      "title": "社会资本",
+      "original_title": "Social capital",
+      "summary": "社会资本用于讨论关系网络、信任、共同规范与互惠如何帮助个人和群体实现目标。它不是银行账户里的资本，也不等同于认识的人数。不同研究采用不同定义，理解结论前需要先看其怎样测量这些关系。",
+      "original_summary": "Social capital is a concept used in sociology and economics",
+      "language": "en",
+      "primary_discipline_id": "society",
+      "related_discipline_ids": [
+        "economics"
+      ],
+      "subfield": "社会合作",
+      "question": "信任与关系网络怎样成为合作的资源？",
+      "value": "看见制度和人际关系之外的合作条件。",
+      "quality_score": 0.68,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": "来源页提示内容偏专业；建议结合上下文阅读。",
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-social-capital",
+          "platform": "wikipedia",
+          "external_id": "en:title:Social_capital",
+          "url": "https://en.wikipedia.org/wiki/Social_capital",
+          "title": "Social capital",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "a261b8e9b151d00219e82636cb3bd5879ef807b4865ef6c33e337ef8d721349d",
+          "excerpt": "Social capital is a concept used in sociology and economics",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": "来源页提示内容偏专业；建议结合上下文阅读。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "public-good",
+      "title": "公共物品",
+      "original_title": "Public good (economics)",
+      "summary": "经济学中的公共物品同时具有非排他性和非竞争性：难以阻止人使用，一个人的使用也不明显减少他人的可用量。它与会被耗尽的共享资源不同。灯塔是经典例子，但现实服务可能只有在一定条件下近似这些性质。",
+      "original_summary": "Use by one person neither prevents access by other people",
+      "language": "en",
+      "primary_discipline_id": "society",
+      "related_discipline_ids": [
+        "economics"
+      ],
+      "subfield": "公共合作",
+      "question": "为什么某些有价值的服务难以依靠自愿付费提供？",
+      "value": "区分公共物品、共同资源与普通商品。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": true,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-public-good",
+          "platform": "wikipedia",
+          "external_id": "en:title:Public_good_(economics)",
+          "url": "https://en.wikipedia.org/wiki/Public_good_(economics)",
+          "title": "Public good (economics)",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "b2aa6421933b36276caa654b33c6c624173160fa692a4e407804bfd1191f051a",
+          "excerpt": "Use by one person neither prevents access by other people",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "hermeneutics",
+      "title": "诠释学",
+      "original_title": "Hermeneutics",
+      "summary": "诠释学研究解释的原则与方法，尤其涉及哲学、宗教和文学文本。理解一句话通常需要上下文，而理解上下文又依赖对局部的阅读。不同解释不意味着所有解释同样可靠，仍需要文本、历史和论证支持。",
+      "original_summary": "is the study of the methodological principles of interpretation",
+      "language": "en",
+      "primary_discipline_id": "humanities",
+      "related_discipline_ids": [],
+      "subfield": "解释与理解",
+      "question": "我们怎样理解一段来自陌生时代的文字？",
+      "value": "意识到上下文与解释者视角的作用。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-hermeneutics",
+          "platform": "wikipedia",
+          "external_id": "en:title:Hermeneutics",
+          "url": "https://en.wikipedia.org/wiki/Hermeneutics",
+          "title": "Hermeneutics",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "1db626a5a7add1a713a6ea45798793f2c56f0bdf6b19788bcd3ff9fdff1f4d69",
+          "excerpt": "is the study of the methodological principles of interpretation",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "semiotics",
+      "title": "符号学",
+      "original_title": "Semiotics",
+      "summary": "符号学研究符号、符号系统以及人们如何用它们产生和传递意义。词语、图像和手势都可以成为研究对象。符号的组织、与意义的关系、以及使用者的情境是不同层次，意义并不只是物体固有的属性。",
+      "original_summary": "Semiotics is the study of signs.",
+      "language": "en",
+      "primary_discipline_id": "humanities",
+      "related_discipline_ids": [
+        "arts",
+        "society"
+      ],
+      "subfield": "意义与交流",
+      "question": "一个图形怎样获得超出自身形状的意义？",
+      "value": "更细致地分析文字、界面与视觉表达。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-semiotics",
+          "platform": "wikipedia",
+          "external_id": "en:title:Semiotics",
+          "url": "https://en.wikipedia.org/wiki/Semiotics",
+          "title": "Semiotics",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "af161c7a3ef6fa00590bab65c2f7d40648e225f7f0ec306ee3e6afcd41457f0e",
+          "excerpt": "Semiotics is the study of signs.",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "falsifiability",
+      "title": "可证伪性",
+      "original_title": "Falsifiability",
+      "summary": "一个陈述如果在逻辑上允许被某种经验观察反驳，就具有可证伪性。它是波普尔提出的科学评价标准之一。“可证伪”不意味着已经被证明为假；关于科学划界与实际检验的方法仍有哲学讨论。",
+      "original_summary": "A statement is falsifiable",
+      "language": "en",
+      "primary_discipline_id": "humanities",
+      "related_discipline_ids": [
+        "physics"
+      ],
+      "subfield": "科学哲学",
+      "question": "一个说法必须允许怎样的观察，才可能被检验？",
+      "value": "把可检验性与实际真假分开。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-falsifiability",
+          "platform": "wikipedia",
+          "external_id": "en:title:Falsifiability",
+          "url": "https://en.wikipedia.org/wiki/Falsifiability",
+          "title": "Falsifiability",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "c4f2137cfe787e5b43ef5c4f6962c925f24568bbd8bd249dab6a457c76d8c015",
+          "excerpt": "A statement is falsifiable",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "thought-experiment",
+      "title": "思想实验",
+      "original_title": "Thought experiment",
+      "summary": "思想实验设想一种场景，用来澄清或检验论证、理论和直觉。它常讨论难以、无法或不应实际执行的实验。设想可以暴露假设之间的张力，但单凭一个引人入胜的故事并不能替代需要的实验证据。",
+      "original_summary": "A thought experiment is an imaginary scenario",
+      "language": "en",
+      "primary_discipline_id": "humanities",
+      "related_discipline_ids": [
+        "physics"
+      ],
+      "subfield": "论证方法",
+      "question": "不能真的做的实验，如何帮助我们思考？",
+      "value": "明确直觉、逻辑推演和经验验证各自的作用。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-thought-experiment",
+          "platform": "wikipedia",
+          "external_id": "en:title:Thought_experiment",
+          "url": "https://en.wikipedia.org/wiki/Thought_experiment",
+          "title": "Thought experiment",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "77d6b33b943fbf5613a84c69e2d19793df25e323ecb2c86029f9c2257aaa6072",
+          "excerpt": "A thought experiment is an imaginary scenario",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "oral-history",
+      "title": "口述历史",
+      "original_title": "Oral history",
+      "summary": "口述历史通过有计划的访谈、录音和转写，收集并研究人们对过去事件的记忆与感受。它能保存书面记录缺少的视角，但记忆也会受后来的经历与访谈情境影响，需要与其他证据交叉分析。",
+      "original_summary": "Oral history is the collection and study of historical information",
+      "language": "en",
+      "primary_discipline_id": "humanities",
+      "related_discipline_ids": [],
+      "subfield": "历史方法",
+      "question": "没有留下文字的人，其经历怎样进入历史研究？",
+      "value": "认识历史证据的多种形式与局限。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-oral-history",
+          "platform": "wikipedia",
+          "external_id": "en:title:Oral_history",
+          "url": "https://en.wikipedia.org/wiki/Oral_history",
+          "title": "Oral history",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "e0ed87b4c6124601b5b9a16f36b139e03ca7158f104e6d536a7eb0e0ab9ed53f",
+          "excerpt": "Oral history is the collection and study of historical information",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "negative-space",
+      "title": "负空间",
+      "original_title": "Negative space",
+      "summary": "负空间指视觉主体周围或之间的空间，它也参与形成图形和构图关系。在黑白图像中，反转图与背景可以让原本忽略的形状显现。留白是否有效取决于表达目标与整体组织，不是空白越多就一定越好。",
+      "original_summary": "The use of negative space is a key element of artistic composition.",
+      "language": "en",
+      "primary_discipline_id": "arts",
+      "related_discipline_ids": [
+        "cognition"
+      ],
+      "subfield": "视觉构成",
+      "question": "画面里“没有画”的部分，怎样参与表达？",
+      "value": "把视线从主体扩展到关系与背景。",
+      "quality_score": 0.68,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": "来源页提示引证不足；仅作入门线索。",
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-negative-space",
+          "platform": "wikipedia",
+          "external_id": "en:title:Negative_space",
+          "url": "https://en.wikipedia.org/wiki/Negative_space",
+          "title": "Negative space",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "805411d6413efa64e72f4c3d3eb2934dd20c75ed93059f3c7970cf9699d4620f",
+          "excerpt": "The use of negative space is a key element of artistic composition.",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": "来源页提示引证不足；仅作入门线索。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "perspective",
+      "title": "线性透视",
+      "original_title": "Perspective (graphical)",
+      "summary": "透视把三维场景按观察位置投影到二维平面。线性透视常通过近大远小、消失点等关系表现深度。它是一种有条件的几何表示，并不是所有艺术传统唯一正确的空间组织方式。",
+      "original_summary": "Perspective is an approximate representation",
+      "language": "en",
+      "primary_discipline_id": "arts",
+      "related_discipline_ids": [
+        "mathematics"
+      ],
+      "subfield": "空间表现",
+      "question": "平面的纸怎样让人看出远近和深度？",
+      "value": "理解视觉表达背后的投影关系。",
+      "quality_score": 0.68,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": "来源页提示部分内容需补充引用。",
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-perspective",
+          "platform": "wikipedia",
+          "external_id": "en:title:Perspective_(graphical)",
+          "url": "https://en.wikipedia.org/wiki/Perspective_(graphical)",
+          "title": "Perspective (graphical)",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "e068979f061b815ed47ff079a085db3a6a7bc976a0af2da74e8d2bc29c60c49c",
+          "excerpt": "Perspective is an approximate representation",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": "来源页提示部分内容需补充引用。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "polyrhythm",
+      "title": "复节奏",
+      "original_title": "Polyrhythm",
+      "summary": "复节奏是在同一时间组合两个或更多不容易归为同一节拍模式的节奏层。例如，同一段时间里一层均匀敲两次、另一层均匀敲三次。它需要共同的时间参照，但不等于随意打乱节奏。",
+      "original_summary": "Polyrhythms require at least two rhythms to be played concurrently",
+      "language": "en",
+      "primary_discipline_id": "arts",
+      "related_discipline_ids": [
+        "mathematics"
+      ],
+      "subfield": "音乐结构",
+      "question": "两拍和三拍同时发生，会产生怎样的结构？",
+      "value": "用层次和比例理解音乐中的时间组织。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": true,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-polyrhythm",
+          "platform": "wikipedia",
+          "external_id": "en:title:Polyrhythm",
+          "url": "https://en.wikipedia.org/wiki/Polyrhythm",
+          "title": "Polyrhythm",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "f38a0b74943b0b57ed881f8ebe49b1868359a861c25317c0ec5c864e94b7a5e4",
+          "excerpt": "Polyrhythms require at least two rhythms to be played concurrently",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "tessellation",
+      "title": "镶嵌与铺砌",
+      "original_title": "Tessellation",
+      "summary": "铺砌用一种或多种形状覆盖平面或其他曲面，既没有重叠，也没有空隙。周期铺砌重复某种模式，非周期铺砌则不一定重复。它同时出现在数学、建筑装饰与艺术创作中，为构图提供了结构性工具。",
+      "original_summary": "with no overlaps and no gaps",
+      "language": "en",
+      "primary_discipline_id": "arts",
+      "related_discipline_ids": [
+        "mathematics"
+      ],
+      "subfield": "几何图案",
+      "question": "哪些形状能够不留空隙地铺满一张平面？",
+      "value": "从装饰图案进入几何与对称性。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-tessellation",
+          "platform": "wikipedia",
+          "external_id": "en:title:Tessellation",
+          "url": "https://en.wikipedia.org/wiki/Tessellation",
+          "title": "Tessellation",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "185ba6911803fe9c8b6204169c99b7aed38c9681bec4175def7eadc869fc1849",
+          "excerpt": "with no overlaps and no gaps",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "golden-ratio",
+      "title": "黄金比例",
+      "original_title": "Golden ratio",
+      "summary": "黄金比例是满足特定比例关系的无理数，约为 1.618。它具有明确的数学性质，也被一些艺术家用于设计。关于所有名画、人体或金融市场都遵循它的说法常缺乏可靠依据；数学关系不自动成为普遍审美定律。",
+      "original_summary": "in some cases based on dubious fits to data",
+      "language": "en",
+      "primary_discipline_id": "arts",
+      "related_discipline_ids": [
+        "mathematics"
+      ],
+      "subfield": "比例与审美",
+      "question": "一个特殊的数学比例，为何会与审美话题相遇？",
+      "value": "区分数学事实、设计选择与事后附会。",
+      "quality_score": 0.78,
+      "quality_features": {
+        "traceable_source": true,
+        "has_intro": true,
+        "has_example": false,
+        "prerequisite_load": 0.25,
+        "metadata_complete": 0.75,
+        "duplicate": false,
+        "content_type": "reference",
+        "summary_kind": "ai_assisted_editorial_summary",
+        "summary_label": "中文整理摘要（AI 辅助；非来源原文或逐句翻译）",
+        "source_notice": null,
+        "quality_basis": "可追溯百科来源、原文短摘、中文入门摘要；版本号与数字 page ID 缺失。分数为元数据代理，非正确率。"
+      },
+      "mapping_basis": "UnKnown taxonomy v1 编辑映射；按概念入门视角选择唯一主学科，关联学科不计覆盖；非 Wikipedia 分类树。",
+      "sources": [
+        {
+          "id": "wiki-golden-ratio",
+          "platform": "wikipedia",
+          "external_id": "en:title:Golden_ratio",
+          "url": "https://en.wikipedia.org/wiki/Golden_ratio",
+          "title": "Golden ratio",
+          "language": "en",
+          "license": "CC BY-SA 4.0; Wikipedia contributors; see article history",
+          "fetched_at": "2026-11-17T03:43:57.850991+00:00",
+          "updated_at": null,
+          "version": null,
+          "content_hash": "ad65919b7aa65943919e3bdd2b61ac553e5d66924ef5c791a81029b4c3408211",
+          "excerpt": "in some cases based on dubious fits to data",
+          "metadata_json": {
+            "attribution": "Wikipedia contributors",
+            "verified_date": "2026-11-17",
+            "verification_method": "browser-backed web reader; title/URL and source passage checked",
+            "identity_basis": "canonical article title URL; numeric page ID unavailable",
+            "excerpt_kind": "short original English source excerpt",
+            "summary_kind": "AI-assisted editorial Chinese summary; not source original",
+            "source_notice": null
+          }
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "id": "graph-theory--social-network",
+      "source_id": "graph-theory",
+      "target_id": "social-network",
+      "type": "fact",
+      "label": "分析方法",
+      "explanation": "社会网络分析结合图论、统计与社会学；节点和边在这里表示行动者与社会联系。",
+      "source_url": "https://en.wikipedia.org/wiki/Social_network",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "bayes--predictive",
+      "source_id": "bayes",
+      "target_id": "predictive",
+      "type": "fact",
+      "label": "理论方法",
+      "explanation": "预测编码以预测和感官误差更新模型；来源把它放在贝叶斯脑理论的范围内。",
+      "source_url": "https://en.wikipedia.org/wiki/Predictive_coding",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "game-theory--auction",
+      "source_id": "game-theory",
+      "target_id": "auction",
+      "type": "fact",
+      "label": "研究应用",
+      "explanation": "拍卖规则设计分析多参与者的策略互动；来源介绍非合作博弈与拍卖分析的联系。",
+      "source_url": "https://en.wikipedia.org/wiki/Auction_theory",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "symbiosis--symbiogenesis",
+      "source_id": "symbiosis",
+      "target_id": "symbiogenesis",
+      "type": "fact",
+      "label": "演化关系",
+      "explanation": "内共生理论提出，线粒体和叶绿体来自曾自由生活、后来进入宿主的内共生体。",
+      "source_url": "https://en.wikipedia.org/wiki/Symbiogenesis",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "opportunity--comparative",
+      "source_id": "opportunity",
+      "target_id": "comparative",
+      "type": "fact",
+      "label": "定义基础",
+      "explanation": "比较优势基于不同活动的机会成本，而非仅比较绝对生产率。",
+      "source_url": "https://en.wikipedia.org/wiki/Comparative_advantage",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "social-network--social-capital",
+      "source_id": "social-network",
+      "target_id": "social-capital",
+      "type": "fact",
+      "label": "研究视角",
+      "explanation": "社会资本用社会关系网络、信任与规范来理解合作资源。",
+      "source_url": "https://en.wikipedia.org/wiki/Social_capital",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "social-capital--public-good",
+      "source_id": "social-capital",
+      "target_id": "public-good",
+      "type": "fact",
+      "label": "合作结果",
+      "explanation": "来源指出，面向共同目的的社区合作可以涉及公共物品的提供。",
+      "source_url": "https://en.wikipedia.org/wiki/Social_capital",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "commons--public-good",
+      "source_id": "commons",
+      "target_id": "public-good",
+      "type": "fact",
+      "label": "概念区分",
+      "explanation": "公共物品不具有竞争性；渔业等共享资源可能具有竞争性，二者需要区分。",
+      "source_url": "https://en.wikipedia.org/wiki/Public_good_(economics)",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "lensing--dark-matter",
+      "source_id": "lensing",
+      "target_id": "dark-matter",
+      "type": "fact",
+      "label": "观测证据",
+      "explanation": "引力透镜是暗物质推断所涉及的观测现象之一；它不直接确认某种粒子组成。",
+      "source_url": "https://en.wikipedia.org/wiki/Dark_matter",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "tunnelling--nucleosynthesis",
+      "source_id": "tunnelling",
+      "target_id": "nucleosynthesis",
+      "type": "fact",
+      "label": "物理机制",
+      "explanation": "来源把量子隧穿列为恒星核聚变的重要机制：它提高穿过库仑势垒的概率。",
+      "source_url": "https://en.wikipedia.org/wiki/Quantum_tunnelling",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "milankovitch--albedo",
+      "source_id": "milankovitch",
+      "target_id": "albedo",
+      "type": "teaching",
+      "label": "教学对照",
+      "explanation": "编辑整理：可以把轨道运动导致的辐射分布变化，与地表反射辐射的比例放在同一能量收支问题下比较；两者不是同一种机制。",
+      "source_url": "https://en.wikipedia.org/wiki/Milankovitch_cycles",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "topology--tessellation",
+      "source_id": "topology",
+      "target_id": "tessellation",
+      "type": "teaching",
+      "label": "教学对照",
+      "explanation": "编辑整理：铺砌关注如何覆盖曲面，拓扑关注连续变形下的性质；这是从具体图案进入空间问题的学习顺序，不表示二者等价。",
+      "source_url": "https://en.wikipedia.org/wiki/Tessellation",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "resonance--polyrhythm",
+      "source_id": "resonance",
+      "target_id": "polyrhythm",
+      "type": "teaching",
+      "label": "教学对照",
+      "explanation": "编辑整理：可从周期性运动转向音乐中多个周期的组合；机械共振与复节奏的形成机制不同。",
+      "source_url": "https://en.wikipedia.org/wiki/Polyrhythm",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "semiotics--negative-space",
+      "source_id": "semiotics",
+      "target_id": "negative-space",
+      "type": "teaching",
+      "label": "教学入口",
+      "explanation": "编辑整理：符号学研究意义如何形成；负空间是分析视觉表达的一种具体构图入口，不把二者当作同一理论。",
+      "source_url": "https://en.wikipedia.org/wiki/Semiotics",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "perspective--predictive",
+      "source_id": "perspective",
+      "target_id": "predictive",
+      "type": "fact",
+      "label": "知觉线索",
+      "explanation": "预测编码来源以物体较小可能提示更远距离为例，讨论知觉如何结合感觉线索与内部模型。",
+      "source_url": "https://en.wikipedia.org/wiki/Predictive_coding",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "entropy--error-correction",
+      "source_id": "entropy",
+      "target_id": "error-correction",
+      "type": "teaching",
+      "label": "教学对照",
+      "explanation": "编辑整理：可从熵所涉及的信息论视角进入可靠通信；热力学熵和编码冗余需分别定义，不能简单混用。",
+      "source_url": "https://en.wikipedia.org/wiki/Entropy",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "falsifiability--dark-matter",
+      "source_id": "falsifiability",
+      "target_id": "dark-matter",
+      "type": "teaching",
+      "label": "教学方法",
+      "explanation": "编辑整理：暗物质是带有开放问题的科学推断；可以用可检验性问题练习区分观测、模型和候选解释，不表示证伪标准独自解决争议。",
+      "source_url": "https://en.wikipedia.org/wiki/Falsifiability",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "thought-experiment--tunnelling",
+      "source_id": "thought-experiment",
+      "target_id": "tunnelling",
+      "type": "teaching",
+      "label": "教学方法",
+      "explanation": "编辑整理：用球与势垒的思想模型比较经典与量子描述；该类比不意味着微观粒子真是小球。",
+      "source_url": "https://en.wikipedia.org/wiki/Quantum_tunnelling",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "brownian--chaos",
+      "source_id": "brownian",
+      "target_id": "chaos",
+      "type": "teaching",
+      "label": "教学区分",
+      "explanation": "编辑整理：布朗运动常用随机过程建模，混沌研究确定性系统的初值敏感；看似不规则并不证明机制相同。",
+      "source_url": "https://en.wikipedia.org/wiki/Brownian_motion",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "catalysis--quorum",
+      "source_id": "catalysis",
+      "target_id": "quorum",
+      "type": "teaching",
+      "label": "教学对照",
+      "explanation": "编辑整理：酶催化说明生物过程具有化学基础；群体感应研究信号与基因调控，这条学习路径不把信号等同于催化剂。",
+      "source_url": "https://en.wikipedia.org/wiki/Catalysis",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "polymer--horizontal-gene-transfer",
+      "source_id": "polymer",
+      "target_id": "horizontal-gene-transfer",
+      "type": "teaching",
+      "label": "教学入口",
+      "explanation": "编辑整理：核酸属于生命大分子；在理解遗传材料后，可以进一步探索遗传物质如何跨谱系转移。",
+      "source_url": "https://en.wikipedia.org/wiki/Polymer",
+      "direction": "forward",
+      "property_id": null
+    },
+    {
+      "id": "diffusion--social-network",
+      "source_id": "diffusion",
+      "target_id": "social-network",
+      "type": "teaching",
+      "label": "教学入口",
+      "explanation": "编辑整理：创新通过社会系统的渠道传播，社会网络提供研究联系结构的工具；结构关联不自动证明传播因果。",
+      "source_url": "https://en.wikipedia.org/wiki/Diffusion_of_innovations",
+      "direction": "forward",
+      "property_id": null
+    }
+  ]
+}

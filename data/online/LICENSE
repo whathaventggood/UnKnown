@@ -1,0 +1,16 @@
+OpenAlex topic metadata snapshot: CC0 1.0 Universal.
+https://creativecommons.org/publicdomain/zero/1.0/
+Source: OpenAlex (OurResearch), https://openalex.org/
+API documentation and policy checked 2026-11-17: https://help.openalex.org/api/
+
+Each record preserves the canonical OpenAlex identifier, source URL, retrieval
+and source update dates, metadata hash, external classification and attribution.
+Research-cluster labels/descriptions are machine-generated upstream per the
+OpenAlex Topics documentation. They are not expert-reviewed explanations.
+
+UnKnown query-batch classification and verification notes: CC BY 4.0.
+https://creativecommons.org/licenses/by/4.0/
+
+No paper full text or images are bundled. This metadata license does not grant
+rights to linked articles, abstracts, images or other third-party full content.
+The software code license is independent of these data licenses.

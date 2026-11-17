@@ -1,0 +1,16 @@
+# Shared implementation contract
+All JSON responses direct, errors {error:{code,message,request_id}}. Cookie authentication; frontend fetch credentials include. All IDs strings. Dates ISO UTC. Primary discipline: id, name, color. All /api.
+
+Profile: GET /profile -> {id, timezone, familiar_disciplines:string[], depth:'beginner'|'intermediate'|'deep', intensity:number, broad_use_history:bool, onboarding_complete:bool, ai:{configured:bool,model:string|null}}. PATCH same editable fields; /profile/reset POST {confirm:true}.
+
+Topic summary: {id,title,original_title,summary,original_summary,language,primary_discipline:{id,name,color},related_disciplines:[],subfield,question,value,reading_minutes,sources:[{id,platform,external_id,url,title,language,license,fetched_at,updated_at,content_hash,excerpt}],state:{bookmarked:bool,familiarity:'unknown'|'known'|'unfamiliar',learning:'none'|'learning'|'understood',explored:bool},quality_score}. Detail GET /topics/:id same + relations array. Opening detail logs visit and first exploration. Related GET /topics/:id/related -> {items:[{topic:summary,relation:{id,type,label,explanation,source_url,direction}}]}.
+
+GET /discover/today?mode=unknown|bridge|broad -> {id,date,mode,batch_number,parent_id,items:[{topic:summary,reason,features:{novelty,quality,diversity,learnability},score,bridge_path:[]}],constraints:{requested,actual,satisfied:[],relaxed:[],reason_codes:[],message},strategy_version,seed,settings_changed:bool}. POST /discover/refresh body {mode,idempotency_key} same response. POST /discover/impressions {batch_id,topic_ids:[]} -> {recorded:number}. Only mounted visible cards report actual impressions.
+
+POST /topics/:id/feedback {action:'known'|'unfamiliar'|'learning'|'understood'|'none'|'skip',idempotency_key} -> {state}. Bookmark POST {topic_id}, DELETE /bookmarks/:topic_id. GET /bookmarks?limit=50&offset=0 -> {items:summary[],total}.
+
+GET /stats -> {explored_count,discipline_count,bookmark_count,new_disciplines:[{id,name,color,first_explored_at}],distribution:[{id,name,color,count}],unexplored_disciplines:[{id,name,color}],timeline:[{topic_id,title,discipline_name,at}],paths:[{from_title,to_title,relation_type,explanation,source_url}],definitions:{...}}. GET /disciplines -> {items:[{id,name,color,description}]}.
+
+GET /map?scope=all|explored&discipline=&q=&root=&limit=80&depth=1 -> {nodes:[{id,name,type:'discipline'|'subfield'|'topic',discipline_id,color,description,topic_id:null|string,explored:bool,bookmarked:bool,learning,count}],edges:[{id,source,target,type,label,explanation,source_url}],truncated:bool,limits:{nodes,edges,depth}}.
+
+POST /ai/explain {topic_id,depth:'beginner'|'intermediate'|'deep',language:'zh'} -> {status:'ready'|'unavailable',message,cached,content:null|{overview,principle,example,analogy:{text,limits}|null,background,applications:string[],misconceptions:string[],open_questions:string[],questions:string[],claims:[{text,kind:'fact'|'analogy'|'uncertain',source_ids:[]}]},sources:[],usage:{input_tokens,output_tokens}|null}. POST /ai/chat {topic_id,message,depth} -> {status,message,answer,source_ids:[],sources:[],usage}. GET /ai/chat?topic_id -> {items:[{role,content,created_at,source_ids:[]}]}.

@@ -1,0 +1,123 @@
+{
+  "date": "2026-11-17",
+  "source": "OpenAlex",
+  "authenticated": false,
+  "remote_queries": 12,
+  "max_per_query": 35,
+  "collected_unique_topics": 300,
+  "primary_disciplines": 12,
+  "database_verification": {
+    "topics": 300,
+    "sources": 300,
+    "second_import_added": 0
+  },
+  "database_path": "temporary validation database; default product DB unaffected",
+  "payload_sha256": "add9288a34c8c172cb8387d062b6e40e5a5c4b30f61cc6bbcb5af61cc8711d85",
+  "groups": [
+    {
+      "discipline": "mathematics",
+      "query": "mathematics",
+      "retrieved": 35,
+      "status": "complete",
+      "errors": []
+    },
+    {
+      "discipline": "physics",
+      "query": "quantum",
+      "retrieved": 35,
+      "status": "complete",
+      "errors": []
+    },
+    {
+      "discipline": "chemistry",
+      "query": "chemistry",
+      "retrieved": 35,
+      "status": "complete",
+      "errors": []
+    },
+    {
+      "discipline": "biology",
+      "query": "ecology",
+      "retrieved": 35,
+      "status": "complete",
+      "errors": []
+    },
+    {
+      "discipline": "earth",
+      "query": "climate",
+      "retrieved": 35,
+      "status": "complete",
+      "errors": []
+    },
+    {
+      "discipline": "astronomy",
+      "query": "astronomy",
+      "retrieved": 12,
+      "status": "complete",
+      "errors": []
+    },
+    {
+      "discipline": "computing",
+      "query": "computer",
+      "retrieved": 35,
+      "status": "complete",
+      "errors": []
+    },
+    {
+      "discipline": "cognition",
+      "query": "cognitive",
+      "retrieved": 35,
+      "status": "complete",
+      "errors": []
+    },
+    {
+      "discipline": "economics",
+      "query": "economics",
+      "retrieved": 35,
+      "status": "complete",
+      "errors": []
+    },
+    {
+      "discipline": "society",
+      "query": "sociology",
+      "retrieved": 35,
+      "status": "complete",
+      "errors": []
+    },
+    {
+      "discipline": "humanities",
+      "query": "history",
+      "retrieved": 35,
+      "status": "complete",
+      "errors": []
+    },
+    {
+      "discipline": "arts",
+      "query": "music",
+      "retrieved": 27,
+      "status": "complete",
+      "errors": []
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "upstream research cluster labels/descriptions are machine-generated",
+    "not expert fact review",
+    "no paper full text downloaded",
+    "manual query-batch primary discipline assignment; external hierarchy retained"
+  ],
+  "other_sources": {
+    "wikipedia": "DNS resolution timed out on direct API request",
+    "wikidata": "direct API request connection timed out"
+  },
+  "cli_verification": {
+    "snapshot_import_first_added": 300,
+    "snapshot_import_second_added": 0,
+    "seed_plus_online_topics": 360,
+    "seed_plus_online_sources": 360,
+    "persisted_jobs": 3,
+    "initializer_replay": "300 unique, complete, 0 added using saved HTTP cache",
+    "completed_job_resume": "complete, 300 unique, 0 added, no new queries",
+    "default_product_database_changed": false
+  }
+}
